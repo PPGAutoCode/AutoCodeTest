@@ -32,6 +32,10 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1733: Expected expression [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserController.cs(75,15): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -71,12 +75,16 @@ Build FAILED.
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1733: Expected expression [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserController.cs(75,15): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
     1 Warning(s)
-    35 Error(s)
+    39 Error(s)
 
-Time Elapsed 00:00:00.58
+Time Elapsed 00:00:00.62

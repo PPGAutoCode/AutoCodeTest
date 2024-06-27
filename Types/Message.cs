@@ -1,4 +1,7 @@
 
+// Message.cs
+using System;
+
 namespace ProjectName.Types
 {
     public class Message

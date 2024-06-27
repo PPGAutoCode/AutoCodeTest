@@ -1,4 +1,7 @@
 
+// AttachmentFile.cs
+using System;
+
 namespace ProjectName.Types
 {
     public class AttachmentFile

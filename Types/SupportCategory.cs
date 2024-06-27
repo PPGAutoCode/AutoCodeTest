@@ -1,4 +1,7 @@
 
+// SupportCategory.cs
+using System;
+
 namespace ProjectName.Types
 {
     public class SupportCategory

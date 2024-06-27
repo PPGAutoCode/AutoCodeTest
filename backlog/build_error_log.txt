@@ -1,4 +1,3 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductController.cs(74,6): error CS1513: } expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,57): error CS1026: ) expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,57): error CS1526: A new expression requires an argument list or (),
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1002: ; expected
@@ -67,4 +66,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1026: ) expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1525: Invalid expression term '}'
-Error: 69 Error(s)
+Error: 68 Error(s)

@@ -2,12 +2,13 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
   Determining projects to restore...
   All projects are up-to-date for restore.
 /usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Razor/targets/Sdk.Razor.CurrentVersion.targets(461,5): warning RAZORSDK1006: Detected Razor language version downgrade. This is typically caused by a reference to the Microsoft.AspNetCore.Razor.Design package. Consider removing this package reference. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,90): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,57): error CS1526: A new expression requires an argument list or (), [], or {} after type [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,57): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketController.cs(68,59): error CS1003: Syntax error, '>' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,90): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,94): error CS0443: Syntax error; value expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,105): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,62): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -15,7 +16,6 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1001: Identifier expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketController.cs(68,59): error CS1003: Syntax error, '>' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,104): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(294,68): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(294,97): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -25,11 +25,8 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(295,104): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,64): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,84): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,84): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,94): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(300,35): error CS1525: Invalid expression term '[' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(300,91): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(315,25): error CS1003: Syntax error, '(' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -70,12 +67,13 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
 Build FAILED.
 
 /usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Razor/targets/Sdk.Razor.CurrentVersion.targets(461,5): warning RAZORSDK1006: Detected Razor language version downgrade. This is typically caused by a reference to the Microsoft.AspNetCore.Razor.Design package. Consider removing this package reference. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,90): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,57): error CS1526: A new expression requires an argument list or (), [], or {} after type [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,57): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketController.cs(68,59): error CS1003: Syntax error, '>' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,90): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,94): error CS0443: Syntax error; value expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,105): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,62): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -83,7 +81,6 @@ Build FAILED.
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1001: Identifier expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketController.cs(68,59): error CS1003: Syntax error, '>' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,104): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(294,68): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(294,97): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -93,11 +90,8 @@ Build FAILED.
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(295,104): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,64): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,84): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,84): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,94): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(300,35): error CS1525: Invalid expression term '[' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(300,91): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(315,25): error CS1003: Syntax error, '(' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -135,6 +129,6 @@ Build FAILED.
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1525: Invalid expression term '}' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
     1 Warning(s)
-    64 Error(s)
+    61 Error(s)
 
-Time Elapsed 00:00:00.79
+Time Elapsed 00:00:00.62

@@ -8,12 +8,12 @@ namespace ProjectName.Types
         public string? ApicHostname { get; set; }
         public List<Advantage>? Advantages { get; set; }
         public List<Feature>? Features { get; set; }
-        public List<RelatedProducts>? RelatedProducts { get; set; }
+        public List<RelatedProduct>? RelatedProducts { get; set; }
         public Comparison? Comparison { get; set; }
         public List<APIEndpoint>? APIEndpoint { get; set; }
         public List<Tag>? Tags { get; set; }
-        public List<ProductCategories>? Categories { get; set; }
-        public string? attachments { get; set; }
+        public List<ProductCategory>? Categories { get; set; }
+        public string? Attachments { get; set; }
         public bool? Deprecated { get; set; }
         public bool? DisableDocumentation { get; set; }
         public string? EnvironmentId { get; set; }

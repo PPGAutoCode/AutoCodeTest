@@ -1,4 +1,5 @@
 
+// File: Image.cs
 namespace ProjectName.Types
 {
     public class Image

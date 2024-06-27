@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProjectName.Types;
@@ -14,7 +13,7 @@ namespace ProjectName.Interfaces
         /// Creates a new product based on the provided data.
         /// </summary>
         /// <param name="createProductDto">Data transfer object containing the details of the product to be created.</param>
-        /// <returns>A string representing the result of the creation operation.</returns>
+        /// <returns>A string representing the result of the product creation operation.</returns>
         Task<string> CreateProduct(CreateProductDto createProductDto);
 
         /// <summary>
@@ -28,14 +27,14 @@ namespace ProjectName.Interfaces
         /// Updates an existing product based on the provided data.
         /// </summary>
         /// <param name="updateProductDto">Data transfer object containing the details of the product to be updated.</param>
-        /// <returns>A string representing the result of the update operation.</returns>
+        /// <returns>A string representing the result of the product update operation.</returns>
         Task<string> UpdateProduct(UpdateProductDto updateProductDto);
 
         /// <summary>
         /// Deletes a product based on the provided data.
         /// </summary>
         /// <param name="deleteProductDto">Data transfer object containing the details of the product to be deleted.</param>
-        /// <returns>A boolean indicating whether the deletion was successful.</returns>
+        /// <returns>A boolean indicating whether the product was successfully deleted.</returns>
         Task<bool> DeleteProduct(DeleteProductDto deleteProductDto);
 
         /// <summary>

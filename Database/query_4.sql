@@ -1,6 +1,8 @@
--- ArticleBlogCategories Table
-CREATE TABLE ArticleBlogCategories (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    ArticleId UNIQUEIDENTIFIER NOT NULL,
-    BlogCategoryId UNIQUEIDENTIFIER NOT NULL
-);
+
+
+-- ProductApiEndpoints Table
+CREATE TABLE ProductApiEndpoints (
+    Id uniqueidentifier NOT NULL PRIMARY KEY,
+    ProductId uniqueidentifier NOT NULL,
+    ApiEndpointId uniqueidentifier NOT NULL
+)

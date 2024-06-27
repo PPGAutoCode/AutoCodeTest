@@ -14,7 +14,7 @@ namespace ProjectName.Types
         public string ApiScope { get; set; }
         public string ApiScopeProduction { get; set; }
         public string ApiSecurity { get; set; }
-        public List<APIEndpointTag> ApiTags { get; set; }
+        public List<ApiTag> ApiTags { get; set; }
         public bool Deprecated { get; set; }
         public string Description { get; set; }
         public string Documentation { get; set; }

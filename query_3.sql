@@ -1,0 +1,8 @@
+-- BasicPageImages Table Query
+CREATE TABLE BasicPageImages (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    BasicPageId UNIQUEIDENTIFIER NOT NULL,
+    ImageId UNIQUEIDENTIFIER NOT NULL,
+    FOREIGN KEY (BasicPageId) REFERENCES BasicPages(Id),
+    FOREIGN KEY (ImageId) REFERENCES Images(Id)
+);

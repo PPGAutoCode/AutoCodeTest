@@ -2,19 +2,23 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
   Determining projects to restore...
   All projects are up-to-date for restore.
 /usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Razor/targets/Sdk.Razor.CurrentVersion.targets(461,5): warning RAZORSDK1006: Detected Razor language version downgrade. This is typically caused by a reference to the Microsoft.AspNetCore.Razor.Design package. Consider removing this package reference. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetImage(ImageRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.UpdateImage(UpdateImageDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.DeleteImage(DeleteImageDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetListImage(ListImageRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1733: Expected expression [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1733: Expected expression [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 
 Build FAILED.
 
 /usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Razor/targets/Sdk.Razor.CurrentVersion.targets(461,5): warning RAZORSDK1006: Detected Razor language version downgrade. This is typically caused by a reference to the Microsoft.AspNetCore.Razor.Design package. Consider removing this package reference. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetImage(ImageRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.UpdateImage(UpdateImageDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.DeleteImage(DeleteImageDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetListImage(ListImageRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1733: Expected expression [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1733: Expected expression [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
     1 Warning(s)
-    4 Error(s)
+    6 Error(s)
 
-Time Elapsed 00:00:01.43
+Time Elapsed 00:00:00.60

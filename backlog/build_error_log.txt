@@ -1,5 +1,7 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.DeleteImage(DeleteImageDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetImage(ImageRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetListImage(ListImageRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.UpdateImage(UpdateImageDto)'
-Error: 4 Error(s)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1733: Expected expression
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1733: Expected expression
+Error: 6 Error(s)

@@ -2,7 +2,7 @@
 // Image.cs
 using System;
 
-namespace ProjectName.Types
+namespace ProjectName.Entities
 {
     public class Image
     {

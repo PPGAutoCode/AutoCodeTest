@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.Types;
 using ProjectName.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -65,4 +64,8 @@ namespace ProjectName.Controllers
             return await SafeExecutor.ExecuteAsync(async () =>
             {
                 var result = await _productTagService.GetListProductTag(request.Payload);
-                return Ok(new Response<List<ProductTag>>;
+                return Ok(new Response<List<ProductTag>> { Payload = result });
+            });
+        }
+    }
+}

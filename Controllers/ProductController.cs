@@ -80,16 +80,7 @@ namespace ProjectName.Controllers
             }
             catch (Exception ex)
             {
-                var exceptionResponse = new Response<object>
-                {
-                    Exception = new ExceptionInfo
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = ex is BusinessException || ex is TechnicalException ? ex.GetType().Name : "1001",
-                        Description = ex is BusinessException || ex is TechnicalException ? ex.Message : "A technical exception has occurred, please contact your system administrator"
-                    }
-                };
-                return new OkObjectResult(exceptionResponse);
+                return new OkObjectResult(new Response<object> { Exception = new ExceptionInfo { Id = Guid.NewGuid().ToString(), Code = "Technical", Description = ex.Message } });
             }
         }
     }
@@ -117,18 +108,6 @@ namespace ProjectName.Controllers
     public class ExceptionInfo
     {
         public string Id { get; set; }
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
-
-    public class BusinessException : Exception
-    {
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
-
-    public class TechnicalException : Exception
-    {
         public string Code { get; set; }
         public string Description { get; set; }
     }

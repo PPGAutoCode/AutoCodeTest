@@ -1,9 +1,7 @@
 
-using System;
-
 namespace ProjectName.Types
 {
-    public class Severity
+    public class Environments
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

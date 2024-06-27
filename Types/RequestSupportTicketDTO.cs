@@ -1,11 +1,8 @@
 
-using System;
-
 namespace ProjectName.Types
 {
-    public class User
+    public class RequestSupportTicketDTO
     {
         public Guid Id { get; set; }
-        // Other user properties...
     }
 }

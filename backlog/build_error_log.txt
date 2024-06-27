@@ -28,6 +28,7 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageC
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1026: ) expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketController.cs(68,59): error CS1003: Syntax error, '>' expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1026: ) expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketStateController.cs(67,29): error CS1513: } expected
@@ -37,4 +38,59 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserCo
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1026: ) expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1513: } expected
-Error: 39 Error(s)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,105): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,90): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,94): error CS0443: Syntax error; value expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,104): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,62): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,62): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1001: Identifier expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(290,67): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(294,107): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(294,68): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(294,97): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(294,97): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(295,104): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(295,37): error CS1525: Invalid expression term '
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,64): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,84): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,84): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(299,94): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(300,35): error CS1525: Invalid expression term '
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(300,91): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(315,25): error CS1003: Syntax error, '(' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(315,36): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(315,39): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(315,54): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(315,55): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(316,300): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(316,300): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(316,300): error CS1525: Invalid expression term 'if'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(319,24): error CS1003: Syntax error, '(' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(319,44): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(319,44): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(319,44): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(319,44): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(321,25): error CS1003: Syntax error, '(' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(321,39): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(321,42): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(321,59): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(321,60): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(322,296): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(322,296): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(322,296): error CS1525: Invalid expression term 'if'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(325,24): error CS1003: Syntax error, '(' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(325,42): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(325,42): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(325,42): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(325,42): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(327,25): error CS1003: Syntax error, '(' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(327,36): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(327,39): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(327,54): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(327,55): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1525: Invalid expression term '}'
+Error: 95 Error(s)

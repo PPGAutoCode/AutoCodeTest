@@ -1,7 +1,7 @@
 
 
--- Environments Table
-CREATE TABLE Environments (
+-- Severities Table
+CREATE TABLE Severities (
     Id UNIQUEIDENTIFIER PRIMARY KEY,
     Name NVARCHAR(200) NOT NULL,
     Version INT NULL,

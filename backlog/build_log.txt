@@ -2,9 +2,14 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
   Determining projects to restore...
   All projects are up-to-date for restore.
 /usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Razor/targets/Sdk.Razor.CurrentVersion.targets(461,5): warning RAZORSDK1006: Detected Razor language version downgrade. This is typically caused by a reference to the Microsoft.AspNetCore.Razor.Design package. Consider removing this package reference. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ArticleController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ArticleController.cs(75,15): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/AuthorController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/AuthorController.cs(75,15): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,12): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,84): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,95): error CS1056: Unexpected character '`' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,114): error CS1056: Unexpected character '`' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -27,15 +32,18 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,1): error CS8803: Top-level statements must precede namespace and type declarations. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,8): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,144): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ArticleController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ArticleController.cs(75,15): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 
 Build FAILED.
 
 /usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Razor/targets/Sdk.Razor.CurrentVersion.targets(461,5): warning RAZORSDK1006: Detected Razor language version downgrade. This is typically caused by a reference to the Microsoft.AspNetCore.Razor.Design package. Consider removing this package reference. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ArticleController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ArticleController.cs(75,15): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/AuthorController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/AuthorController.cs(75,15): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1026: ) expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,12): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,84): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,95): error CS1056: Unexpected character '`' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,114): error CS1056: Unexpected character '`' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -58,9 +66,7 @@ Build FAILED.
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,1): error CS8803: Top-level statements must precede namespace and type declarations. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,8): error CS1003: Syntax error, ',' expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,144): error CS1002: ; expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ArticleController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ArticleController.cs(75,15): error CS1513: } expected [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
     1 Warning(s)
-    27 Error(s)
+    30 Error(s)
 
-Time Elapsed 00:00:00.91
+Time Elapsed 00:00:00.59

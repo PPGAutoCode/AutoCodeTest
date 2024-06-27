@@ -64,3 +64,33 @@ namespace ProjectName.Controllers
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
+                var result = await _userQuestionnaireService.DeleteUserQuestionnaire(request.Payload);
+                return Ok(new Response<bool> { Payload = result });
+            });
+        }
+    }
+
+    public static class SafeExecutor
+    {
+        public static async Task<IActionResult> ExecuteAsync(Func<Task<IActionResult>> action)
+        {
+            try
+            {
+                return await action();
+            }
+            catch (BusinessException ex)
+            {
+                return new OkObjectResult(new Response<object>
+                {
+                    Exception = new ExceptionInfo
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Code = ex.Code,
+                        Description = ex.Description
+                    }
+                });
+            }
+            catch (TechnicalException ex)
+            {
+                return new OkObjectResult(new Response<object>
+                {

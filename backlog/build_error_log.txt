@@ -4,9 +4,9 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/Produc
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1026: ) expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1513: } expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SupportTicketController.cs(68,59): error CS1003: Syntax error, '>' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(96,18): error CS1513: } expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,105): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,90): error CS1003: Syntax error, ',' expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(289,94): error CS0443: Syntax error; value expected

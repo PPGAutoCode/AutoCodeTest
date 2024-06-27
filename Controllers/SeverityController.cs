@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.Types;
 using ProjectName.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -68,55 +67,5 @@ namespace ProjectName.Controllers
                 return Ok(new Response<List<Severity>> { Payload = result });
             });
         }
-    }
-
-    public static class SafeExecutor
-    {
-        public static async Task<IActionResult> ExecuteAsync(Func<Task<IActionResult>> action)
-        {
-            try
-            {
-                return await action();
-            }
-            catch (Exception ex)
-            {
-                return new OkObjectResult(new Response<object>
-                {
-                    Exception = new ExceptionInfo
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = "1001",
-                        Description = "A technical exception has occurred, please contact your system administrator"
-                    }
-                });
-            }
-        }
-    }
-
-    public class Request<T>
-    {
-        public Header Header { get; set; }
-        public T Payload { get; set; }
-    }
-
-    public class Response<T>
-    {
-        public T Payload { get; set; }
-        public ExceptionInfo Exception { get; set; }
-    }
-
-    public class Header
-    {
-        public string ID { get; set; }
-        public string Application { get; set; }
-        public string Bank { get; set; }
-        public string UserId { get; set; }
-    }
-
-    public class ExceptionInfo
-    {
-        public string Id { get; set; }
-        public string Code { get; set; }
-        public string Description { get; set; }
     }
 }

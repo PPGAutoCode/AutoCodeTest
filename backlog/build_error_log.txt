@@ -30,4 +30,7 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/Severi
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1513: } expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserController.cs(75,15): error CS1513: } expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration
-Error: 32 Error(s)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(66,14): error CS1513: } expected
+Error: 35 Error(s)

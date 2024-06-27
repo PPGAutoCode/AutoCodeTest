@@ -69,46 +69,4 @@ namespace ProjectName.Controllers
             });
         }
     }
-
-    public static class SafeExecutor
-    {
-        public static async Task<IActionResult> ExecuteAsync(Func<Task<IActionResult>> action)
-        {
-            try
-            {
-                return await action();
-            }
-            catch (Exception ex)
-            {
-                return new OkObjectResult(new Response<object> { Exception = new ExceptionInfo { Id = Guid.NewGuid().ToString(), Code = "Technical", Description = ex.Message } });
-            }
-        }
-    }
-
-    public class Request<T>
-    {
-        public Header Header { get; set; }
-        public T Payload { get; set; }
-    }
-
-    public class Response<T>
-    {
-        public T Payload { get; set; }
-        public ExceptionInfo Exception { get; set; }
-    }
-
-    public class Header
-    {
-        public string ID { get; set; }
-        public string Application { get; set; }
-        public string Bank { get; set; }
-        public string UserId { get; set; }
-    }
-
-    public class ExceptionInfo
-    {
-        public string Id { get; set; }
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
 }

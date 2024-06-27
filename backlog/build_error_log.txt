@@ -1,0 +1,5 @@
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.DeleteImage(DeleteImageDto)'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetImage(ImageRequestDto)'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetListImage(ListImageRequestDto)'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.UpdateImage(UpdateImageDto)'
+Error: 4 Error(s)

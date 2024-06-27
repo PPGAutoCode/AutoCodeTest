@@ -31,6 +31,11 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageC
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,1): error CS8803: Top-level statements must precede namespace and type declarations.
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,144): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,8): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,57): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,57): error CS1526: A new expression requires an argument list or (),
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ProductTagController.cs(68,58): error CS1513: } expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1026: ) expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SeverityController.cs(68,27): error CS1513: } expected
@@ -99,4 +104,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1026: ) expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(331,42): error CS1525: Invalid expression term '}'
-Error: 101 Error(s)
+Error: 106 Error(s)

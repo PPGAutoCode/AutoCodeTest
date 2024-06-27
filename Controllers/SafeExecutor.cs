@@ -20,8 +20,8 @@ namespace ProjectName.Controllers
                     Exception = new ExceptionInfo
                     {
                         Id = Guid.NewGuid().ToString(),
-                        Code = ex is BusinessException || ex is TechnicalException ? ex.Code : "1001",
-                        Description = ex is BusinessException || ex is TechnicalException ? ex.Description : "A technical exception has occurred, please contact your system administrator"
+                        Code = ex is BusinessException || ex is TechnicalException ? ex.GetType().Name : "1001",
+                        Description = ex is BusinessException || ex is TechnicalException ? ex.Message : "A technical exception has occurred, please contact your system administrator"
                     }
                 };
                 return new OkObjectResult(exceptionResponse);

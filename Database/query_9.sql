@@ -1,12 +1,8 @@
 
 
--- Severities Table
-CREATE TABLE Severities (
-    Id UNIQUEIDENTIFIER PRIMARY KEY,
-    Name NVARCHAR(200) NOT NULL,
-    Version INT NULL,
-    Created DATETIME2(7) NOT NULL,
-    Changed DATETIME2(7) NOT NULL,
-    CreatorId UNIQUEIDENTIFIER NOT NULL,
-    ChangedUser UNIQUEIDENTIFIER NOT NULL
+-- ProductProductFeatures Table
+CREATE TABLE ProductProductFeatures (
+    Id uniqueidentifier NOT NULL PRIMARY KEY,
+    ProductId uniqueidentifier NOT NULL,
+    FeatureId uniqueidentifier NOT NULL
 )

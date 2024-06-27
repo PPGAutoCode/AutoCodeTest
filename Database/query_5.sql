@@ -1,6 +1,8 @@
-articleblogtags.sql
-CREATE TABLE ArticleBlogTags (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    ArticleId UNIQUEIDENTIFIER NOT NULL,
-    BlogTagId UNIQUEIDENTIFIER NOT NULL
-);
+
+
+-- ProductProductCategories Table
+CREATE TABLE ProductProductCategories (
+    Id uniqueidentifier NOT NULL PRIMARY KEY,
+    ProductId uniqueidentifier NOT NULL,
+    ProductCategoryId uniqueidentifier NOT NULL
+)

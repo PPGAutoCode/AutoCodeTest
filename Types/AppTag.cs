@@ -1,7 +1,5 @@
 
-// AppTag.cs
-using System;
-
+// File: AppTag.cs
 namespace ProjectName.Types
 {
     public class AppTag

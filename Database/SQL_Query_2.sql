@@ -1,0 +1,12 @@
+-- Steps Table
+CREATE TABLE Steps (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Title NVARCHAR(255) NOT NULL UNIQUE,
+    Description NVARCHAR(MAX) NULL,
+    Image NVARCHAR(255) NULL,
+    Number INT NOT NULL UNIQUE,
+    TargetId NVARCHAR(255) NOT NULL,
+    NavLink NVARCHAR(255) NULL,
+    Styles NVARCHAR(MAX) NULL,
+    SpotlightClicks BIT NULL
+);

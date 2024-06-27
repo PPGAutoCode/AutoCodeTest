@@ -1,6 +1,4 @@
 
-using System;
-
 namespace ProjectName.Types
 {
     public class Image
@@ -8,7 +6,7 @@ namespace ProjectName.Types
         public Guid Id { get; set; }
         public string FileName { get; set; }
         public byte[] ImageData { get; set; }
-        public string AltText { get; set; }
+        public string? AltText { get; set; }
         public int? Version { get; set; }
         public DateTime Created { get; set; }
         public DateTime Changed { get; set; }

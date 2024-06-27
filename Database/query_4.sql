@@ -1,8 +1,5 @@
-
-
--- SupportTicketCategories Table
-CREATE TABLE SupportTicketCategories (
-    Id UNIQUEIDENTIFIER PRIMARY KEY,
-    SupportTicketId UNIQUEIDENTIFIER NOT NULL,
-    SupportCategoriesId UNIQUEIDENTIFIER NOT NULL
-)
+blogtags.sql
+CREATE TABLE BlogTags (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Name NVARCHAR(200) NOT NULL
+);

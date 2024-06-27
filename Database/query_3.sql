@@ -1,7 +1,6 @@
-
-
--- SupportCategories Table
-CREATE TABLE SupportCategories (
-    Id UNIQUEIDENTIFIER PRIMARY KEY,
-    Name NVARCHAR(200) NOT NULL
-)
+articleblogcategories.sql
+CREATE TABLE ArticleBlogCategories (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    ArticleId UNIQUEIDENTIFIER NOT NULL,
+    BlogCategoryId UNIQUEIDENTIFIER NOT NULL
+);

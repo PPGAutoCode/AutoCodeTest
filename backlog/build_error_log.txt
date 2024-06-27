@@ -1,7 +1,24 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/BlogTagController.cs(18,30): error CS1733: Expected expression
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(80,30): error CS1733: Expected expression
-Error: 6 Error(s)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,114): error CS1056: Unexpected character '`'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,12): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,125): error CS1010: Newline in constant
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,125): error CS1012: Too many characters in character literal
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,84): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,95): error CS1056: Unexpected character '`'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(10,1): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(3,5): error CS1010: Newline in constant
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(3,5): error CS1012: Too many characters in character literal
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(5,1): error CS1056: Unexpected character '`'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(5,10): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(5,2): error CS1056: Unexpected character '`'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(5,3): error CS1056: Unexpected character '`'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(6,1): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(7,1): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(8,1): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(88,1): error CS1056: Unexpected character '`'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(88,2): error CS1056: Unexpected character '`'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(88,3): error CS1056: Unexpected character '`'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(9,1): error CS1529: A using clause must precede all other elements defined in the namespace except extern alias declarations
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,1): error CS8803: Top-level statements must precede namespace and type declarations.
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,144): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,8): error CS1003: Syntax error, ',' expected
+Error: 23 Error(s)

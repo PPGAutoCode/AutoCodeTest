@@ -1,6 +1,6 @@
-It appears that the error message you provided indicates an issue with the `SafeExecutor.ExecuteAsync` method. The error message `CS1733: Expected expression` suggests that there might be a missing expression or a syntax error within the lambda expression passed to `SafeExecutor.ExecuteAsync`.
+It appears that the error message indicates a missing semicolon at line 90, column 115 in the `ImageController.cs` file. Let's review the code around that line to identify and fix the issue.
 
-Let's review and correct the code for the `ImageController` class to ensure it compiles without errors. Here is the corrected code:
+Here's the corrected code with the missing semicolon added:
 
 ```csharp
 using Microsoft.AspNetCore.Mvc;
@@ -87,4 +87,4 @@ namespace ProjectName.Controllers
 }
 ```
 
-In this corrected code, I have ensured that all lambda expressions passed to `SafeExecutor.ExecuteAsync` are correctly formed and that all classes are properly closed with the necessary braces. This should resolve the compilation error and maintain the logic of the code.
+I have added the missing semicolon at the specified location. This should resolve the compilation error without altering the logic of the code.

@@ -1,13 +1,14 @@
 
--- images.sql
-CREATE TABLE Images (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    FileName NVARCHAR(100) NOT NULL UNIQUE,
-    ImageData VARBINARY(MAX) NOT NULL,
-    AltText NVARCHAR(500) NULL,
-    Version INT NULL,
-    Created DATETIME2(7) NOT NULL,
-    Changed DATETIME2(7) NOT NULL,
-    CreatorId UNIQUEIDENTIFIER NOT NULL,
-    ChangedUser UNIQUEIDENTIFIER NOT NULL
-);
+    -- authors.sql
+    CREATE TABLE Authors (
+        Id uniqueidentifier NOT NULL PRIMARY KEY,
+        Name nvarchar(200) NOT NULL,
+        ImageId uniqueidentifier NULL,
+        Details nvarchar(max) NULL,
+        Version int NULL,
+        Created datetime2(7) NOT NULL,
+        Changed datetime2(7) NOT NULL,
+        CreatorId uniqueidentifier NOT NULL,
+        ChangedUser uniqueidentifier NOT NULL
+    );
+    

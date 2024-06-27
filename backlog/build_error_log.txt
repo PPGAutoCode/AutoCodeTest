@@ -1,3 +1,5 @@
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/AuthorController.cs(75,15): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/AuthorController.cs(76,1): error CS1519: Invalid token '' in class, record, struct, or interface member declaration
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,114): error CS1056: Unexpected character '`'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,12): error CS1003: Syntax error, ',' expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(1,125): error CS1010: Newline in constant
@@ -21,4 +23,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageC
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,1): error CS8803: Top-level statements must precede namespace and type declarations.
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,144): error CS1002: ; expected
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/ImageController.cs(90,8): error CS1003: Syntax error, ',' expected
-Error: 23 Error(s)
+Error: 25 Error(s)

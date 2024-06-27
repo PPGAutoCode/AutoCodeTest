@@ -20,261 +20,332 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task CreateSupportTicketAsync(CreateSupportTicketDTO ticketDTO)
+        public async Task<string> CreateSupportTicket(CreateSupportTicketDTO request)
         {
-            ValidateCreateSupportTicketDTO(ticketDTO);
-
-            var sql = @"
-                INSERT INTO SupportTickets (
-                    ReportedBy, AssignedTo, ContactDetails, FileId, EnvironmentImpacted, 
-                    NameOfReportingOrganization, Priority, SeverityId, ShortDescription, 
-                    State, Message, SupportCategories
-                ) VALUES (
-                    @ReportedBy, @AssignedTo, @ContactDetails, @FileId, @EnvironmentImpacted, 
-                    @NameOfReportingOrganization, @Priority, @SeverityId, @ShortDescription, 
-                    @State, @Message, @SupportCategories
-                );
-            ";
-
-            try
+            // Step 1: Validate all fields of request.payload are not null except for Priority and SupportCategories.
+            if (request.ReportedBy == Guid.Empty || request.AssignedTo == Guid.Empty || string.IsNullOrEmpty(request.ContactDetails) ||
+                request.EnvironmentImpacted == Guid.Empty || string.IsNullOrEmpty(request.NameOfReportingOrganization) ||
+                request.SeverityId == Guid.Empty || string.IsNullOrEmpty(request.ShortDescription) || string.IsNullOrEmpty(request.State) ||
+                request.Message == null)
             {
-                await _dbConnection.ExecuteAsync(sql, ticketDTO);
+                throw new BusinessException("DP-422", "One of the mandatory arguments is null.");
             }
-            catch (Exception ex)
+
+            // Step 2: Fetch user from the database by id from argument ReportedBy.
+            var reportedByUser = await _dbConnection.QuerySingleOrDefaultAsync<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = request.ReportedBy });
+            if (reportedByUser == null)
             {
-                throw new TechnicalException("1001", "A technical exception has occurred, please contact your system administrator");
+                throw new BusinessException("DP-404", "User not found.");
             }
+
+            // Step 3: Fetch user from the database by id from argument AssignedTo.
+            var assignedToUser = await _dbConnection.QuerySingleOrDefaultAsync<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = request.AssignedTo });
+            if (assignedToUser == null)
+            {
+                throw new BusinessException("DP-404", "User not found.");
+            }
+
+            // Step 4: Fetch environment from the database by id from argument EnvironmentImpacted.
+            var environment = await _dbConnection.QuerySingleOrDefaultAsync<Environment>("SELECT * FROM Environments WHERE Id = @Id", new { Id = request.EnvironmentImpacted });
+            if (environment == null)
+            {
+                throw new BusinessException("DP-422", "Environment not found.");
+            }
+
+            // Step 5: Fetch severity from the database by id from argument SeverityId.
+            var severity = await _dbConnection.QuerySingleOrDefaultAsync<Severity>("SELECT * FROM Severities WHERE Id = @Id", new { Id = request.SeverityId });
+            if (severity == null)
+            {
+                throw new BusinessException("DP-422", "Severity not found.");
+            }
+
+            // Step 6: Foreach item in SupportCategories argument.
+            var supportCategories = new List<SupportCategory>();
+            if (request.SupportCategories != null)
+            {
+                foreach (var categoryId in request.SupportCategories)
+                {
+                    var category = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>("SELECT * FROM SupportCategories WHERE Id = @Id", new { Id = categoryId });
+                    if (category == null)
+                    {
+                        throw new BusinessException("DP-422", "Support category not found.");
+                    }
+                    supportCategories.Add(category);
+                }
+            }
+
+            // Step 7: Create a new SupportTicket object.
+            var supportTicket = new SupportTicket
+            {
+                Id = Guid.NewGuid(),
+                ReportedBy = request.ReportedBy,
+                AssignedTo = request.AssignedTo,
+                ContactDetails = request.ContactDetails,
+                EnvironmentImpacted = request.EnvironmentImpacted,
+                NameOfReportingOrganization = request.NameOfReportingOrganization,
+                Priority = request.Priority,
+                SeverityId = request.SeverityId,
+                ShortDescription = request.ShortDescription,
+                State = request.State,
+                Message = request.Message,
+                Version = 1,
+                Created = DateTime.UtcNow,
+                Changed = DateTime.UtcNow,
+                CreatorId = request.ReportedBy,
+                ChangedUser = request.ReportedBy
+            };
+
+            // Step 8: Create a new list of SupportTicketCategories objects.
+            var supportTicketCategories = new List<SupportTicketCategory>();
+            foreach (var categoryId in request.SupportCategories)
+            {
+                supportTicketCategories.Add(new SupportTicketCategory
+                {
+                    Id = Guid.NewGuid(),
+                    SupportTicketId = supportTicket.Id,
+                    SupportCategoryId = categoryId
+                });
+            }
+
+            // Step 9: Create a new list of SupportTicketEnvironments objects.
+            var supportTicketEnvironments = new List<SupportTicketEnvironment>
+            {
+                new SupportTicketEnvironment
+                {
+                    Id = Guid.NewGuid(),
+                    SupportTicketId = supportTicket.Id,
+                    EnvironmentId = request.EnvironmentImpacted
+                }
+            };
+
+            // Step 10: Create a new SupportTicketSeverities object.
+            var supportTicketSeverities = new List<SupportTicketSeverity>
+            {
+                new SupportTicketSeverity
+                {
+                    Id = Guid.NewGuid(),
+                    SupportTicketId = supportTicket.Id,
+                    SeverityId = request.SeverityId
+                }
+            };
+
+            // Step 11: In a single SQL transaction.
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                try
+                {
+                    // Insert supportTicket in the database table SupportTicket.
+                    await _dbConnection.ExecuteAsync("INSERT INTO SupportTickets (Id, ReportedBy, AssignedTo, ContactDetails, EnvironmentImpacted, NameOfReportingOrganization, Priority, SeverityId, ShortDescription, State, Message, Version, Created, Changed, CreatorId, ChangedUser) VALUES (@Id, @ReportedBy, @AssignedTo, @ContactDetails, @EnvironmentImpacted, @NameOfReportingOrganization, @Priority, @SeverityId, @ShortDescription, @State, @Message, @Version, @Created, @Changed, @CreatorId, @ChangedUser)", supportTicket, transaction);
+
+                    // Insert supportTicketCategories in the database table SupportTicketCategories.
+                    await _dbConnection.ExecuteAsync("INSERT INTO SupportTicketCategories (Id, SupportTicketId, SupportCategoryId) VALUES (@Id, @SupportTicketId, @SupportCategoryId)", supportTicketCategories, transaction);
+
+                    // Insert supportTicketEnvironments in the database table SupportTicketEnvironments.
+                    await _dbConnection.ExecuteAsync("INSERT INTO SupportTicketEnvironments (Id, SupportTicketId, EnvironmentId) VALUES (@Id, @SupportTicketId, @EnvironmentId)", supportTicketEnvironments, transaction);
+
+                    // Insert supportTicketSeverities in the database table SupportTicketSeverities.
+                    await _dbConnection.ExecuteAsync("INSERT INTO SupportTicketSeverities (Id, SupportTicketId, SeverityId) VALUES (@Id, @SupportTicketId, @SeverityId)", supportTicketSeverities, transaction);
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator.");
+                }
+            }
+
+            // Step 12: Return SupportTicket.Id from the database.
+            return supportTicket.Id.ToString();
         }
 
-        public async Task<SupportTicket> GetSupportTicketAsync(Guid id)
+        public async Task<SupportTicket> GetSupportTicket(RequestSupportTicketDTO request)
         {
-            var sql = @"
-                SELECT * FROM SupportTickets WHERE Id = @Id;
-            ";
+            // Step 1: If request.payload.id is null.
+            if (request.Id == Guid.Empty)
+            {
+                throw new BusinessException("DP-422", "Id is null.");
+            }
 
-            try
+            // Step 2: Fetch support ticket from the database by id, providing request.payload.id.
+            var supportTicket = await _dbConnection.QuerySingleOrDefaultAsync<SupportTicket>("SELECT * FROM SupportTickets WHERE Id = @Id", new { Id = request.Id });
+            if (supportTicket == null)
             {
-                return await _dbConnection.QuerySingleOrDefaultAsync<SupportTicket>(sql, new { Id = id });
+                throw new BusinessException("DP-404", "Support ticket not found.");
             }
-            catch (Exception ex)
+
+            // Step 3: Fetch related data.
+            var reportedByUser = await _dbConnection.QuerySingleOrDefaultAsync<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = supportTicket.ReportedBy });
+            if (reportedByUser == null)
             {
-                throw new TechnicalException("1001", "A technical exception has occurred, please contact your system administrator");
+                throw new BusinessException("DP-404", "User not found.");
             }
+
+            var assignedToUser = await _dbConnection.QuerySingleOrDefaultAsync<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = supportTicket.AssignedTo });
+            if (assignedToUser == null)
+            {
+                throw new BusinessException("DP-404", "User not found.");
+            }
+
+            var environment = await _dbConnection.QuerySingleOrDefaultAsync<Environment>("SELECT * FROM Environments WHERE Id = @Id", new { Id = supportTicket.EnvironmentImpacted });
+            if (environment == null)
+            {
+                throw new BusinessException("DP-404", "Environment not found.");
+            }
+
+            var severity = await _dbConnection.QuerySingleOrDefaultAsync<Severity>("SELECT * FROM Severities WHERE Id = @Id", new { Id = supportTicket.SeverityId });
+            if (severity == null)
+            {
+                throw new BusinessException("DP-404", "Severity not found.");
+            }
+
+            var supportCategoryIds = await _dbConnection.QueryAsync<Guid>("SELECT SupportCategoryId FROM SupportTicketCategories WHERE SupportTicketId = @Id", new { Id = supportTicket.Id });
+            var supportCategories = await _dbConnection.QueryAsync<SupportCategory>("SELECT * FROM SupportCategories WHERE Id IN @Ids", new { Ids = supportCategoryIds });
+            if (supportCategories.Any(sc => sc == null))
+            {
+                throw new BusinessException("DP-404", "Support category not found.");
+            }
+
+            var messageIds = await _dbConnection.QueryAsync<Guid>("SELECT Id FROM Messages WHERE SupportTicketId = @Id", new { Id = supportTicket.Id });
+            var messages = await _dbConnection.QueryAsync<Message>("SELECT * FROM Messages WHERE Id IN @Ids", new { Ids = messageIds });
+            if (messages.Any(m => m == null))
+            {
+                throw new BusinessException("DP-404", "Message not found.");
+            }
+
+            // Step 4: Map the database object to SupportTicket and return the SupportTicket.
+            supportTicket.SupportCategories = supportCategories.ToList();
+            supportTicket.Messages = messages.ToList();
+            return supportTicket;
         }
 
-        public async Task UpdateSupportTicketAsync(UpdateSupportTicketDTO ticketDTO)
+        public async Task<string> UpdateSupportTicket(UpdateSupportTicketDTO request)
         {
-            ValidateUpdateSupportTicketDTO(ticketDTO);
-
-            var sql = @"
-                UPDATE SupportTickets SET
-                    ReportedBy = @ReportedBy, AssignedTo = @AssignedTo, ContactDetails = @ContactDetails, 
-                    DateClosed = @DateClosed, EnvironmentImpacted = @EnvironmentImpacted, 
-                    NameOfReportingOrganization = @NameOfReportingOrganization, Priority = @Priority, 
-                    Severity = @Severity, ShortDescription = @ShortDescription, State = @State, 
-                    SupportCategories = @SupportCategories, Messages = @Messages, Version = @Version, 
-                    Changed = @Changed, ChangedUser = @ChangedUser
-                WHERE Id = @Id;
-            ";
-
-            try
+            // Step 1: Validate Necessary Parameters.
+            if (request.Id == Guid.Empty || request.ReportedBy == Guid.Empty || request.AssignedTo == Guid.Empty || string.IsNullOrEmpty(request.ContactDetails) ||
+                request.EnvironmentImpacted == Guid.Empty || string.IsNullOrEmpty(request.NameOfReportingOrganization) ||
+                request.SeverityId == Guid.Empty || string.IsNullOrEmpty(request.ShortDescription) || string.IsNullOrEmpty(request.State))
             {
-                await _dbConnection.ExecuteAsync(sql, ticketDTO);
-            }
-            catch (Exception ex)
-            {
-                throw new TechnicalException("1001", "A technical exception has occurred, please contact your system administrator");
-            }
-        }
-
-        public async Task DeleteSupportTicketAsync(Guid id)
-        {
-            var sql = @"
-                DELETE FROM SupportTickets WHERE Id = @Id;
-            ";
-
-            try
-            {
-                await _dbConnection.ExecuteAsync(sql, new { Id = id });
-            }
-            catch (Exception ex)
-            {
-                throw new TechnicalException("1001", "A technical exception has occurred, please contact your system administrator");
-            }
-        }
-
-        public async Task<IEnumerable<SupportTicket>> ListSupportTicketsAsync(ListSupportTicketRequestDTO requestDTO)
-        {
-            ValidateListSupportTicketRequestDTO(requestDTO);
-
-            var sql = @"
-                SELECT * FROM SupportTickets
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY;
-            ";
-
-            try
-            {
-                return await _dbConnection.QueryAsync<SupportTicket>(sql, requestDTO);
-            }
-            catch (Exception ex)
-            {
-                throw new TechnicalException("1001", "A technical exception has occurred, please contact your system administrator");
-            }
-        }
-
-        private void ValidateCreateSupportTicketDTO(CreateSupportTicketDTO ticketDTO)
-        {
-            if (ticketDTO == null)
-            {
-                throw new BusinessException("1002", "CreateSupportTicketDTO cannot be null");
+                throw new BusinessException("DP-422", "One of the mandatory arguments is null.");
             }
 
-            if (ticketDTO.ReportedBy == Guid.Empty)
+            // Step 2: Fetch Existing Support Ticket.
+            var existingTicket = await _dbConnection.QuerySingleOrDefaultAsync<SupportTicket>("SELECT * FROM SupportTickets WHERE Id = @Id", new { Id = request.Id });
+            if (existingTicket == null)
             {
-                throw new BusinessException("1003", "ReportedBy cannot be empty");
+                throw new BusinessException("DP-404", "Support ticket not found.");
             }
 
-            if (ticketDTO.AssignedTo == Guid.Empty)
+            // Step 3: Validate Related Entities.
+            var reportedByUser = await _dbConnection.QuerySingleOrDefaultAsync<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = request.ReportedBy });
+            if (reportedByUser == null)
             {
-                throw new BusinessException("1004", "AssignedTo cannot be empty");
+                throw new BusinessException("DP-422", "User not found.");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.ContactDetails))
+            var assignedToUser = await _dbConnection.QuerySingleOrDefaultAsync<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = request.AssignedTo });
+            if (assignedToUser == null)
             {
-                throw new BusinessException("1005", "ContactDetails cannot be empty");
+                throw new BusinessException("DP-422", "User not found.");
             }
 
-            if (ticketDTO.FileId == Guid.Empty)
+            var environment = await _dbConnection.QuerySingleOrDefaultAsync<Environment>("SELECT * FROM Environments WHERE Id = @Id", new { Id = request.EnvironmentImpacted });
+            if (environment == null)
             {
-                throw new BusinessException("1006", "FileId cannot be empty");
+                throw new BusinessException("DP-422", "Environment not found.");
             }
 
-            if (ticketDTO.EnvironmentImpacted == Guid.Empty)
+            var severity = await _dbConnection.QuerySingleOrDefaultAsync<Severity>("SELECT * FROM Severities WHERE Id = @Id", new { Id = request.SeverityId });
+            if (severity == null)
             {
-                throw new BusinessException("1007", "EnvironmentImpacted cannot be empty");
+                throw new BusinessException("DP-422", "Severity not found.");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.NameOfReportingOrganization))
+            // Step 4: Update the SupportTicket object with the provided changes.
+            existingTicket.ReportedBy = request.ReportedBy;
+            existingTicket.AssignedTo = request.AssignedTo;
+            existingTicket.ContactDetails = request.ContactDetails;
+            existingTicket.DateClosed = request.DateClosed;
+            existingTicket.EnvironmentImpacted = request.EnvironmentImpacted;
+            existingTicket.NameOfReportingOrganization = request.NameOfReportingOrganization;
+            existingTicket.Priority = request.Priority;
+            existingTicket.SeverityId = request.SeverityId;
+            existingTicket.ShortDescription = request.ShortDescription;
+            existingTicket.State = request.State;
+            existingTicket.SupportCategories = request.SupportCategories;
+            existingTicket.Messages = request.Messages;
+            existingTicket.Version++;
+            existingTicket.Changed = DateTime.UtcNow;
+            existingTicket.ChangedUser = request.ChangedUser;
+
+            // Step 5: Update SupportTicketCategories.
+            var existingCategories = await _dbConnection.QueryAsync<Guid>("SELECT SupportCategoryId FROM SupportTicketCategories WHERE SupportTicketId = @Id", new { Id = request.Id });
+            var categoriesToRemove = existingCategories.Except(request.SupportCategories or new List<Guid>()).ToList();
+            var categoriesToAdd = (request.SupportCategories or new List<Guid>()).Except(existingCategories).ToList();
+
+            if (categoriesToRemove.Any())
             {
-                throw new BusinessException("1008", "NameOfReportingOrganization cannot be empty");
+                await _dbConnection.ExecuteAsync("DELETE FROM SupportTicketCategories WHERE SupportTicketId = @SupportTicketId AND SupportCategoryId IN @SupportCategoryIds", new { SupportTicketId = request.Id, SupportCategoryIds = categoriesToRemove });
             }
 
-            if (ticketDTO.SeverityId == Guid.Empty)
+            var newCategories = categoriesToAdd.Select(categoryId => new SupportTicketCategory
             {
-                throw new BusinessException("1009", "SeverityId cannot be empty");
+                Id = Guid.NewGuid(),
+                SupportTicketId = request.Id,
+                SupportCategoryId = categoryId
+            }).ToList();
+
+            if (newCategories.Any())
+            {
+                await _dbConnection.ExecuteAsync("INSERT INTO SupportTicketCategories (Id, SupportTicketId, SupportCategoryId) VALUES (@Id, @SupportTicketId, @SupportCategoryId)", newCategories);
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.ShortDescription))
+            // Step 6: Update SupportTicketEnvironments.
+            var existingEnvironments = await _dbConnection.QueryAsync<Guid>("SELECT EnvironmentId FROM SupportTicketEnvironments WHERE SupportTicketId = @Id", new { Id = request.Id });
+            var environmentsToRemove = existingEnvironments.Except(new List<Guid> { request.EnvironmentImpacted }).ToList();
+            var environmentsToAdd = new List<Guid> { request.EnvironmentImpacted }.Except(existingEnvironments).ToList();
+
+            if (environmentsToRemove.Any())
             {
-                throw new BusinessException("1010", "ShortDescription cannot be empty");
+                await _dbConnection.ExecuteAsync("DELETE FROM SupportTicketEnvironments WHERE SupportTicketId = @SupportTicketId AND EnvironmentId IN @EnvironmentIds", new { SupportTicketId = request.Id, EnvironmentIds = environmentsToRemove });
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.State))
+            var newEnvironments = environmentsToAdd.Select(environmentId => new SupportTicketEnvironment
             {
-                throw new BusinessException("1011", "State cannot be empty");
+                Id = Guid.NewGuid(),
+                SupportTicketId = request.Id,
+                EnvironmentId = environmentId
+            }).ToList();
+
+            if (newEnvironments.Any())
+            {
+                await _dbConnection.ExecuteAsync("INSERT INTO SupportTicketEnvironments (Id, SupportTicketId, EnvironmentId) VALUES (@Id, @SupportTicketId, @EnvironmentId)", newEnvironments);
             }
 
-            if (ticketDTO.Message == null)
-            {
-                throw new BusinessException("1012", "Message cannot be null");
-            }
-        }
+            // Step 7: Update SupportTicketSeverities.
+            var existingSeverities = await _dbConnection.QueryAsync<Guid>("SELECT SeverityId FROM SupportTicketSeverities WHERE SupportTicketId = @Id", new { Id = request.Id });
+            var severitiesToRemove = existingSeverities.Except(new List<Guid> { request.SeverityId }).ToList();
+            var severitiesToAdd = new List<Guid> { request.SeverityId }.Except(existingSeverities).ToList();
 
-        private void ValidateUpdateSupportTicketDTO(UpdateSupportTicketDTO ticketDTO)
-        {
-            if (ticketDTO == null)
+            if (severitiesToRemove.Any())
             {
-                throw new BusinessException("1013", "UpdateSupportTicketDTO cannot be null");
+                await _dbConnection.ExecuteAsync("DELETE FROM SupportTicketSeverities WHERE SupportTicketId = @SupportTicketId AND SeverityId IN @SeverityIds", new { SupportTicketId = request.Id, SeverityIds = severitiesToRemove });
             }
 
-            if (ticketDTO.Id == Guid.Empty)
+            var newSeverities = severitiesToAdd.Select(severityId => new SupportTicketSeverity
             {
-                throw new BusinessException("1014", "Id cannot be empty");
+                Id = Guid.NewGuid(),
+                SupportTicketId = request.Id,
+                SeverityId = severityId
+            }).ToList();
+
+            if (newSeverities.Any())
+            {
+                await _dbConnection.ExecuteAsync("INSERT INTO SupportTicketSeverities (Id, SupportTicketId, SeverityId) VALUES (@Id, @SupportTicketId, @SeverityId)", newSeverities);
             }
 
-            if (ticketDTO.ReportedBy == Guid.Empty)
-            {
-                throw new BusinessException("1015", "ReportedBy cannot be empty");
-            }
-
-            if (ticketDTO.AssignedTo == Guid.Empty)
-            {
-                throw new BusinessException("1016", "AssignedTo cannot be empty");
-            }
-
-            if (string.IsNullOrWhiteSpace(ticketDTO.ContactDetails))
-            {
-                throw new BusinessException("1017", "ContactDetails cannot be empty");
-            }
-
-            if (ticketDTO.EnvironmentImpacted == Guid.Empty)
-            {
-                throw new BusinessException("1018", "EnvironmentImpacted cannot be empty");
-            }
-
-            if (string.IsNullOrWhiteSpace(ticketDTO.NameOfReportingOrganization))
-            {
-                throw new BusinessException("1019", "NameOfReportingOrganization cannot be empty");
-            }
-
-            if (ticketDTO.Severity == Guid.Empty)
-            {
-                throw new BusinessException("1020", "Severity cannot be empty");
-            }
-
-            if (string.IsNullOrWhiteSpace(ticketDTO.ShortDescription))
-            {
-                throw new BusinessException("1021", "ShortDescription cannot be empty");
-            }
-
-            if (string.IsNullOrWhiteSpace(ticketDTO.State))
-            {
-                throw new BusinessException("1022", "State cannot be empty");
-            }
-
-            if (ticketDTO.Messages == null || !ticketDTO.Messages.Any())
-            {
-                throw new BusinessException("1023", "Messages cannot be null or empty");
-            }
-
-            if (ticketDTO.Changed == default(DateTime))
-            {
-                throw new BusinessException("1024", "Changed cannot be default");
-            }
-
-            if (ticketDTO.ChangedUser == Guid.Empty)
-            {
-                throw new BusinessException("1025", "ChangedUser cannot be empty");
-            }
-        }
-
-        private void ValidateListSupportTicketRequestDTO(ListSupportTicketRequestDTO requestDTO)
-        {
-            if (requestDTO == null)
-            {
-                throw new BusinessException("1026", "ListSupportTicketRequestDTO cannot be null");
-            }
-
-            if (requestDTO.PageLimit <= 0)
-            {
-                throw new BusinessException("1027", "PageLimit must be greater than 0");
-            }
-
-            if (requestDTO.PageOffset < 0)
-            {
-                throw new BusinessException("1028", "PageOffset cannot be negative");
-            }
-
-            if (string.IsNullOrWhiteSpace(requestDTO.SortField))
-            {
-                throw new BusinessException("1029", "SortField cannot be empty");
-            }
-
-            if (string.IsNullOrWhiteSpace(requestDTO.SortOrder))
-            {
-                throw new BusinessException("1030", "SortOrder cannot be empty");
-            }
+            // Step 8: Return Success Message.
+            return "Support ticket updated successfully.";
         }
     }
 }

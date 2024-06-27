@@ -1,7 +1,4 @@
 
-// Environment.cs
-using System;
-
 namespace ProjectName.Types
 {
     public class Environment

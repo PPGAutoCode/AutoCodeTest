@@ -1,8 +1,7 @@
-
-
--- ProductProductTags Table
-CREATE TABLE ProductProductTags (
-    Id uniqueidentifier NOT NULL PRIMARY KEY,
-    ProductId uniqueidentifier NOT NULL,
-    TagId uniqueidentifier NOT NULL
-)
+files.sql
+CREATE TABLE Files (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    FileName NVARCHAR(100) NOT NULL UNIQUE,
+    FileUrl VARBINARY(MAX) NOT NULL,
+    Timestamp DATETIME NOT NULL
+);

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lJLwY/ussY4+PtoTQI5oOYdHM5OF27oclHWMA63zAKQ/SAsxCieRGoLBWVr0EcK1M0nelM0OcGELcxwgxPDrHw==",
+  "dgSpecHash": "ITfmQ+JY6Djo2mG80P3HJKr46JSWLYydyerSQjj+Uj6E2t0k6VnZSD4ofR20j4uh/yCod4xp4rKyxRSQK6wnlw==",
   "success": true,
   "projectFilePath": "/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj",
   "expectedPackageFiles": [
@@ -172,10 +172,7 @@
     "/Users/nkostop/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
     "/Users/nkostop/.nuget/packages/system.xml.xmldocument/4.3.0/system.xml.xmldocument.4.3.0.nupkg.sha512",
     "/Users/nkostop/.nuget/packages/system.xml.xpath/4.3.0/system.xml.xpath.4.3.0.nupkg.sha512",
-    "/Users/nkostop/.nuget/packages/system.xml.xpath.xdocument/4.3.0/system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "/Users/nkostop/.nuget/packages/microsoft.netcore.app.ref/6.0.30/microsoft.netcore.app.ref.6.0.30.nupkg.sha512",
-    "/Users/nkostop/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.30/microsoft.aspnetcore.app.ref.6.0.30.nupkg.sha512",
-    "/Users/nkostop/.nuget/packages/microsoft.netcore.app.host.osx-arm64/6.0.30/microsoft.netcore.app.host.osx-arm64.6.0.30.nupkg.sha512"
+    "/Users/nkostop/.nuget/packages/system.xml.xpath.xdocument/4.3.0/system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

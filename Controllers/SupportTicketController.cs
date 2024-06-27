@@ -65,7 +65,7 @@ namespace ProjectName.Controllers
             return await SafeExecutor.ExecuteAsync(async () =>
             {
                 var result = await _supportTicketService.GetListSupportTicket(request.Payload);
-                return Ok(new Response<List<SupportTicket>);
+                return Ok(new Response<List<SupportTicket>> { Payload = result });
             });
         }
     }

@@ -1,20 +1,12 @@
-
-
--- APIEndpoints Table
-CREATE TABLE APIEndpoints (
+images.sql
+CREATE TABLE Images (
     Id uniqueidentifier NOT NULL PRIMARY KEY,
-    ApiContext nvarchar(200) NULL,
-    ApiReferenceId nvarchar(200) NULL,
-    ApiResource nvarchar(max) NULL,
-    ApiScope nvarchar(200) NULL,
-    ApiScopeProduction nvarchar(200) NULL,
-    ApiSecurity nvarchar(max) NULL,
-    ApiTags uniqueidentifier NULL,
-    Deprecated bit NOT NULL,
-    Description nvarchar(max) NULL,
-    Documentation nvarchar(max) NULL,
-    EndpointUrls nvarchar(200) NULL,
-    EnvironmentId nvarchar(200) NULL,
-    Swagger nvarchar(max) NULL,
-    Tour nvarchar
-)
+    FileName nvarchar(100) NOT NULL UNIQUE,
+    ImageData varbinary(max) NOT NULL,
+    AltText nvarchar(500) NULL,
+    Version int NULL,
+    Created datetime2(7) NOT NULL,
+    Changed datetime2(7) NOT NULL,
+    CreatorId uniqueidentifier NOT NULL,
+    ChangedUser uniqueidentifier NOT NULL
+);

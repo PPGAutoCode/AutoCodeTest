@@ -1,8 +1,10 @@
-
-
--- ProductApiEndpoints Table
-CREATE TABLE ProductApiEndpoints (
+usertypes.sql
+CREATE TABLE UserTypes (
     Id uniqueidentifier NOT NULL PRIMARY KEY,
-    ProductId uniqueidentifier NOT NULL,
-    ApiEndpointId uniqueidentifier NOT NULL
-)
+    Name nvarchar(200) NOT NULL,
+    Version int NULL,
+    Created datetime2(7) NOT NULL,
+    Changed datetime2(7) NOT NULL,
+    CreatorId uniqueidentifier NOT NULL,
+    ChangedUser uniqueidentifier NOT NULL
+);

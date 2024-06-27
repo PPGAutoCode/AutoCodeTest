@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.Types;
 using ProjectName.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ProjectName.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("user")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,7 +20,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUser([FromBody] Request<CreateUserDto> request)
+        public async Task<IActionResult> CreateUser([FromBody] Request<CreateUserRequestDTO> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -29,7 +30,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> GetUser([FromBody] Request<UserRequestDto> request)
+        public async Task<IActionResult> GetUser([FromBody] Request<UserRequestDTO> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -39,7 +40,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateUser([FromBody] Request<UpdateUserDto> request)
+        public async Task<IActionResult> UpdateUser([FromBody] Request<UpdateUserRequestDTO> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -49,7 +50,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteUser([FromBody] Request<DeleteUserDto> request)
+        public async Task<IActionResult> DeleteUser([FromBody] Request<DeleteUserRequestDTO> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -59,13 +60,16 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("list")]
-        public async Task<IActionResult> GetListUsers([FromBody] Request<ListUserRequestDto> request)
+        public async Task<IActionResult> GetListUser([FromBody] Request<ListUserRequestDTO> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var result = await _userService.GetListUsers(request.Payload);
+                var result = await _userService.GetListUser(request.Payload);
                 return Ok(new Response<List<User>> { Payload = result });
             });
         }
     }
-}
+
+    public static class SafeExecutor
+    {
+        public

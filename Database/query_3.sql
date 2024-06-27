@@ -1,0 +1,6 @@
+-- BlogCategories Table
+CREATE TABLE BlogCategories (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Parent UNIQUEIDENTIFIER,
+    Name NVARCHAR(200) NOT NULL
+);

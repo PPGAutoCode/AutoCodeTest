@@ -1,9 +1,3 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/GoLiveController.cs(32,25): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'SafeExecutor'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/GoLiveController.cs(34,49): error CS0111: Type 'SafeExecutor' already defines a member called 'ExecuteAsync' with the same parameter types
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/GoLiveController.cs(55,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'Response'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/GoLiveController.cs(61,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'ExceptionInfo'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/GoLiveController.cs(68,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'BusinessException'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/GoLiveController.cs(74,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'TechnicalException'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/OrganizationController.cs(32,69): error CS0246: The type or namespace name 'OrganizationDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/PhpSdkSettingsController.cs(62,25): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'SafeExecutor'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/PhpSdkSettingsController.cs(64,49): error CS0111: Type 'SafeExecutor' already defines a member called 'ExecuteAsync' with the same parameter types
@@ -58,4 +52,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileSe
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(46,19): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(25,44): error CS0246: The type or namespace name 'OrganizationDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(46,54): error CS0246: The type or namespace name 'ListOrganizationRequesteDto' could not be found (are you missing a using directive or an assembly reference?)
-Error: 60 Error(s)
+Error: 54 Error(s)

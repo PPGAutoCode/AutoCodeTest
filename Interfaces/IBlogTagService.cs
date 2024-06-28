@@ -27,9 +27,9 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Updates an existing blog tag.
         /// </summary>
-        /// <param name="updateBlogDto">The data transfer object containing the updated information for the blog tag.</param>
+        /// <param name="updateBlogTagDto">The data transfer object containing the updated information for the blog tag.</param>
         /// <returns>A string representing the result of the update operation.</returns>
-        Task<string> UpdateBlogTag(UpdateBlogDto updateBlogDto);
+        Task<string> UpdateBlogTag(UpdateBlogTagDto updateBlogTagDto);
 
         /// <summary>
         /// Deletes a blog tag based on the provided request data.

@@ -59,4 +59,5 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/ISubscr
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IUserService.cs(46,38): error CS0246: The type or namespace name 'ListUserRequestDTO' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/SafeExecutor.cs(11,49): error CS0111: Type 'SafeExecutor' already defines a member called 'ExecuteAsync' with the same parameter types
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/SafeExecutor.cs(9,25): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'SafeExecutor'
-Error: 61 Error(s)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Types/Product.cs(14,21): error CS0246: The type or namespace name 'Tag' could not be found (are you missing a using directive or an assembly reference?)
+Error: 62 Error(s)

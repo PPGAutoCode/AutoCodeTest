@@ -11,8 +11,8 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Asynchronously creates a new contact.
         /// </summary>
-        /// <param name="contactDTO">The data transfer object containing the contact information to be created.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the unique identifier of the created contact.</returns>
-        Task<string> CreateContact(CreateContactDTO contactDTO);
+        /// <param name="createContactDto">The data transfer object containing the details of the contact to be created.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the ID of the newly created contact.</returns>
+        Task<string> CreateContact(CreateContactDto createContactDto);
     }
 }

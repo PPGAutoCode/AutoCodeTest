@@ -41,16 +41,18 @@ namespace ProjectName.Services
             const string sql = @"
                 INSERT INTO Contacts (Id, Name, Mail, Subject, Message, Created)
                 VALUES (@Id, @Name, @Mail, @Subject, @Message, @Created);
-                SELECT CAST(SCOPE_IDENTITY() as int);
-            ";
+                SELECT CAST(SCOPE_IDENTITY() as varchar(50));";
 
             try
             {
-                var id = await _dbConnection.QuerySingleAsync<int>(sql, contact);
-                return id.ToString();
+                var id = await _dbConnection.QuerySingleAsync<string>(sql, contact);
+
+                // Step 4: If the transaction is successful
+                return id;
             }
             catch (Exception)
             {
+                // Step 4.2: If the transaction fails
                 throw new TechnicalException("DP-500", "Technical Error");
             }
         }

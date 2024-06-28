@@ -1,4 +1,10 @@
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/APIEndpointController.cs(62,72): error CS0246: The type or namespace name 'ListAPIEndpointRequestDTO' could not be found (are you missing a using directive or an assembly reference?)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(10,49): error CS0111: Type 'SafeExecutor' already defines a member called 'ExecuteAsync' with the same parameter types
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(32,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'Response'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(38,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'ExceptionInfo'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(45,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'BusinessException'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(51,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'TechnicalException'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(8,25): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'SafeExecutor'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SubscriptionController.cs(33,77): error CS0246: The type or namespace name 'RequestSubscription' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserController.cs(23,72): error CS0246: The type or namespace name 'CreateUserDTO' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserController.cs(33,69): error CS0246: The type or namespace name 'GetUserRequest' could not be found (are you missing a using directive or an assembly reference?)
@@ -10,7 +16,6 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/AP
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(14,35): error CS0535: 'ArticleService' does not implement interface member 'IArticleService.GetListArticle(ListArticleRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BasicPageService.cs(13,37): error CS0738: 'BasicPageService' does not implement interface member 'IBasicPageService.DeleteBasicPage(DeleteBasicPageDto)'. 'BasicPageService.DeleteBasicPage(DeleteBasicPageDto)' cannot implement 'IBasicPageService.DeleteBasicPage(DeleteBasicPageDto)' because it does not have the matching return type of 'Task<bool>'.
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(13,35): error CS0535: 'BlogTagService' does not implement interface member 'IBlogTagService.UpdateBlogTag(UpdateBlogDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ContactService.cs(12,35): error CS0535: 'ContactService' does not implement interface member 'IContactService.CreateContact(CreateContactDTO)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/EnvironmentService.cs(143,32): error CS0104: 'Environment' is an ambiguous reference between 'ProjectName.Types.Environment' and 'System.Environment'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/EnvironmentService.cs(55,27): error CS0104: 'Environment' is an ambiguous reference between 'ProjectName.Types.Environment' and 'System.Environment'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/FileService.cs(122,32): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
@@ -41,7 +46,6 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Us
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserService.cs(14,32): error CS0535: 'UserService' does not implement interface member 'IUserService.GetListUser(ListUserRequestDTO)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IAPIEndpointService.cs(46,52): error CS0246: The type or namespace name 'ListAPIEndpointRequestDTO' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IBlogTagService.cs(32,36): error CS0246: The type or namespace name 'UpdateBlogDto' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IContactService.cs(16,36): error CS0246: The type or namespace name 'CreateContactDTO' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IEnvironmentService.cs(25,14): error CS0104: 'Environment' is an ambiguous reference between 'ProjectName.Types.Environment' and 'System.Environment'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IEnvironmentService.cs(46,19): error CS0104: 'Environment' is an ambiguous reference between 'ProjectName.Types.Environment' and 'System.Environment'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(25,14): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
@@ -51,4 +55,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IUserSe
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/SafeExecutor.cs(11,49): error CS0111: Type 'SafeExecutor' already defines a member called 'ExecuteAsync' with the same parameter types
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/SafeExecutor.cs(9,25): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'SafeExecutor'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Types/Product.cs(14,21): error CS0246: The type or namespace name 'Tag' could not be found (are you missing a using directive or an assembly reference?)
-Error: 53 Error(s)
+Error: 57 Error(s)

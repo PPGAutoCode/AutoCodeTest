@@ -1,5 +1,4 @@
 
-// Message.cs
 using System;
 
 namespace ProjectName.Types

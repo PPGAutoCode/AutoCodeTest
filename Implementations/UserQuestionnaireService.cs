@@ -20,64 +20,67 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task<string> CreateUserQuestionnaire(CreateUserQuestionnaireDto request)
+        public async Task<UserQuestionnaire> GetUserQuestionnaire(Guid userId)
         {
-            // Step 1: Validate Fields
-            if (request == null || string.IsNullOrEmpty(request.Label) || string.IsNullOrEmpty(request.HelpText) ||
-                string.IsNullOrEmpty(request.ReferenceMethod) || request.DefaultValue == null || !request.DefaultValue.Any())
+            // Step 1: Validate userId
+            if (userId == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 2: Fetch ProductCategories
-            foreach (var defaultValue in request.DefaultValue)
-            {
-                var defaultValueExists = await _dbConnection.ExecuteScalarAsync<bool>(
-                    "SELECT COUNT(1) FROM DefaultValues WHERE Id = @Id", new { Id = defaultValue });
-                if (!defaultValueExists)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-            }
+            // Step 2: Fetch user questionnaire from database
+            var userQuestionnaire = await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(
+                "SELECT * FROM UserQuestionnaires WHERE UserId = @UserId",
+                new { UserId = userId });
 
-            // Step 3: Fetch CorporateUser
-            var corporateUserExists = await _dbConnection.ExecuteScalarAsync<bool>(
-                "SELECT COUNT(1) FROM CorporateUsers WHERE Id = @Id", new { Id = request.CorporateUserId });
-            if (!corporateUserExists)
+            // Step 3: Handle user questionnaire not found
+            if (userQuestionnaire == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 4: Create UserQuestionnaire Object
-            var userQuestionnaire = new UserQuestionnaire
+            return userQuestionnaire;
+        }
+
+        public async Task<string> UpdateUserQuestionnaire(UserQuestionnaire userQuestionnaire)
+        {
+            // Step 1: Validate user questionnaire
+            if (userQuestionnaire == null || userQuestionnaire.UserId == Guid.Empty)
             {
-                Id = Guid.NewGuid(),
-                Label = request.Label,
-                HelpText = request.HelpText,
-                ReferenceMethod = request.ReferenceMethod,
-                DefaultValue = request.DefaultValue,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow
-            };
+                throw new BusinessException("DP-422", "Client Error");
+            }
 
-            // Step 5: Insert UserQuestionnaire into Database
-            const string sql = @"
-                INSERT INTO UserQuestionnaire (Id, Label, HelpText, ReferenceMethod, DefaultValue, Created, Changed)
-                VALUES (@Id, @Label, @HelpText, @ReferenceMethod, @DefaultValue, @Created, @Changed)";
+            // Step 2: Fetch existing user questionnaire
+            var existingUserQuestionnaire = await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(
+                "SELECT * FROM UserQuestionnaires WHERE UserId = @UserId",
+                new { UserId = userQuestionnaire.UserId });
 
+            if (existingUserQuestionnaire == null)
+            {
+                throw new BusinessException("DP-404", "Technical Error");
+            }
+
+            // Step 3: Update user questionnaire object
+            existingUserQuestionnaire.Question1 = userQuestionnaire.Question1;
+            existingUserQuestionnaire.Question2 = userQuestionnaire.Question2;
+            existingUserQuestionnaire.Question3 = userQuestionnaire.Question3;
+            existingUserQuestionnaire.Question4 = userQuestionnaire.Question4;
+            existingUserQuestionnaire.Question5 = userQuestionnaire.Question5;
+            existingUserQuestionnaire.LastUpdated = DateTime.UtcNow;
+
+            // Step 4: Save changes to database
             try
             {
-                await _dbConnection.ExecuteAsync(sql, userQuestionnaire);
+                await _dbConnection.ExecuteAsync(
+                    "UPDATE UserQuestionnaires SET Question1 = @Question1, Question2 = @Question2, Question3 = @Question3, Question4 = @Question4, Question5 = @Question5, LastUpdated = @LastUpdated WHERE UserId = @UserId",
+                    existingUserQuestionnaire);
             }
             catch (Exception)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
 
-            // Step 6: Return the UserQuestionnaire.Id from the database
-            return userQuestionnaire.Id.ToString();
+            return existingUserQuestionnaire.UserId.ToString();
         }
-
-        // Implement other methods from IUserQuestionnaireService interface similarly
     }
 }

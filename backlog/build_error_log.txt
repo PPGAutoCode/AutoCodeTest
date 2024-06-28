@@ -35,6 +35,7 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.GetListSupportTicket(ListSupportTicketRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.GetSupportTicket(RequestSupportTicketDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.UpdateSupportTicket(UpdateSupportTicketDto)'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(14,45): error CS0535: 'UserQuestionnaireService' does not implement interface member 'IUserQuestionnaireService.CreateUserQuestionnaire(CreateUserQuestionnaireDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(14,45): error CS0535: 'UserQuestionnaireService' does not implement interface member 'IUserQuestionnaireService.DeleteUserQuestionnaire(DeleteUserQuestionnaireDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(14,45): error CS0535: 'UserQuestionnaireService' does not implement interface member 'IUserQuestionnaireService.GetListUserQuestionnaire(UserQuestionnaireRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(14,45): error CS0535: 'UserQuestionnaireService' does not implement interface member 'IUserQuestionnaireService.GetUserQuestionnaire(UserQuestionnaireRequestDto)'
@@ -48,4 +49,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileSe
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(46,19): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(25,44): error CS0246: The type or namespace name 'OrganizationDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(46,54): error CS0246: The type or namespace name 'ListOrganizationRequesteDto' could not be found (are you missing a using directive or an assembly reference?)
-Error: 50 Error(s)
+Error: 51 Error(s)

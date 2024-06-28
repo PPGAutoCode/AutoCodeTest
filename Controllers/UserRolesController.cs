@@ -39,7 +39,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> GetUserRole([FromBody] Request<UserRoleRequestDto> request)
+        public async Task<IActionResult> GetUserRole([FromBody] Request<UserRolesRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {

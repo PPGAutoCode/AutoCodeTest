@@ -15,7 +15,6 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeEx
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(45,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'BusinessException'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(51,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'TechnicalException'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(8,25): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'SafeExecutor'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserRolesController.cs(42,73): error CS0246: The type or namespace name 'UserRoleRequestDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(14,35): error CS0535: 'ArticleService' does not implement interface member 'IArticleService.GetListArticle(ListArticleRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BasicPageService.cs(13,37): error CS0738: 'BasicPageService' does not implement interface member 'IBasicPageService.DeleteBasicPage(DeleteBasicPageDto)'. 'BasicPageService.DeleteBasicPage(DeleteBasicPageDto)' cannot implement 'IBasicPageService.DeleteBasicPage(DeleteBasicPageDto)' because it does not have the matching return type of 'Task<bool>'.
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/EnvironmentService.cs(143,32): error CS0104: 'Environment' is an ambiguous reference between 'ProjectName.Types.Environment' and 'System.Environment'
@@ -61,4 +60,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IPhpSet
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IPhpSettingsSdkService.cs(24,48): error CS0246: The type or namespace name 'PhpSettingsSdkRequestDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IPhpSettingsSdkService.cs(31,43): error CS0246: The type or namespace name 'UpdatePhpSettingsSdkDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IPhpSettingsSdkService.cs(38,41): error CS0246: The type or namespace name 'DeletePhpSettingsSdkDto' could not be found (are you missing a using directive or an assembly reference?)
-Error: 63 Error(s)
+Error: 62 Error(s)

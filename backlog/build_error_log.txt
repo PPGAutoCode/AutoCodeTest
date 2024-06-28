@@ -31,7 +31,6 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Pr
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetProduct(ProductRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.UpdateProduct(UpdateProductDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SelectTicketPriorityService.cs(13,48): error CS0535: 'SelectTicketPriorityService' does not implement interface member 'ISelectTicketPriorityService.GetGetListSelectTicketPriority(ListSelectTicketPriorityRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SubscriptionService.cs(14,40): error CS0535: 'SubscriptionService' does not implement interface member 'ISubscriptionService.GetSubscription(RequestSubscription)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.CreateSupportTicket(CreateSupportTicketDTO)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.DeleteSupportTicket(DeleteSupportTicketDTO)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.GetListSupportTicket(ListSupportTicketRequestDTO)'
@@ -50,9 +49,8 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileSe
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(46,19): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IGoLiveService.cs(17,40): error CS0246: The type or namespace name 'CreateGoLive' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(46,54): error CS0246: The type or namespace name 'GetListOrganizationRequesteDTO' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/ISubscriptionService.cs(25,44): error CS0246: The type or namespace name 'RequestSubscription' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IUserService.cs(46,38): error CS0246: The type or namespace name 'ListUserRequestDTO' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/SafeExecutor.cs(11,49): error CS0111: Type 'SafeExecutor' already defines a member called 'ExecuteAsync' with the same parameter types
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/SafeExecutor.cs(9,25): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'SafeExecutor'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Types/Product.cs(14,21): error CS0246: The type or namespace name 'Tag' could not be found (are you missing a using directive or an assembly reference?)
-Error: 57 Error(s)
+Error: 55 Error(s)

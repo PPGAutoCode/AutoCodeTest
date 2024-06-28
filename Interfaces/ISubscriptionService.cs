@@ -20,9 +20,9 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Retrieves a subscription based on the provided request.
         /// </summary>
-        /// <param name="requestSubscription">Request object for retrieving a subscription.</param>
+        /// <param name="requestSubscriptionDTO">Data transfer object for requesting a subscription.</param>
         /// <returns>A Subscription object.</returns>
-        Task<Subscription> GetSubscription(RequestSubscription requestSubscription);
+        Task<Subscription> GetSubscription(RequestSubscriptionDTO requestSubscriptionDTO);
 
         /// <summary>
         /// Updates an existing subscription.
@@ -41,7 +41,7 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Retrieves a list of subscriptions based on the provided request.
         /// </summary>
-        /// <param name="listSubscriptionRequestDTO">Request object for retrieving a list of subscriptions.</param>
+        /// <param name="listSubscriptionRequestDTO">Data transfer object for requesting a list of subscriptions.</param>
         /// <returns>A list of Subscription objects.</returns>
         Task<List<Subscription>> GetListSubscription(ListSubscriptionRequestDTO listSubscriptionRequestDTO);
     }

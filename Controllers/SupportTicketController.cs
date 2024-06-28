@@ -20,7 +20,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateSupportTicket([FromBody] Request<CreateSupportTicketDTO> request)
+        public async Task<IActionResult> CreateSupportTicket([FromBody] Request<CreateSupportTicketDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -30,7 +30,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> GetSupportTicket([FromBody] Request<RequestSupportTicketDTO> request)
+        public async Task<IActionResult> GetSupportTicket([FromBody] Request<RequestSupportTicketDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -40,7 +40,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateSupportTicket([FromBody] Request<UpdateSupportTicketDTO> request)
+        public async Task<IActionResult> UpdateSupportTicket([FromBody] Request<UpdateSupportTicketDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -50,7 +50,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteSupportTicket([FromBody] Request<DeleteSupportTicketDTO> request)
+        public async Task<IActionResult> DeleteSupportTicket([FromBody] Request<DeleteSupportTicketDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -60,7 +60,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("list")]
-        public async Task<IActionResult> GetListSupportTicket([FromBody] Request<ListSupportTicketRequestDTO> request)
+        public async Task<IActionResult> GetListSupportTicket([FromBody] Request<ListSupportTicketRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {

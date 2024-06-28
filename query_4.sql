@@ -1,0 +1,22 @@
+-- Applications Table
+CREATE TABLE Applications (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    AllowedGrantTypes NVARCHAR(MAX) NULL,
+    APICHostname NVARCHAR(200) NULL,
+    CredentialsDev NVARCHAR(MAX) NULL,
+    CredentialsProd NVARCHAR(MAX) NULL,
+    Description NVARCHAR(MAX) NULL,
+    IdDev UNIQUEIDENTIFIER NULL,
+    IdProd UNIQUEIDENTIFIER NULL,
+    Image NVARCHAR(MAX) NULL,
+    Status NVARCHAR(200) NULL,
+    ClientIdDev UNIQUEIDENTIFIER NULL,
+    ClientIdProd UNIQUEIDENTIFIER NULL,
+    ClientSecret NVARCHAR(MAX) NULL,
+    ClientUriDev NVARCHAR(200) NULL,
+    ClientUriProd NVARCHAR(200) NULL,
+    CreatedEvent NVARCHAR(MAX) NULL,
+    EnvironmentId UNIQUEIDENTIFIER NULL,
+    Created DATETIME2(7) NOT NULL,
+    Changed DATETIME2(7) NOT NULL
+);

@@ -5,9 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using ProjectName.ControllersExceptions;
 using ProjectName.Interfaces;
 using ProjectName.Types;
-using ProjectName.ControllersExceptions;
 
 namespace ProjectName.Services
 {
@@ -20,17 +20,17 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task CreateSupportTicketAsync(CreateSupportTicketDTO ticketDTO)
+        public async Task CreateSupportTicketAsync(CreateSupportTicketDto createSupportTicketDto)
         {
-            ValidateCreateSupportTicketDTO(ticketDTO);
+            ValidateCreateSupportTicketDto(createSupportTicketDto);
 
             var sql = @"
                 INSERT INTO SupportTickets (
-                    ReportedBy, AssignedTo, ContactDetails, FileId, EnvironmentImpacted, 
+                    ReportedBy, AssigneDto, ContactDetails, FileId, EnvironmentImpacted, 
                     NameOfReportingOrganization, Priority, SeverityId, ShortDescription, 
                     State, Message, SupportCategories
                 ) VALUES (
-                    @ReportedBy, @AssignedTo, @ContactDetails, @FileId, @EnvironmentImpacted, 
+                    @ReportedBy, @AssigneDto, @ContactDetails, @FileId, @EnvironmentImpacted, 
                     @NameOfReportingOrganization, @Priority, @SeverityId, @ShortDescription, 
                     @State, @Message, @SupportCategories
                 );
@@ -38,7 +38,7 @@ namespace ProjectName.Services
 
             try
             {
-                await _dbConnection.ExecuteAsync(sql, ticketDTO);
+                await _dbConnection.ExecuteAsync(sql, createSupportTicketDto);
             }
             catch (Exception ex)
             {
@@ -62,13 +62,13 @@ namespace ProjectName.Services
             }
         }
 
-        public async Task UpdateSupportTicketAsync(UpdateSupportTicketDTO ticketDTO)
+        public async Task UpdateSupportTicketAsync(UpdateSupportTicketDto updateSupportTicketDto)
         {
-            ValidateUpdateSupportTicketDTO(ticketDTO);
+            ValidateUpdateSupportTicketDto(updateSupportTicketDto);
 
             var sql = @"
                 UPDATE SupportTickets SET
-                    ReportedBy = @ReportedBy, AssignedTo = @AssignedTo, ContactDetails = @ContactDetails, 
+                    ReportedBy = @ReportedBy, AssigneDto = @AssigneDto, ContactDetails = @ContactDetails, 
                     DateClosed = @DateClosed, EnvironmentImpacted = @EnvironmentImpacted, 
                     NameOfReportingOrganization = @NameOfReportingOrganization, Priority = @Priority, 
                     Severity = @Severity, ShortDescription = @ShortDescription, State = @State, 
@@ -79,7 +79,7 @@ namespace ProjectName.Services
 
             try
             {
-                await _dbConnection.ExecuteAsync(sql, ticketDTO);
+                await _dbConnection.ExecuteAsync(sql, updateSupportTicketDto);
             }
             catch (Exception ex)
             {
@@ -103,9 +103,9 @@ namespace ProjectName.Services
             }
         }
 
-        public async Task<IEnumerable<SupportTicket>> ListSupportTicketsAsync(ListSupportTicketRequestDTO requestDTO)
+        public async Task<IEnumerable<SupportTicket>> ListSupportTicketsAsync(ListSupportTicketRequestDto listSupportTicketRequestDto)
         {
-            ValidateListSupportTicketRequestDTO(requestDTO);
+            ValidateListSupportTicketRequestDto(listSupportTicketRequestDto);
 
             var sql = @"
                 SELECT * FROM SupportTickets
@@ -115,7 +115,7 @@ namespace ProjectName.Services
 
             try
             {
-                return await _dbConnection.QueryAsync<SupportTicket>(sql, requestDTO);
+                return await _dbConnection.QueryAsync<SupportTicket>(sql, listSupportTicketRequestDto);
             }
             catch (Exception ex)
             {
@@ -123,157 +123,152 @@ namespace ProjectName.Services
             }
         }
 
-        private void ValidateCreateSupportTicketDTO(CreateSupportTicketDTO ticketDTO)
+        private void ValidateCreateSupportTicketDto(CreateSupportTicketDto createSupportTicketDto)
         {
-            if (ticketDTO == null)
+            if (createSupportTicketDto == null)
             {
-                throw new BusinessException("1002", "CreateSupportTicketDTO cannot be null");
+                throw new BusinessException("1002", "CreateSupportTicketDto cannot be null");
             }
 
-            if (ticketDTO.ReportedBy == Guid.Empty)
+            if (createSupportTicketDto.ReportedBy == Guid.Empty)
             {
                 throw new BusinessException("1003", "ReportedBy cannot be empty");
             }
 
-            if (ticketDTO.AssignedTo == Guid.Empty)
+            if (createSupportTicketDto.AssigneDto == Guid.Empty)
             {
-                throw new BusinessException("1004", "AssignedTo cannot be empty");
+                throw new BusinessException("1004", "AssigneDto cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.ContactDetails))
+            if (string.IsNullOrWhiteSpace(createSupportTicketDto.ContactDetails))
             {
                 throw new BusinessException("1005", "ContactDetails cannot be empty");
             }
 
-            if (ticketDTO.FileId == Guid.Empty)
+            if (createSupportTicketDto.EnvironmentImpacted == Guid.Empty)
             {
-                throw new BusinessException("1006", "FileId cannot be empty");
+                throw new BusinessException("1006", "EnvironmentImpacted cannot be empty");
             }
 
-            if (ticketDTO.EnvironmentImpacted == Guid.Empty)
+            if (string.IsNullOrWhiteSpace(createSupportTicketDto.NameOfReportingOrganization))
             {
-                throw new BusinessException("1007", "EnvironmentImpacted cannot be empty");
+                throw new BusinessException("1007", "NameOfReportingOrganization cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.NameOfReportingOrganization))
+            if (createSupportTicketDto.SeverityId == Guid.Empty)
             {
-                throw new BusinessException("1008", "NameOfReportingOrganization cannot be empty");
+                throw new BusinessException("1008", "SeverityId cannot be empty");
             }
 
-            if (ticketDTO.SeverityId == Guid.Empty)
+            if (string.IsNullOrWhiteSpace(createSupportTicketDto.ShortDescription))
             {
-                throw new BusinessException("1009", "SeverityId cannot be empty");
+                throw new BusinessException("1009", "ShortDescription cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.ShortDescription))
+            if (string.IsNullOrWhiteSpace(createSupportTicketDto.State))
             {
-                throw new BusinessException("1010", "ShortDescription cannot be empty");
+                throw new BusinessException("1010", "State cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.State))
+            if (createSupportTicketDto.Message == null)
             {
-                throw new BusinessException("1011", "State cannot be empty");
-            }
-
-            if (ticketDTO.Message == null)
-            {
-                throw new BusinessException("1012", "Message cannot be null");
+                throw new BusinessException("1011", "Message cannot be null");
             }
         }
 
-        private void ValidateUpdateSupportTicketDTO(UpdateSupportTicketDTO ticketDTO)
+        private void ValidateUpdateSupportTicketDto(UpdateSupportTicketDto updateSupportTicketDto)
         {
-            if (ticketDTO == null)
+            if (updateSupportTicketDto == null)
             {
-                throw new BusinessException("1013", "UpdateSupportTicketDTO cannot be null");
+                throw new BusinessException("1012", "UpdateSupportTicketDto cannot be null");
             }
 
-            if (ticketDTO.Id == Guid.Empty)
+            if (updateSupportTicketDto.Id == Guid.Empty)
             {
-                throw new BusinessException("1014", "Id cannot be empty");
+                throw new BusinessException("1013", "Id cannot be empty");
             }
 
-            if (ticketDTO.ReportedBy == Guid.Empty)
+            if (updateSupportTicketDto.ReportedBy == Guid.Empty)
             {
-                throw new BusinessException("1015", "ReportedBy cannot be empty");
+                throw new BusinessException("1014", "ReportedBy cannot be empty");
             }
 
-            if (ticketDTO.AssignedTo == Guid.Empty)
+            if (updateSupportTicketDto.AssigneDto == Guid.Empty)
             {
-                throw new BusinessException("1016", "AssignedTo cannot be empty");
+                throw new BusinessException("1015", "AssigneDto cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.ContactDetails))
+            if (string.IsNullOrWhiteSpace(updateSupportTicketDto.ContactDetails))
             {
-                throw new BusinessException("1017", "ContactDetails cannot be empty");
+                throw new BusinessException("1016", "ContactDetails cannot be empty");
             }
 
-            if (ticketDTO.EnvironmentImpacted == Guid.Empty)
+            if (updateSupportTicketDto.EnvironmentImpacted == Guid.Empty)
             {
-                throw new BusinessException("1018", "EnvironmentImpacted cannot be empty");
+                throw new BusinessException("1017", "EnvironmentImpacted cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.NameOfReportingOrganization))
+            if (string.IsNullOrWhiteSpace(updateSupportTicketDto.NameOfReportingOrganization))
             {
-                throw new BusinessException("1019", "NameOfReportingOrganization cannot be empty");
+                throw new BusinessException("1018", "NameOfReportingOrganization cannot be empty");
             }
 
-            if (ticketDTO.Severity == Guid.Empty)
+            if (updateSupportTicketDto.Severity == Guid.Empty)
             {
-                throw new BusinessException("1020", "Severity cannot be empty");
+                throw new BusinessException("1019", "Severity cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.ShortDescription))
+            if (string.IsNullOrWhiteSpace(updateSupportTicketDto.ShortDescription))
             {
-                throw new BusinessException("1021", "ShortDescription cannot be empty");
+                throw new BusinessException("1020", "ShortDescription cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(ticketDTO.State))
+            if (string.IsNullOrWhiteSpace(updateSupportTicketDto.State))
             {
-                throw new BusinessException("1022", "State cannot be empty");
+                throw new BusinessException("1021", "State cannot be empty");
             }
 
-            if (ticketDTO.Messages == null || !ticketDTO.Messages.Any())
+            if (updateSupportTicketDto.Messages == null || !updateSupportTicketDto.Messages.Any())
             {
-                throw new BusinessException("1023", "Messages cannot be null or empty");
+                throw new BusinessException("1022", "Messages cannot be null or empty");
             }
 
-            if (ticketDTO.Changed == default)
+            if (updateSupportTicketDto.Changed == default)
             {
-                throw new BusinessException("1024", "Changed cannot be default");
+                throw new BusinessException("1023", "Changed cannot be default");
             }
 
-            if (ticketDTO.ChangedUser == Guid.Empty)
+            if (updateSupportTicketDto.ChangedUser == Guid.Empty)
             {
-                throw new BusinessException("1025", "ChangedUser cannot be empty");
+                throw new BusinessException("1024", "ChangedUser cannot be empty");
             }
         }
 
-        private void ValidateListSupportTicketRequestDTO(ListSupportTicketRequestDTO requestDTO)
+        private void ValidateListSupportTicketRequestDto(ListSupportTicketRequestDto listSupportTicketRequestDto)
         {
-            if (requestDTO == null)
+            if (listSupportTicketRequestDto == null)
             {
-                throw new BusinessException("1026", "ListSupportTicketRequestDTO cannot be null");
+                throw new BusinessException("1025", "ListSupportTicketRequestDto cannot be null");
             }
 
-            if (requestDTO.PageLimit <= 0)
+            if (listSupportTicketRequestDto.PageLimit <= 0)
             {
-                throw new BusinessException("1027", "PageLimit must be greater than 0");
+                throw new BusinessException("1026", "PageLimit must be greater than 0");
             }
 
-            if (requestDTO.PageOffset < 0)
+            if (listSupportTicketRequestDto.PageOffset < 0)
             {
-                throw new BusinessException("1028", "PageOffset cannot be negative");
+                throw new BusinessException("1027", "PageOffset cannot be negative");
             }
 
-            if (string.IsNullOrWhiteSpace(requestDTO.SortField))
+            if (string.IsNullOrWhiteSpace(listSupportTicketRequestDto.SortField))
             {
-                throw new BusinessException("1029", "SortField cannot be empty");
+                throw new BusinessException("1028", "SortField cannot be empty");
             }
 
-            if (string.IsNullOrWhiteSpace(requestDTO.SortOrder))
+            if (string.IsNullOrWhiteSpace(listSupportTicketRequestDto.SortOrder))
             {
-                throw new BusinessException("1030", "SortOrder cannot be empty");
+                throw new BusinessException("1029", "SortOrder cannot be empty");
             }
         }
     }

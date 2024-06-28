@@ -19,7 +19,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUserQuestionnaire([FromBody] Request<CreateUserQuestionnaireDTO> request)
+        public async Task<IActionResult> CreateUserQuestionnaire([FromBody] Request<CreateUserQuestionnaireDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -29,7 +29,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("getList")]
-        public async Task<IActionResult> GetListUserQuestionnaire([FromBody] Request<UserQuestionnaireRequestDTO> request)
+        public async Task<IActionResult> GetListUserQuestionnaire([FromBody] Request<UserQuestionnaireRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -39,7 +39,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> GetUserQuestionnaire([FromBody] Request<UserQuestionnaireRequestDTO> request)
+        public async Task<IActionResult> GetUserQuestionnaire([FromBody] Request<UserQuestionnaireRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -49,7 +49,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateUserQuestionnaire([FromBody] Request<UpdateUserQuestionnaireDTO> request)
+        public async Task<IActionResult> UpdateUserQuestionnaire([FromBody] Request<UpdateUserQuestionnaireDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -59,7 +59,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteUserQuestionnaire([FromBody] Request<DeleteUserQuestionnaireDTO> request)
+        public async Task<IActionResult> DeleteUserQuestionnaire([FromBody] Request<DeleteUserQuestionnaireDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {

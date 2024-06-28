@@ -1,8 +1,8 @@
--- BasicPages Table Query
-CREATE TABLE BasicPages (
+-- Subscriptions Table
+CREATE TABLE Subscriptions (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    Name NVARCHAR(200) NOT NULL,
-    Body NVARCHAR(200) NOT NULL,
+    ProductsId UNIQUEIDENTIFIER NOT NULL,
+    ApplicationsId UNIQUEIDENTIFIER NOT NULL,
     Version INT NULL,
     Created DATETIME2(7) NOT NULL,
     Changed DATETIME2(7) NOT NULL,

@@ -19,7 +19,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUserRole([FromBody] Request<CreateUserRoleDTO> request)
+        public async Task<IActionResult> CreateUserRole([FromBody] Request<CreateUserRoleDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -29,7 +29,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("getList")]
-        public async Task<IActionResult> GetListUserRoles([FromBody] Request<UserRolesRequestDTO> request)
+        public async Task<IActionResult> GetListUserRoles([FromBody] Request<UserRolesRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -39,7 +39,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> GetUserRole([FromBody] Request<UserRoleRequestDTO> request)
+        public async Task<IActionResult> GetUserRole([FromBody] Request<UserRoleRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -49,7 +49,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateUserRole([FromBody] Request<UpdateUserRoleDTO> request)
+        public async Task<IActionResult> UpdateUserRole([FromBody] Request<UpdateUserRoleDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -59,7 +59,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteUserRole([FromBody] Request<DeleteUserRoleDTO> request)
+        public async Task<IActionResult> DeleteUserRole([FromBody] Request<DeleteUserRoleDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {

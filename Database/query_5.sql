@@ -1,6 +1,8 @@
-articleblogtags.sql
-CREATE TABLE ArticleBlogTags (
+
+
+-- AttachmentFile Table
+CREATE TABLE AttachmentFile (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    ArticleId UNIQUEIDENTIFIER NOT NULL,
-    BlogTagId UNIQUEIDENTIFIER NOT NULL
-);
+    MessageId UNIQUEIDENTIFIER NOT NULL,
+    FileId UNIQUEIDENTIFIER NOT NULL
+)

@@ -1,4 +1,3 @@
-
 -- File: UserRoles.sql
 CREATE TABLE UserRoles (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,

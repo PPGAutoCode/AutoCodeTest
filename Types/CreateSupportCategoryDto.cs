@@ -1,4 +1,5 @@
 
+// CreateSupportCategoryDto.cs
 namespace ProjectName.Types
 {
     public class CreateSupportCategoryDto

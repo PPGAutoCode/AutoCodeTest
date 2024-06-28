@@ -1,4 +1,6 @@
 
+using System;
+
 namespace ProjectName.Types
 {
     public class File
@@ -9,3 +11,4 @@ namespace ProjectName.Types
         public DateTime Timestamp { get; set; }
     }
 }
+    

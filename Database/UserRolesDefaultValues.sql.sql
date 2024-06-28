@@ -1,4 +1,3 @@
-
 -- File: UserRolesDefaultValues.sql
 CREATE TABLE UserRolesDefaultValues (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,

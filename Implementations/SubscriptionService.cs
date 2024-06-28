@@ -20,7 +20,7 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task<string> CreateSubscription(CreateSubscriptionDTO request)
+        public async Task<string> CreateSubscription(CreateSubscriptionDto request)
         {
             // Step 1: Validate all fields of request.payload
             if (request.ApplicationsId == Guid.Empty || request.ProductsId == Guid.Empty)
@@ -42,7 +42,7 @@ namespace ProjectName.Services
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 4: Create a new Subscription object for each product
+            // Step 4: Create a new Subscription object for each product as follows from the arguments
             var subscription = new Subscription
             {
                 Id = Guid.NewGuid(),
@@ -54,21 +54,26 @@ namespace ProjectName.Services
                 ChangedUser = Guid.NewGuid() // Assuming a changed user ID is needed
             };
 
-            // Step 5: Insert each subscription in the Subscriptions table
-            try
+            // Step 5: In a single SQL transaction
+            using (var transaction = _dbConnection.BeginTransaction())
             {
-                await _dbConnection.ExecuteAsync("INSERT INTO Subscriptions (Id, ApplicationsId, ProductsId, Created, Changed, CreatorId, ChangedUser) VALUES (@Id, @ApplicationsId, @ProductsId, @Created, @Changed, @CreatorId, @ChangedUser)", subscription);
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
+                try
+                {
+                    await _dbConnection.ExecuteAsync("INSERT INTO Subscriptions (Id, ApplicationsId, ProductsId, Created, Changed, CreatorId, ChangedUser) VALUES (@Id, @ApplicationsId, @ProductsId, @Created, @Changed, @CreatorId, @ChangedUser)", subscription, transaction);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "Technical Error");
+                }
             }
 
             // Step 6: Return SubscriptionId from database
             return subscription.Id.ToString();
         }
 
-        public async Task<Subscription> GetSubscription(RequestSubscriptionDTO request)
+        public async Task<Subscription> GetSubscription(RequestSubscriptionDto request)
         {
             // Step 1: Validate input
             if (request.Id == Guid.Empty)
@@ -101,11 +106,11 @@ namespace ProjectName.Services
             subscription.Application = application;
             subscription.Product = product;
 
-            // Step 6: Return the fully populated subscription object
+            // Step 6: Return the fully populated subscription object including related application and product details
             return subscription;
         }
 
-        public async Task<string> UpdateSubscription(UpdateSubscriptionDTO request)
+        public async Task<string> UpdateSubscription(UpdateSubscriptionDto request)
         {
             // Step 1: Validate Necessary Parameters
             if (request.Id == Guid.Empty || request.ApplicationsId == Guid.Empty || request.ProductsId == Guid.Empty)
@@ -139,20 +144,25 @@ namespace ProjectName.Services
             subscription.Changed = DateTime.UtcNow;
 
             // Step 5: Save Changes to Database
-            try
+            using (var transaction = _dbConnection.BeginTransaction())
             {
-                await _dbConnection.ExecuteAsync("UPDATE Subscriptions SET ApplicationsId = @ApplicationsId, ProductsId = @ProductsId, Changed = @Changed WHERE Id = @Id", subscription);
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
+                try
+                {
+                    await _dbConnection.ExecuteAsync("UPDATE Subscriptions SET ApplicationsId = @ApplicationsId, ProductsId = @ProductsId, Changed = @Changed WHERE Id = @Id", subscription, transaction);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "Technical Error");
+                }
             }
 
             // Step 6: Return SubscriptionId from database
             return subscription.Id.ToString();
         }
 
-        public async Task<bool> DeleteSubscription(DeleteSubscriptionDTO request)
+        public async Task<bool> DeleteSubscription(DeleteSubscriptionDto request)
         {
             // Step 1: Validate that the request.payload.id contains the necessary parameter (Id)
             if (request.Id == Guid.Empty)
@@ -168,38 +178,41 @@ namespace ProjectName.Services
             }
 
             // Step 3: Delete the Subscription object from the database
-            try
+            using (var transaction = _dbConnection.BeginTransaction())
             {
-                await _dbConnection.ExecuteAsync("DELETE FROM Subscriptions WHERE Id = @Id", new { Id = request.Id });
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
+                try
+                {
+                    await _dbConnection.ExecuteAsync("DELETE FROM Subscriptions WHERE Id = @Id", new { Id = request.Id }, transaction);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "Technical Error");
+                }
             }
 
             // Step 4: Return true if the transaction is successful
             return true;
         }
 
-        public async Task<List<Subscription>> GetListSubscription(ListSubscriptionRequestDTO request)
+        public async Task<List<Subscription>> GetListSubscription(ListSubscriptionRequestDto request)
         {
             // Step 1: Validate that the request payload contains the necessary pagination parameters (PageLimit and PageOffset)
-            if (request.PageLimit <= 0 || request.PageOffset < 0)
+            if (request.PageLimit < 0 || request.PageOffset < 0)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
             // Step 2: Fetch the list of Subscriptions from the database based on the provided pagination parameters and optional sorting
-            var query = "SELECT * FROM Subscriptions ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
-            var parameters = new
+            var query = "SELECT * FROM Subscriptions";
+            if (request.SortField != null && request.SortOrder != null)
             {
-                SortField = request.SortField,
-                SortOrder = request.SortOrder,
-                PageOffset = request.PageOffset,
-                PageLimit = request.PageLimit
-            };
+                query += $" ORDER BY {request.SortField} {request.SortOrder}";
+            }
+            query += " OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
 
-            var subscriptions = await _dbConnection.QueryAsync<Subscription>(query, parameters);
+            var subscriptions = await _dbConnection.QueryAsync<Subscription>(query, new { PageOffset = request.PageOffset, PageLimit = request.PageLimit });
 
             // Step 3: Return the list of Subscriptions as the response payload
             return subscriptions.ToList();

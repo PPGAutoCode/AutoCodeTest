@@ -20,48 +20,49 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task<string> CreateOrganization(CreateOrganizationDTO createOrganizationDTO)
+        public async Task<string> CreateOrganization(CreateOrganizationDto request)
         {
             // Step 1: Request Validation
-            if (string.IsNullOrEmpty(createOrganizationDTO.Title) || createOrganizationDTO.Document == null)
+            if (string.IsNullOrEmpty(request.Title) || request.Status == null || request.File == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 2: Document Handling
-            if (string.IsNullOrEmpty(createOrganizationDTO.Document.Id) || string.IsNullOrEmpty(createOrganizationDTO.Document.Label) ||
-                string.IsNullOrEmpty(createOrganizationDTO.Document.AllowedFileExtensions))
+            // Step 2: Verify Title Uniqueness
+            var existingOrganization = await _dbConnection.QueryFirstOrDefaultAsync<Organization>(
+                "SELECT * FROM Organization WHERE Title = @Title", new { request.Title });
+            if (existingOrganization != null)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 3: Creating the Organization
+            // Step 3: File Handling
+            // Assuming File validation logic here
+
+            // Step 4: Creating the Organization
             var organization = new Organization
             {
                 Id = Guid.NewGuid(),
-                Title = createOrganizationDTO.Title,
-                Image = createOrganizationDTO.Image,
-                Description = createOrganizationDTO.Description,
-                Status = createOrganizationDTO.Status,
-                Document = createOrganizationDTO.Document,
+                Title = request.Title,
+                ImageId = request.Image,
+                Description = request.Description,
+                Status = request.Status,
+                FileId = request.File,
                 Created = DateTime.UtcNow,
                 Changed = DateTime.UtcNow
             };
 
-            // Step 4: In a single SQL transaction
+            // Step 5: Single SQL Transaction
             using (var transaction = _dbConnection.BeginTransaction())
             {
                 try
                 {
-                    const string insertOrganizationQuery = @"
-                        INSERT INTO Organization (Id, Title, Image, Description, Status, Document, Created, Changed)
-                        VALUES (@Id, @Title, @Image, @Description, @Status, @Document, @Created, @Changed)";
-                    await _dbConnection.ExecuteAsync(insertOrganizationQuery, organization, transaction);
+                    await _dbConnection.ExecuteAsync(
+                        "INSERT INTO Organization (Id, Title, ImageId, Description, Status, FileId, Created, Changed) " +
+                        "VALUES (@Id, @Title, @ImageId, @Description, @Status, @FileId, @Created, @Changed)",
+                        organization, transaction);
 
-                    const string insertDocumentQuery = @"
-                        INSERT INTO Document (Id, Label, Helptext, RequiredField, AllowedFileExtensions, FileDirectory, MaxUploadSize, EnableDescriptionField)
-                        VALUES (@Id, @Label, @Helptext, @RequiredField, @AllowedFileExtensions, @FileDirectory, @MaxUploadSize, @EnableDescriptionField)";
-                    await _dbConnection.ExecuteAsync(insertDocumentQuery, organization.Document, transaction);
+                    // Assuming File insertion logic here
 
                     transaction.Commit();
                 }
@@ -72,51 +73,46 @@ namespace ProjectName.Services
                 }
             }
 
-            // Step 5: Return Organization.Id from database
+            // Step 6: Return Value
             return organization.Id.ToString();
         }
 
-        public async Task<List<Organization>> GetListOrganization(GetListOrganizationRequestDTO requestDTO)
+        public async Task<List<Organization>> GetListOrganization(ListOrganizationRequestDto request)
         {
             // Step 1: Request Validation
-            if (requestDTO.PageLimit <= 0 || requestDTO.PageOffset < 0)
+            if (request.PageLimit <= 0 || request.PageOffset < 0)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
             // Step 2: Sorting and Pagination
-            var sortField = string.IsNullOrEmpty(requestDTO.SortField) ? "Title" : requestDTO.SortField;
-            var sortOrder = string.IsNullOrEmpty(requestDTO.SortOrder) ? "ASC" : requestDTO.SortOrder;
+            var query = "SELECT * FROM Organization";
+            if (!string.IsNullOrEmpty(request.SortField) && !string.IsNullOrEmpty(request.SortOrder))
+            {
+                query += $" ORDER BY {request.SortField} {request.SortOrder}";
+            }
+            query += $" OFFSET {request.PageOffset} ROWS FETCH NEXT {request.PageLimit} ROWS ONLY";
 
             // Step 3: Fetching Organization Data
-            var query = $@"
-                SELECT * FROM Organization
-                ORDER BY {sortField} {sortOrder}
-                OFFSET {requestDTO.PageOffset} ROWS
-                FETCH NEXT {requestDTO.PageLimit} ROWS ONLY";
-
             var organizations = await _dbConnection.QueryAsync<Organization>(query);
 
-            // Step 4: Return the list of Organizations
+            // Step 4: Return Value
             return organizations.ToList();
         }
 
-        public async Task<Organization> GetOrganization(OrganizationDTO organizationDTO)
+        public async Task<Organization> GetOrganization(OrganizationRequestDto request)
         {
-            // Step 1: Validate OrganizationDTO fields
-            if (organizationDTO.Id == Guid.Empty && string.IsNullOrEmpty(organizationDTO.Title))
+            // Step 1: Validation
+            if (request.Id == null && string.IsNullOrEmpty(request.Title))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 2: Fetch organization from database by the requested field
-            var query = @"
-                SELECT * FROM Organization
-                WHERE Id = @Id OR Title = @Title";
+            // Step 2: Fetch Organization
+            var organization = await _dbConnection.QueryFirstOrDefaultAsync<Organization>(
+                "SELECT * FROM Organization WHERE Id = @Id OR Title = @Title", new { request.Id, request.Title });
 
-            var organization = await _dbConnection.QueryFirstOrDefaultAsync<Organization>(query, new { Id = organizationDTO.Id, Title = organizationDTO.Title });
-
-            // Step 3: Return the Organization or throw exception if not found
+            // Step 3: Return Value
             if (organization == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
@@ -125,64 +121,59 @@ namespace ProjectName.Services
             return organization;
         }
 
-        public async Task<string> UpdateOrganization(UpdateOrganizationDTO updateOrganizationDTO)
+        public async Task<string> UpdateOrganization(UpdateOrganizationDto request)
         {
             // Step 1: Validate Necessary Parameters
-            if (updateOrganizationDTO.Id == Guid.Empty || string.IsNullOrEmpty(updateOrganizationDTO.Title))
+            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Title) || request.Status == null || request.File == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
             // Step 2: Fetch Existing Organization
-            var existingOrganization = await GetOrganization(new OrganizationDTO { Id = updateOrganizationDTO.Id });
+            var existingOrganization = await _dbConnection.QueryFirstOrDefaultAsync<Organization>(
+                "SELECT * FROM Organization WHERE Id = @Id", new { request.Id });
             if (existingOrganization == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 3: Update Organization Object
-            existingOrganization.Title = updateOrganizationDTO.Title;
-            existingOrganization.Image = updateOrganizationDTO.Image;
-            existingOrganization.Description = updateOrganizationDTO.Description;
-            existingOrganization.Status = updateOrganizationDTO.Status;
-            existingOrganization.Document = updateOrganizationDTO.Document;
+            existingOrganization.Title = request.Title;
+            existingOrganization.Status = request.Status;
+            existingOrganization.ImageId = request.Image;
+            existingOrganization.Description = request.Description;
+            existingOrganization.FileId = request.File;
             existingOrganization.Changed = DateTime.UtcNow;
 
             // Step 4: Save Changes to Database
-            const string updateQuery = @"
-                UPDATE Organization
-                SET Title = @Title, Image = @Image, Description = @Description, Status = @Status, Document = @Document, Changed = @Changed
-                WHERE Id = @Id";
+            await _dbConnection.ExecuteAsync(
+                "UPDATE Organization SET Title = @Title, Status = @Status, ImageId = @ImageId, Description = @Description, FileId = @FileId, Changed = @Changed WHERE Id = @Id",
+                existingOrganization);
 
-            await _dbConnection.ExecuteAsync(updateQuery, existingOrganization);
-
-            // Step 5: Return the updated Organization ID
+            // Step 5: Return Value
             return existingOrganization.Id.ToString();
         }
 
-        public async Task<bool> DeleteOrganization(DeleteOrganizationDTO deleteOrganizationDTO)
+        public async Task<bool> DeleteOrganization(DeleteOrganizationDto request)
         {
-            // Step 1: Validate that the request.payload.id contains the necessary parameter (Id)
-            if (deleteOrganizationDTO.Id == Guid.Empty)
+            // Step 1: Validate Request
+            if (request.Id == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 2: Get the existing Organization object from the database based on the provided userID
-            var existingOrganization = await GetOrganization(new OrganizationDTO { Id = deleteOrganizationDTO.Id });
+            // Step 2: Fetch Existing Organization
+            var existingOrganization = await _dbConnection.QueryFirstOrDefaultAsync<Organization>(
+                "SELECT * FROM Organization WHERE Id = @Id", new { request.Id });
             if (existingOrganization == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 3: Delete the Organization object from the database
-            const string deleteQuery = @"
-                DELETE FROM Organization
-                WHERE Id = @Id";
+            // Step 3: Delete Organization
+            await _dbConnection.ExecuteAsync("DELETE FROM Organization WHERE Id = @Id", new { request.Id });
 
-            await _dbConnection.ExecuteAsync(deleteQuery, new { Id = deleteOrganizationDTO.Id });
-
-            // Step 4: Return true if the transaction is successful
+            // Step 4: Return Value
             return true;
         }
     }

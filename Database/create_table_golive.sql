@@ -9,6 +9,5 @@ CREATE TABLE GoLive (
     FirstName NVARCHAR(200) NULL,
     LastName NVARCHAR(200) NULL,
     SiteUrlDownloadLocation NVARCHAR(200) NULL,
-    UseCases NVARCHAR(MAX) NULL,
-    Created DATETIME2(7) NOT NULL
+    UseCases NVARCHAR(MAX) NULL
 );

@@ -1,10 +1,11 @@
 
 
--- ProductFeatures Table
-CREATE TABLE ProductFeatures (
-    Id uniqueidentifier NOT NULL PRIMARY KEY,
-    Name nvarchar(200) NOT NULL,
-    Title nvarchar(200) NULL,
-    Description nvarchar(max) NULL,
-    Icon nvarchar(max) NULL
+-- Severities Table
+CREATE TABLE Severities (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Name NVARCHAR(200) NOT NULL,
+    Version INT NULL,
+    Created DATETIME2(7) NOT NULL,
+    Changed DATETIME2(7) NOT NULL,
+    CreatorId UNIQUEIDENTIFIER
 )

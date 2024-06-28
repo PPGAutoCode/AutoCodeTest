@@ -1,6 +1,8 @@
--- File:CreateTable_APIEndpointTags.sql
+CreateTable_APIEndpointTags.sql
 CREATE TABLE APIEndpointTags (
-    Id uniqueidentifier NOT NULL PRIMARY KEY,
-    APIEndpointId uniqueidentifier NOT NULL,
-    APITagId uniqueidentifier NOT NULL
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    APIEndpointId UNIQUEIDENTIFIER NOT NULL,
+    APITagId UNIQUEIDENTIFIER NOT NULL,
+    FOREIGN KEY (APIEndpointId) REFERENCES APIEndpoints(Id),
+    FOREIGN KEY (APITagId) REFERENCES ApiTags(Id)
 );

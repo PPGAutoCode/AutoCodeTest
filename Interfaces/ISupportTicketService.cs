@@ -13,36 +13,36 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Creates a new support ticket.
         /// </summary>
-        /// <param name="createSupportTicketDTO">Data transfer object containing the details for creating a support ticket.</param>
+        /// <param name="createSupportTicketDto">The data transfer object containing the details for creating a support ticket.</param>
         /// <returns>A string representing the unique identifier of the created support ticket.</returns>
-        Task<string> CreateSupportTicket(CreateSupportTicketDTO createSupportTicketDTO);
+        Task<string> CreateSupportTicket(CreateSupportTicketDto createSupportTicketDto);
 
         /// <summary>
         /// Retrieves a support ticket by its unique identifier.
         /// </summary>
-        /// <param name="requestSupportTicketDTO">Data transfer object containing the details for requesting a support ticket.</param>
+        /// <param name="requestSupportTicketDto">The data transfer object containing the details for requesting a support ticket.</param>
         /// <returns>A SupportTicket object representing the requested support ticket.</returns>
-        Task<SupportTicket> GetSupportTicket(RequestSupportTicketDTO requestSupportTicketDTO);
+        Task<SupportTicket> GetSupportTicket(RequestSupportTicketDto requestSupportTicketDto);
 
         /// <summary>
         /// Updates an existing support ticket.
         /// </summary>
-        /// <param name="updateSupportTicketDTO">Data transfer object containing the details for updating a support ticket.</param>
+        /// <param name="updateSupportTicketDto">The data transfer object containing the details for updating a support ticket.</param>
         /// <returns>A string representing the unique identifier of the updated support ticket.</returns>
-        Task<string> UpdateSupportTicket(UpdateSupportTicketDTO updateSupportTicketDTO);
+        Task<string> UpdateSupportTicket(UpdateSupportTicketDto updateSupportTicketDto);
 
         /// <summary>
         /// Deletes a support ticket by its unique identifier.
         /// </summary>
-        /// <param name="deleteSupportTicketDTO">Data transfer object containing the details for deleting a support ticket.</param>
+        /// <param name="deleteSupportTicketDto">The data transfer object containing the details for deleting a support ticket.</param>
         /// <returns>A boolean indicating whether the support ticket was successfully deleted.</returns>
-        Task<bool> DeleteSupportTicket(DeleteSupportTicketDTO deleteSupportTicketDTO);
+        Task<bool> DeleteSupportTicket(DeleteSupportTicketDto deleteSupportTicketDto);
 
         /// <summary>
         /// Retrieves a list of support tickets based on the provided criteria.
         /// </summary>
-        /// <param name="listSupportTicketRequestDTO">Data transfer object containing the criteria for listing support tickets.</param>
+        /// <param name="listSupportTicketRequestDto">The data transfer object containing the criteria for listing support tickets.</param>
         /// <returns>A list of SupportTicket objects representing the requested support tickets.</returns>
-        Task<List<SupportTicket>> GetListSupportTicket(ListSupportTicketRequestDTO listSupportTicketRequestDTO);
+        Task<List<SupportTicket>> GetListSupportTicket(ListSupportTicketRequestDto listSupportTicketRequestDto);
     }
 }

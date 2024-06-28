@@ -18,12 +18,19 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task<string> CreateGoLive(CreateGoLiveDTO request)
+        public async Task<string> CreateGoLive(CreateGoLiveDto request)
         {
             // Step 1: Validate the request payload
-            if (request.Address == null || request.ApplicationId == null || request.CompanyName == null ||
-                request.DeveloperType == null || request.Email == null || request.FirstName == null ||
-                request.LastName == null || request.SiteUrlDownloadLocation == null || request.UseCases == null)
+            if (request == null || 
+                string.IsNullOrEmpty(request.Address) || 
+                request.ApplicationId == Guid.Empty || 
+                string.IsNullOrEmpty(request.CompanyName) || 
+                string.IsNullOrEmpty(request.DeveloperType) || 
+                string.IsNullOrEmpty(request.Email) || 
+                string.IsNullOrEmpty(request.FirstName) || 
+                string.IsNullOrEmpty(request.LastName) || 
+                string.IsNullOrEmpty(request.SiteUrlDownloadLocation) || 
+                string.IsNullOrEmpty(request.UseCases))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
@@ -31,6 +38,7 @@ namespace ProjectName.Services
             // Step 2: Create a new GoLive object with the provided details
             var goLive = new GoLive
             {
+                Id = Guid.NewGuid(),
                 Address = request.Address,
                 ApplicationId = request.ApplicationId,
                 CompanyName = request.CompanyName,
@@ -39,21 +47,18 @@ namespace ProjectName.Services
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 SiteUrlDownloadLocation = request.SiteUrlDownloadLocation,
-                UseCases = request.UseCases,
-                Created = DateTime.UtcNow
+                UseCases = request.UseCases
             };
 
             // Step 3: Insert the newly created GoLive object to the database
             const string sql = @"
-                INSERT INTO GoLive (Id, Address, ApplicationId, CompanyName, DeveloperType, Email, FirstName, LastName, SiteUrlDownloadLocation, UseCases, Created)
-                VALUES (@Id, @Address, @ApplicationId, @CompanyName, @DeveloperType, @Email, @FirstName, @LastName, @SiteUrlDownloadLocation, @UseCases, @Created);
-                SELECT @Id;
-            ";
+                INSERT INTO GoLive (Id, Address, ApplicationId, CompanyName, DeveloperType, Email, FirstName, LastName, SiteUrlDownloadLocation, UseCases)
+                VALUES (@Id, @Address, @ApplicationId, @CompanyName, @DeveloperType, @Email, @FirstName, @LastName, @SiteUrlDownloadLocation, @UseCases)";
 
             try
             {
-                var id = await _dbConnection.QuerySingleAsync<Guid>(sql, goLive);
-                return id.ToString();
+                await _dbConnection.ExecuteAsync(sql, goLive);
+                return goLive.Id.ToString();
             }
             catch (Exception)
             {

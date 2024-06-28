@@ -1,6 +1,8 @@
-articleblogcategories.sql
-CREATE TABLE ArticleBlogCategories (
+
+
+-- SupportTicketCategories Table
+CREATE TABLE SupportTicketCategories (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    ArticleId UNIQUEIDENTIFIER NOT NULL,
-    BlogCategoryId UNIQUEIDENTIFIER NOT NULL
-);
+    SupportTicketId UNIQUEIDENTIFIER NOT NULL,
+    SupportCategoriesId UNIQUEIDENTIFIER NOT NULL
+)

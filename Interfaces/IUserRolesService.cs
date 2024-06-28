@@ -13,36 +13,36 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Creates a new user role.
         /// </summary>
-        /// <param name="createUserRoleDTO">Data transfer object containing the information needed to create a user role.</param>
-        /// <returns>A string representing the result of the operation.</returns>
-        Task<string> CreateUserRole(CreateUserRoleDTO createUserRoleDTO);
+        /// <param name="createUserRoleDto">The data transfer object containing the details of the user role to be created.</param>
+        /// <returns>A string representing the result of the creation operation.</returns>
+        Task<string> CreateUserRole(CreateUserRoleDto createUserRoleDto);
 
         /// <summary>
         /// Updates an existing user role.
         /// </summary>
-        /// <param name="updateUserRoleDTO">Data transfer object containing the information needed to update a user role.</param>
-        /// <returns>A string representing the result of the operation.</returns>
-        Task<string> UpdateUserRole(UpdateUserRoleDTO updateUserRoleDTO);
+        /// <param name="updateUserRoleDto">The data transfer object containing the details of the user role to be updated.</param>
+        /// <returns>A string representing the result of the update operation.</returns>
+        Task<string> UpdateUserRole(UpdateUserRoleDto updateUserRoleDto);
 
         /// <summary>
         /// Deletes a user role.
         /// </summary>
-        /// <param name="deleteUserRoleDTO">Data transfer object containing the information needed to delete a user role.</param>
-        /// <returns>A boolean indicating whether the operation was successful.</returns>
-        Task<bool> DeleteUserRole(DeleteUserRoleDTO deleteUserRoleDTO);
+        /// <param name="deleteUserRoleDto">The data transfer object containing the details of the user role to be deleted.</param>
+        /// <returns>A boolean indicating whether the deletion was successful.</returns>
+        Task<bool> DeleteUserRole(DeleteUserRoleDto deleteUserRoleDto);
 
         /// <summary>
-        /// Retrieves a list of user roles based on the provided request.
+        /// Retrieves a list of user roles based on the provided request details.
         /// </summary>
-        /// <param name="userRolesRequestDTO">Data transfer object containing the request parameters.</param>
+        /// <param name="userRolesRequestDto">The data transfer object containing the request details for retrieving user roles.</param>
         /// <returns>A list of user roles.</returns>
-        Task<List<UserRoles>> GetListUserRoles(UserRolesRequestDTO userRolesRequestDTO);
+        Task<List<UserRoles>> GetListUserRoles(UserRolesRequestDto userRolesRequestDto);
 
         /// <summary>
-        /// Retrieves a single user role based on the provided request.
+        /// Retrieves a single user role based on the provided request details.
         /// </summary>
-        /// <param name="userRolesRequestDTO">Data transfer object containing the request parameters.</param>
+        /// <param name="userRolesRequestDto">The data transfer object containing the request details for retrieving a user role.</param>
         /// <returns>A user role object.</returns>
-        Task<UserRoles> GetUserRole(UserRolesRequestDTO userRolesRequestDTO);
+        Task<UserRoles> GetUserRole(UserRolesRequestDto userRolesRequestDto);
     }
 }

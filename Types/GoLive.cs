@@ -1,4 +1,3 @@
-
 using System;
 
 namespace ProjectName.Types
@@ -15,6 +14,5 @@ namespace ProjectName.Types
         public string LastName { get; set; }
         public string SiteUrlDownloadLocation { get; set; }
         public string UseCases { get; set; }
-        public DateTime Created { get; set; }
     }
 }

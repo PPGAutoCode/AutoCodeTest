@@ -1,5 +1,8 @@
-blogtags.sql
-CREATE TABLE BlogTags (
+
+
+-- Message Table
+CREATE TABLE Message (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    Name NVARCHAR(200) NOT NULL
-);
+    SupportTicketId UNIQUEIDENTIFIER NOT NULL,
+    Body NVARCHAR(MAX) NOT NULL
+)

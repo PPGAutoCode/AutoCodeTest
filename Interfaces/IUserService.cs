@@ -15,34 +15,34 @@ namespace ProjectName.Interfaces
         /// </summary>
         /// <param name="request">The data needed to create a user.</param>
         /// <returns>A string indicating the result of the user creation process.</returns>
-        Task<string> CreateUser(CreateUserRequestDTO request);
+        Task<string> CreateUser(CreateUserRequestDto request);
 
         /// <summary>
         /// Retrieves a user based on the provided request data.
         /// </summary>
         /// <param name="request">The data needed to identify the user.</param>
         /// <returns>The user object if found.</returns>
-        Task<User> GetUser(UserRequestDTO request);
+        Task<User> GetUser(UserRequestDto request);
 
         /// <summary>
         /// Updates an existing user based on the provided request data.
         /// </summary>
         /// <param name="request">The data needed to update the user.</param>
         /// <returns>A string indicating the result of the user update process.</returns>
-        Task<string> UpdateUser(UpdateUserRequestDTO request);
+        Task<string> UpdateUser(UpdateUserRequestDto request);
 
         /// <summary>
         /// Deletes a user based on the provided request data.
         /// </summary>
         /// <param name="request">The data needed to identify the user to be deleted.</param>
         /// <returns>A boolean indicating whether the user was successfully deleted.</returns>
-        Task<bool> DeleteUser(DeleteUserRequestDTO request);
+        Task<bool> DeleteUser(DeleteUserRequestDto request);
 
         /// <summary>
         /// Retrieves a list of users based on the provided request data.
         /// </summary>
         /// <param name="request">The data needed to filter the list of users.</param>
         /// <returns>A list of user objects.</returns>
-        Task<List<User>> GetListUser(ListUserRequestDTO request);
+        Task<List<User>> GetListUser(ListUserRequestDto request);
     }
 }

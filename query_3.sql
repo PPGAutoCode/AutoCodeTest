@@ -1,8 +1,27 @@
--- BasicPageImages Table Query
-CREATE TABLE BasicPageImages (
+-- Products Table
+CREATE TABLE Products (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    BasicPageId UNIQUEIDENTIFIER NOT NULL,
-    ImageId UNIQUEIDENTIFIER NOT NULL,
-    FOREIGN KEY (BasicPageId) REFERENCES BasicPages(Id),
-    FOREIGN KEY (ImageId) REFERENCES Images(Id)
+    ApicHostname NVARCHAR(200) NULL,
+    attachments NVARCHAR(MAX) NULL,
+    CategoryId UNIQUEIDENTIFIER NULL,
+    Deprecated BIT NOT NULL,
+    DisableDocumentation BIT NOT NULL,
+    EnvironmentId NVARCHAR(200) NULL,
+    HeaderImage NVARCHAR(MAX) NULL,
+    Label NVARCHAR(200) NULL,
+    OverviewDisplay BIT NOT NULL,
+    Description NVARCHAR(MAX) NULL,
+    RelatedProducts UNIQUEIDENTIFIER NULL,
+    Domain NVARCHAR(200) NULL,
+    Enabled BIT NOT NULL,
+    Name NVARCHAR(200) NULL,
+    Image NVARCHAR(MAX) NULL,
+    Version NVARCHAR(200) NULL,
+    Visible BIT NOT NULL,
+    Weight INT NULL,
+    Langcode NVARCHAR(4) NOT NULL,
+    Sticky BIT NOT NULL,
+    Status BIT NOT NULL,
+    Promote BIT NOT NULL,
+    CommercialProduct BIT NOT NULL
 );

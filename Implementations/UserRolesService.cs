@@ -20,7 +20,7 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task<string> CreateUserRole(CreateUserRoleDTO request)
+        public async Task<string> CreateUserRole(CreateUserRoleDto request)
         {
             // Step 1: Validate Fields
             if (string.IsNullOrEmpty(request.Label) || string.IsNullOrEmpty(request.ReferenceMethod))
@@ -31,7 +31,7 @@ namespace ProjectName.Services
             // Step 2: Fetch DefaultValue
             foreach (var defaultValueId in request.DefaultValue)
             {
-                var defaultValue = await _dbConnection.QueryFirstOrDefaultAsync<DefaultValue>("SELECT * FROM DefaultValues WHERE Id = @Id", new { Id = defaultValueId });
+                var defaultValue = await _dbConnection.QuerySingleOrDefaultAsync<DefaultValue>("SELECT * FROM DefaultValues WHERE Id = @Id", new { Id = defaultValueId });
                 if (defaultValue == null)
                 {
                     throw new TechnicalException("DP-404", "Technical Error");
@@ -68,7 +68,7 @@ namespace ProjectName.Services
             return userRole.Id.ToString();
         }
 
-        public async Task<UserRole> GetUserRole(UserRolesRequestDTO request)
+        public async Task<UserRole> GetUserRole(UserRolesRequestDto request)
         {
             // Step 1: Validate Fields
             if (request.Id == null && string.IsNullOrEmpty(request.Label))
@@ -81,11 +81,11 @@ namespace ProjectName.Services
             // Step 2: Fetch UserRole from Database
             if (request.Id != null)
             {
-                userRole = await _dbConnection.QueryFirstOrDefaultAsync<UserRole>("SELECT * FROM UserRoles WHERE Id = @Id", new { Id = request.Id });
+                userRole = await _dbConnection.QuerySingleOrDefaultAsync<UserRole>("SELECT * FROM UserRoles WHERE Id = @Id", new { Id = request.Id });
             }
             else
             {
-                userRole = await _dbConnection.QueryFirstOrDefaultAsync<UserRole>("SELECT * FROM UserRoles WHERE Label = @Label", new { Label = request.Label });
+                userRole = await _dbConnection.QuerySingleOrDefaultAsync<UserRole>("SELECT * FROM UserRoles WHERE Label = @Label", new { Label = request.Label });
             }
 
             // Step 3: Fetch Default Values
@@ -93,23 +93,24 @@ namespace ProjectName.Services
             {
                 foreach (var defaultValueId in userRole.DefaultValue)
                 {
-                    var defaultValue = await _dbConnection.QueryFirstOrDefaultAsync<DefaultValue>("SELECT * FROM DefaultValues WHERE Id = @Id", new { Id = defaultValueId });
+                    var defaultValue = await _dbConnection.QuerySingleOrDefaultAsync<DefaultValue>("SELECT * FROM DefaultValues WHERE Id = @Id", new { Id = defaultValueId });
                     if (defaultValue == null)
                     {
                         throw new TechnicalException("DP-404", "Technical Error");
                     }
                 }
             }
-            else
+
+            // Step 4: Return UserRole
+            if (userRole == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 4: Return UserRole
             return userRole;
         }
 
-        public async Task<string> UpdateUserRole(UpdateUserRoleDTO request)
+        public async Task<string> UpdateUserRole(UpdateUserRoleDto request)
         {
             // Step 1: Validate Necessary Parameters
             if (request.Id == null || string.IsNullOrEmpty(request.Label) || string.IsNullOrEmpty(request.ReferenceMethod) || request.DefaultValue == null)
@@ -118,7 +119,7 @@ namespace ProjectName.Services
             }
 
             // Step 2: Fetch Existing UserRole
-            var userRole = await _dbConnection.QueryFirstOrDefaultAsync<UserRole>("SELECT * FROM UserRoles WHERE Id = @Id", new { Id = request.Id });
+            var userRole = await _dbConnection.QuerySingleOrDefaultAsync<UserRole>("SELECT * FROM UserRoles WHERE Id = @Id", new { Id = request.Id });
             if (userRole == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
@@ -127,7 +128,7 @@ namespace ProjectName.Services
             // Step 3: Validate Default Values
             foreach (var defaultValueId in request.DefaultValue)
             {
-                var defaultValue = await _dbConnection.QueryFirstOrDefaultAsync<DefaultValue>("SELECT * FROM DefaultValues WHERE Id = @Id", new { Id = defaultValueId });
+                var defaultValue = await _dbConnection.QuerySingleOrDefaultAsync<DefaultValue>("SELECT * FROM DefaultValues WHERE Id = @Id", new { Id = defaultValueId });
                 if (defaultValue == null)
                 {
                     throw new BusinessException("DP-422", "Client Error");
@@ -160,7 +161,7 @@ namespace ProjectName.Services
             return userRole.Id.ToString();
         }
 
-        public async Task<bool> DeleteUserRole(DeleteUserRoleDTO request)
+        public async Task<bool> DeleteUserRole(DeleteUserRoleDto request)
         {
             // Step 1: Validate Necessary Parameter
             if (request.Id == null)
@@ -169,7 +170,7 @@ namespace ProjectName.Services
             }
 
             // Step 2: Fetch Existing UserRole
-            var userRole = await _dbConnection.QueryFirstOrDefaultAsync<UserRole>("SELECT * FROM UserRoles WHERE Id = @Id", new { Id = request.Id });
+            var userRole = await _dbConnection.QuerySingleOrDefaultAsync<UserRole>("SELECT * FROM UserRoles WHERE Id = @Id", new { Id = request.Id });
             if (userRole == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
@@ -191,12 +192,17 @@ namespace ProjectName.Services
             return true;
         }
 
-        public async Task<List<UserRole>> GetListUserRoles(UserRolesRequestDTO request)
+        public async Task<List<UserRole>> GetListUserRoles(UserRolesRequestDto request)
         {
             // Step 1: Fetch UserRoles from Database
             var userRoles = await _dbConnection.QueryAsync<UserRole>("SELECT * FROM UserRoles");
 
             // Step 2: Return UserRoles List
+            if (userRoles == null)
+            {
+                throw new TechnicalException("DP-500", "Technical Error");
+            }
+
             return userRoles.ToList();
         }
     }

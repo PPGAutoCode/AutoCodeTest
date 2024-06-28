@@ -1,7 +1,8 @@
-files.sql
-CREATE TABLE Files (
+
+
+-- SupportTicketEnvironments Table
+CREATE TABLE SupportTicketEnvironments (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    FileName NVARCHAR(100) NOT NULL UNIQUE,
-    FileUrl VARBINARY(MAX) NOT NULL,
-    Timestamp DATETIME NOT NULL
-);
+    SupportTicketId UNIQUEIDENTIFIER NOT NULL,
+    EnvironmentsId UNIQUEIDENTIFIER NOT NULL
+)

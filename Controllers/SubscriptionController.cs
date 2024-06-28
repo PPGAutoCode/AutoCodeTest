@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.Types;
 using ProjectName.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,7 +19,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateSubscription([FromBody] Request<CreateSubscriptionDTO> request)
+        public async Task<IActionResult> CreateSubscription([FromBody] Request<CreateSubscriptionDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -30,7 +29,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> GetSubscription([FromBody] Request<RequestSubscription> request)
+        public async Task<IActionResult> GetSubscription([FromBody] Request<RequestSubscriptionDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -40,7 +39,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateSubscription([FromBody] Request<UpdateSubscriptionDTO> request)
+        public async Task<IActionResult> UpdateSubscription([FromBody] Request<UpdateSubscriptionDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -50,7 +49,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteSubscription([FromBody] Request<DeleteSubscriptionDTO> request)
+        public async Task<IActionResult> DeleteSubscription([FromBody] Request<DeleteSubscriptionDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
@@ -60,7 +59,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("list")]
-        public async Task<IActionResult> GetListSubscription([FromBody] Request<ListSubscriptionRequestDTO> request)
+        public async Task<IActionResult> GetListSubscription([FromBody] Request<ListSubscriptionRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {

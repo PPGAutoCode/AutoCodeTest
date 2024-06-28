@@ -1,2 +1,0 @@
-
-Image.cs file is created successfully in the Types directory.

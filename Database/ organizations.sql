@@ -1,0 +1,8 @@
+-- organizations.sql
+CREATE TABLE Organizations (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Title NVARCHAR(200) NOT NULL UNIQUE,
+    Description NVARCHAR(MAX) NULL,
+    ImageId UNIQUEIDENTIFIER NULL,
+    Status BIT NOT NULL
+);

@@ -1,4 +1,3 @@
-
 -- File: DefaultValue.sql
 CREATE TABLE DefaultValue (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,

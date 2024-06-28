@@ -39,7 +39,8 @@ namespace ProjectName.Services
 
             const string sql = @"
                 INSERT INTO SupportCategories (Id, Name, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser)";
+                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser);
+            ";
 
             try
             {
@@ -59,7 +60,9 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = "SELECT * FROM SupportCategories WHERE Id = @Id";
+            const string sql = @"
+                SELECT * FROM SupportCategories WHERE Id = @Id;
+            ";
 
             try
             {
@@ -83,9 +86,11 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = "SELECT * FROM SupportCategories WHERE Id = @Id";
-            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(selectSql, new { request.Id });
+            const string selectSql = @"
+                SELECT * FROM SupportCategories WHERE Id = @Id;
+            ";
 
+            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(selectSql, new { request.Id });
             if (existingCategory == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
@@ -97,9 +102,10 @@ namespace ProjectName.Services
             existingCategory.ChangedUser = request.ChangedUser;
 
             const string updateSql = @"
-                UPDATE SupportCategories 
-                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser 
-                WHERE Id = @Id";
+                UPDATE SupportCategories
+                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
+                WHERE Id = @Id;
+            ";
 
             try
             {
@@ -119,15 +125,19 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = "SELECT * FROM SupportCategories WHERE Id = @Id";
-            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(selectSql, new { request.Id });
+            const string selectSql = @"
+                SELECT * FROM SupportCategories WHERE Id = @Id;
+            ";
 
+            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(selectSql, new { request.Id });
             if (existingCategory == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            const string deleteSql = "DELETE FROM SupportCategories WHERE Id = @Id";
+            const string deleteSql = @"
+                DELETE FROM SupportCategories WHERE Id = @Id;
+            ";
 
             try
             {
@@ -148,17 +158,17 @@ namespace ProjectName.Services
             }
 
             const string sql = @"
-                SELECT * FROM SupportCategories 
-                ORDER BY @SortField @SortOrder 
-                OFFSET @PageOffset ROWS 
-                FETCH NEXT @PageLimit ROWS ONLY";
+                SELECT * FROM SupportCategories
+                ORDER BY @SortField @SortOrder
+                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY;
+            ";
 
             try
             {
                 var supportCategories = await _dbConnection.QueryAsync<SupportCategory>(sql, new
                 {
-                    request.PageLimit,
                     request.PageOffset,
+                    request.PageLimit,
                     SortField = request.SortField,
                     SortOrder = request.SortOrder
                 });

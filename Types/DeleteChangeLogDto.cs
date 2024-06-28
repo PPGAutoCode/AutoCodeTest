@@ -1,9 +1,8 @@
 
 namespace ProjectName.Types
 {
-    public class Product
+    public class DeleteChangeLogDto
     {
         public string Id { get; set; }
-        // Other properties...
     }
 }

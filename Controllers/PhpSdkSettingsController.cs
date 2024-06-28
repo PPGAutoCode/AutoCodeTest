@@ -2,13 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.Types;
 using ProjectName.Interfaces;
-using System;
 using System.Threading.Tasks;
 
 namespace ProjectName.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("PhpSdkSettings")]
     public class PhpSdkSettingsController : ControllerBase
     {
         private readonly IPhpSdkSettingsService _phpSdkSettingsService;
@@ -57,45 +56,5 @@ namespace ProjectName.Controllers
                 return Ok(new Response<bool> { Payload = result });
             });
         }
-    }
-
-    public static class SafeExecutor
-    {
-        public static async Task<IActionResult> ExecuteAsync(Func<Task<IActionResult>> action)
-        {
-            try
-            {
-                return await action();
-            }
-            catch (Exception ex)
-            {
-                return new OkObjectResult(new Response<object>
-                {
-                    Exception = new ExceptionInfo
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = ex is BusinessException || ex is TechnicalException ? ex.GetType().Name : "1001",
-                        Description = ex is BusinessException || ex is TechnicalException ? ex.Message : "A technical exception has occurred, please contact your system administrator"
-                    }
-                });
-            }
-        }
-    }
-
-    public class Request<T>
-    {
-        public Header Header { get; set; }
-        public T Payload { get; set; }
-    }
-
-    public class Response<T>
-    {
-        public T Payload { get; set; }
-        public ExceptionInfo Exception { get; set; }
-    }
-
-    public class Header
-    {
-        public string ID { get; set; }
     }
 }

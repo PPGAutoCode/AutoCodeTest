@@ -15,34 +15,34 @@ namespace ProjectName.Interfaces
         /// </summary>
         /// <param name="createSupportCategoryDto">Data transfer object for creating a support category.</param>
         /// <returns>The ID of the created support category.</returns>
-        Task<string> CreateSupportCategoryAsync(CreateSupportCategoryDto createSupportCategoryDto);
+        Task<string> CreateSupportCategory(CreateSupportCategoryDto createSupportCategoryDto);
 
         /// <summary>
         /// Retrieves a support category by its request details.
         /// </summary>
         /// <param name="supportCategoryRequestDto">Data transfer object for requesting a support category.</param>
         /// <returns>The requested support category.</returns>
-        Task<SupportCategory> GetSupportCategoryAsync(SupportCategoryRequestDto supportCategoryRequestDto);
+        Task<SupportCategory> GetSupportCategory(SupportCategoryRequestDto supportCategoryRequestDto);
 
         /// <summary>
         /// Updates an existing support category.
         /// </summary>
         /// <param name="updateSupportCategoryDto">Data transfer object for updating a support category.</param>
         /// <returns>The ID of the updated support category.</returns>
-        Task<string> UpdateSupportCategoryAsync(UpdateSupportCategoryDto updateSupportCategoryDto);
+        Task<string> UpdateSupportCategory(UpdateSupportCategoryDto updateSupportCategoryDto);
 
         /// <summary>
         /// Deletes a support category.
         /// </summary>
         /// <param name="deleteSupportCategoryDto">Data transfer object for deleting a support category.</param>
         /// <returns>True if the support category was deleted successfully, otherwise false.</returns>
-        Task<bool> DeleteSupportCategoryAsync(DeleteSupportCategoryDto deleteSupportCategoryDto);
+        Task<bool> DeleteSupportCategory(DeleteSupportCategoryDto deleteSupportCategoryDto);
 
         /// <summary>
         /// Retrieves a list of support categories based on the request details.
         /// </summary>
         /// <param name="listSupportCategoryRequestDto">Data transfer object for requesting a list of support categories.</param>
         /// <returns>A list of support categories.</returns>
-        Task<List<SupportCategory>> GetListSupportCategoryAsync(ListSupportCategoryRequestDto listSupportCategoryRequestDto);
+        Task<List<SupportCategory>> GetListSupportCategory(ListSupportCategoryRequestDto listSupportCategoryRequestDto);
     }
 }

@@ -9,10 +9,10 @@ namespace ProjectName.Interfaces
     public interface IGoLiveService
     {
         /// <summary>
-        /// Asynchronously creates a go-live event.
+        /// Asynchronously creates a go-live entry.
         /// </summary>
-        /// <param name="createGoLive">The data required to create a go-live event.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the string identifier of the created go-live event.</returns>
-        Task<string> CreateGoLive(CreateGoLive createGoLive);
+        /// <param name="createGoLiveDTO">The data transfer object containing the information needed to create a go-live entry.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the string identifier of the created go-live entry.</returns>
+        Task<string> CreateGoLive(CreateGoLiveDTO createGoLiveDTO);
     }
 }

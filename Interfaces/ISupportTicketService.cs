@@ -42,7 +42,7 @@ namespace ProjectName.Interfaces
         /// Retrieves a list of support tickets based on the provided criteria.
         /// </summary>
         /// <param name="listSupportTicketRequestDTO">Data transfer object containing the criteria for listing support tickets.</param>
-        /// <returns>A list of SupportTicket objects representing the support tickets that match the criteria.</returns>
+        /// <returns>A list of SupportTicket objects representing the requested support tickets.</returns>
         Task<List<SupportTicket>> GetListSupportTicketAsync(ListSupportTicketRequestDTO listSupportTicketRequestDTO);
     }
 }

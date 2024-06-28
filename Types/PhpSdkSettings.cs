@@ -1,9 +1,12 @@
 
+// PhpSdkSettings.cs
+using System;
+
 namespace ProjectName.Types
 {
     public class PhpSdkSettings
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string IDSPortalEnabled { get; set; }
         public string TokenUrl { get; set; }
         public string AuthorizationUrl { get; set; }
@@ -38,7 +41,7 @@ namespace ProjectName.Types
         public int Version { get; set; }
         public DateTime Created { get; set; }
         public DateTime Changed { get; set; }
-        public string CreatorId { get; set; }
-        public string ChangedUser { get; set; }
+        public Guid CreatorId { get; set; }
+        public Guid ChangedUser { get; set; }
     }
 }

@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.Types;
 using ProjectName.Interfaces;
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ProjectName.Controllers
 {
     [ApiController]
-    [Route("contact")]
+    [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
@@ -23,81 +23,49 @@ namespace ProjectName.Controllers
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
-                string result = await _contactService.CreateContact(request.Payload);
+                var result = await _contactService.CreateContact(request.Payload);
                 return Ok(new Response<string> { Payload = result });
             });
         }
-    }
 
-    public static class SafeExecutor
-    {
-        public static async Task<IActionResult> ExecuteAsync(Func<Task<IActionResult>> action)
+        [HttpPost("get")]
+        public async Task<IActionResult> GetContact([FromBody] Request<ContactRequestDto> request)
         {
-            try
+            return await SafeExecutor.ExecuteAsync(async () =>
             {
-                return await action();
-            }
-            catch (BusinessException ex)
-            {
-                return new OkObjectResult(new Response<object>
-                {
-                    Exception = new ExceptionInfo
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = ex.Code,
-                        Description = ex.Description
-                    }
-                });
-            }
-            catch (TechnicalException ex)
-            {
-                return new OkObjectResult(new Response<object>
-                {
-                    Exception = new ExceptionInfo
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = ex.Code,
-                        Description = ex.Description
-                    }
-                });
-            }
-            catch (Exception)
-            {
-                return new OkObjectResult(new Response<object>
-                {
-                    Exception = new ExceptionInfo
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Code = "1001",
-                        Description = "A technical exception has occurred, please contact your system administrator"
-                    }
-                });
-            }
+                var result = await _contactService.GetContact(request.Payload);
+                return Ok(new Response<Contact> { Payload = result });
+            });
         }
-    }
 
-    public class Response<T>
-    {
-        public T Payload { get; set; }
-        public ExceptionInfo Exception { get; set; }
-    }
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateContact([FromBody] Request<UpdateContactDto> request)
+        {
+            return await SafeExecutor.ExecuteAsync(async () =>
+            {
+                var result = await _contactService.UpdateContact(request.Payload);
+                return Ok(new Response<string> { Payload = result });
+            });
+        }
 
-    public class ExceptionInfo
-    {
-        public string Id { get; set; }
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteContact([FromBody] Request<DeleteContactDto> request)
+        {
+            return await SafeExecutor.ExecuteAsync(async () =>
+            {
+                var result = await _contactService.DeleteContact(request.Payload);
+                return Ok(new Response<bool> { Payload = result });
+            });
+        }
 
-    public class BusinessException : Exception
-    {
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
-
-    public class TechnicalException : Exception
-    {
-        public string Code { get; set; }
-        public string Description { get; set; }
+        [HttpPost("list")]
+        public async Task<IActionResult> GetListContact([FromBody] Request<ListContactRequestDto> request)
+        {
+            return await SafeExecutor.ExecuteAsync(async () =>
+            {
+                var result = await _contactService.GetListContact(request.Payload);
+                return Ok(new Response<List<Contact>> { Payload = result });
+            });
+        }
     }
 }

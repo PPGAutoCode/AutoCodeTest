@@ -1,4 +1,5 @@
 
+// File: ProductTag.cs
 namespace ProjectName.Types
 {
     public class ProductTag

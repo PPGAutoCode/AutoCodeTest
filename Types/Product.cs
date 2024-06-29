@@ -1,4 +1,5 @@
 
+// File: Product.cs
 namespace ProjectName.Types
 {
     public class Product
@@ -10,7 +11,7 @@ namespace ProjectName.Types
         public List<RelatedProducts>? RelatedProducts { get; set; }
         public Comparison? Comparison { get; set; }
         public List<APIEndpoint>? APIEndpoint { get; set; }
-        public List<Tag>? Tags { get; set; }
+        public List<ProductTag>? Tags { get; set; }
         public List<ProductCategories>? Categories { get; set; }
         public string? attachments { get; set; }
         public bool? Deprecated { get; set; }

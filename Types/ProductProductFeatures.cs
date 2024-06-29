@@ -1,4 +1,5 @@
 
+// File: ProductProductFeatures.cs
 namespace ProjectName.Types
 {
     public class ProductProductFeatures

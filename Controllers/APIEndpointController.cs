@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ProjectName.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("APIEndpoint")]
     public class APIEndpointController : ControllerBase
     {
         private readonly IAPIEndpointService _apiEndpointService;
@@ -24,7 +24,7 @@ namespace ProjectName.Controllers
             return await SafeExecutor.ExecuteAsync(async () =>
             {
                 var result = await _apiEndpointService.CreateAPIEndpoint(request);
-                return Ok(new Response<string> { Data = result });
+                return Ok(result);
             });
         }
 
@@ -34,7 +34,7 @@ namespace ProjectName.Controllers
             return await SafeExecutor.ExecuteAsync(async () =>
             {
                 var result = await _apiEndpointService.GetAPIEndpoint(request);
-                return Ok(new Response<APIEndpoint> { Data = result });
+                return Ok(result);
             });
         }
 
@@ -44,7 +44,7 @@ namespace ProjectName.Controllers
             return await SafeExecutor.ExecuteAsync(async () =>
             {
                 var result = await _apiEndpointService.UpdateAPIEndpoint(request);
-                return Ok(new Response<string> { Data = result });
+                return Ok(result);
             });
         }
 
@@ -54,7 +54,7 @@ namespace ProjectName.Controllers
             return await SafeExecutor.ExecuteAsync(async () =>
             {
                 var result = await _apiEndpointService.DeleteAPIEndpoint(request);
-                return Ok(new Response<bool> { Data = result });
+                return Ok(result);
             });
         }
 
@@ -64,7 +64,7 @@ namespace ProjectName.Controllers
             return await SafeExecutor.ExecuteAsync(async () =>
             {
                 var result = await _apiEndpointService.GetListAPIEndpoint(request);
-                return Ok(new Response<List<APIEndpoint>> { Data = result });
+                return Ok(result);
             });
         }
     }

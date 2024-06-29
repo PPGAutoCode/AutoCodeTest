@@ -1,8 +1,3 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/APIEndpointController.cs(27,50): error CS0117: 'Response<string>' does not contain a definition for 'Data'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/APIEndpointController.cs(37,55): error CS0117: 'Response<APIEndpoint>' does not contain a definition for 'Data'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/APIEndpointController.cs(47,50): error CS0117: 'Response<string>' does not contain a definition for 'Data'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/APIEndpointController.cs(57,48): error CS0117: 'Response<bool>' does not contain a definition for 'Data'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/APIEndpointController.cs(67,61): error CS0117: 'Response<List<APIEndpoint>>' does not contain a definition for 'Data'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SelectTicketPriorityController.cs(27,24): error CS0266: Cannot implicitly convert type 'ProjectName.Controllers.Response<string>' to 'Microsoft.AspNetCore.Mvc.IActionResult'. An explicit conversion exists (are you missing a cast?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SelectTicketPriorityController.cs(27,24): error CS4010: Cannot convert async lambda expression to delegate type 'Task<IActionResult>'. An async lambda expression may return void, Task or Task<T>, none of which are convertible to 'Task<IActionResult>'.
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SelectTicketPriorityController.cs(37,24): error CS0266: Cannot implicitly convert type 'ProjectName.Controllers.Response<ProjectName.Types.SelectTicketPriority>' to 'Microsoft.AspNetCore.Mvc.IActionResult'. An explicit conversion exists (are you missing a cast?)
@@ -114,4 +109,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Us
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserService.cs(54,33): error CS1061: 'CreateUserRequestDto' does not contain a definition for 'Image' and no accessible extension method 'Image' accepting a first argument of type 'CreateUserRequestDto' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserService.cs(59,17): error CS0117: 'User' does not contain a definition for 'IBM_UId'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserService.cs(59,35): error CS1061: 'CreateUserRequestDto' does not contain a definition for 'IBM_UId' and no accessible extension method 'IBM_UId' accepting a first argument of type 'CreateUserRequestDto' could be found (are you missing a using directive or an assembly reference?)
-Error: 116 Error(s)
+Error: 111 Error(s)

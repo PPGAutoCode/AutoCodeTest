@@ -1,9 +1,6 @@
 
 namespace ProjectName.Types
 {
-    using System;
-    using System.Collections.Generic;
-
     public class CreateUserRequestDto
     {
         public string Nickname { get; set; }
@@ -23,9 +20,14 @@ namespace ProjectName.Types
         public string IBMUId { get; set; }
         public int? MaxNumApps { get; set; }
         public List<string> CompletedStories { get; set; }
-        public Enum UserType { get; set; }
+        public UserType? UserType { get; set; }
         public Guid? UserQuestionnaire { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastAccess { get; set; }
+    }
+
+    public enum UserType
+    {
+        // Define enum values here
     }
 }

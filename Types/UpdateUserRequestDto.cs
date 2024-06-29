@@ -1,9 +1,6 @@
 
 namespace ProjectName.Types
 {
-    using System;
-    using System.Collections.Generic;
-
     public class UpdateUserRequestDto
     {
         public Guid Id { get; set; }

@@ -8,7 +8,7 @@ namespace ProjectName.Types
         public Guid AssigneDto { get; set; }
         public string ContactDetails { get; set; }
         public string DateClosed { get; set; }
-        public Environment EnvironmentImpacted { get; set; }
+        public AppEnvironment EnvironmentImpacted { get; set; }
         public string NameOfReportingOrganization { get; set; }
         public string Priority { get; set; }
         public Severity Severity { get; set; }

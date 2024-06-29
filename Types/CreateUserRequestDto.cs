@@ -25,9 +25,4 @@ namespace ProjectName.Types
         public DateTime Created { get; set; }
         public DateTime LastAccess { get; set; }
     }
-
-    public enum UserType
-    {
-        // Define enum values here
-    }
 }

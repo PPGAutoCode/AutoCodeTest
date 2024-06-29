@@ -1,4 +1,6 @@
 
+using System;
+
 namespace ProjectName.Types
 {
     public class UpdatePhpSdkSettingsDto
@@ -6,7 +8,7 @@ namespace ProjectName.Types
         public Guid Id { get; set; }
         public string IDSPortalEnabled { get; set; }
         public string TokenUrl { get; set; }
-        public string? AuthorizationUrl { get; set; }
+        public string AuthorizationUrl { get; set; }
         public string UserInfoUrl { get; set; }
         public string PortalUrl { get; set; }
         public string ClientId { get; set; }
@@ -34,6 +36,7 @@ namespace ProjectName.Types
         public string MaxAppsPerUser { get; set; }
         public string DisableSnippetGeneration { get; set; }
         public string DisableDocumentationGeneration { get; set; }
-        public string? JsonApiRoles { get; set; }
+        public string JsonApiRoles { get; set; }
+        public Guid ChangedUser { get; set; }
     }
 }

@@ -13,36 +13,36 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Creates a new basic page.
         /// </summary>
-        /// <param name="createBasicPageDto">Data transfer object for creating a basic page.</param>
-        /// <returns>A string representing the result of the creation operation.</returns>
+        /// <param name="createBasicPageDto">The data transfer object containing the information to create a basic page.</param>
+        /// <returns>A string indicating the result of the operation.</returns>
         Task<string> CreateBasicPage(CreateBasicPageDto createBasicPageDto);
 
         /// <summary>
-        /// Retrieves a basic page based on the provided request data.
+        /// Retrieves a basic page by the given request data.
         /// </summary>
-        /// <param name="basicPageRequestDto">Data transfer object for requesting a basic page.</param>
-        /// <returns>A BasicPage object representing the retrieved page.</returns>
+        /// <param name="basicPageRequestDto">The data transfer object containing the request information to retrieve a basic page.</param>
+        /// <returns>The basic page object.</returns>
         Task<BasicPage> GetBasicPage(BasicPageRequestDto basicPageRequestDto);
 
         /// <summary>
         /// Updates an existing basic page.
         /// </summary>
-        /// <param name="updateBasicPageDto">Data transfer object for updating a basic page.</param>
-        /// <returns>A string representing the result of the update operation.</returns>
+        /// <param name="updateBasicPageDto">The data transfer object containing the information to update a basic page.</param>
+        /// <returns>A string indicating the result of the operation.</returns>
         Task<string> UpdateBasicPage(UpdateBasicPageDto updateBasicPageDto);
 
         /// <summary>
-        /// Deletes a basic page based on the provided request data.
+        /// Deletes a basic page by the given request data.
         /// </summary>
-        /// <param name="deleteBasicPageDto">Data transfer object for deleting a basic page.</param>
-        /// <returns>A boolean indicating the success of the deletion operation.</returns>
-        Task<bool> DeleteBasicPage(DeleteBasicPageDto deleteBasicPageDto);
+        /// <param name="deleteBasicPageDto">The data transfer object containing the information to delete a basic page.</param>
+        /// <returns>A string indicating the result of the operation.</returns>
+        Task<string> DeleteBasicPage(DeleteBasicPageDto deleteBasicPageDto);
 
         /// <summary>
-        /// Retrieves a list of basic pages based on the provided request data.
+        /// Retrieves a list of basic pages by the given request data.
         /// </summary>
-        /// <param name="listBasicPageRequestDto">Data transfer object for requesting a list of basic pages.</param>
-        /// <returns>A list of BasicPage objects representing the retrieved pages.</returns>
+        /// <param name="listBasicPageRequestDto">The data transfer object containing the request information to retrieve a list of basic pages.</param>
+        /// <returns>A list of basic page objects.</returns>
         Task<List<BasicPage>> GetListBasicPage(ListBasicPageRequestDto listBasicPageRequestDto);
     }
 }

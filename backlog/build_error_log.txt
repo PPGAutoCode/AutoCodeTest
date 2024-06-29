@@ -6,7 +6,6 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeEx
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(51,18): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'TechnicalException'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(8,25): error CS0101: The namespace 'ProjectName.Controllers' already contains a definition for 'SafeExecutor'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(14,35): error CS0535: 'ArticleService' does not implement interface member 'IArticleService.GetListArticle(ListArticleRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BasicPageService.cs(13,37): error CS0738: 'BasicPageService' does not implement interface member 'IBasicPageService.DeleteBasicPage(DeleteBasicPageDto)'. 'BasicPageService.DeleteBasicPage(DeleteBasicPageDto)' cannot implement 'IBasicPageService.DeleteBasicPage(DeleteBasicPageDto)' because it does not have the matching return type of 'Task<bool>'.
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/EnvironmentService.cs(143,32): error CS0104: 'Environment' is an ambiguous reference between 'ProjectName.Types.Environment' and 'System.Environment'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/EnvironmentService.cs(55,27): error CS0104: 'Environment' is an ambiguous reference between 'ProjectName.Types.Environment' and 'System.Environment'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/FileService.cs(122,32): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
@@ -47,4 +46,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileSe
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(46,19): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(25,44): error CS0246: The type or namespace name 'OrganizationDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(46,54): error CS0246: The type or namespace name 'ListOrganizationRequesteDto' could not be found (are you missing a using directive or an assembly reference?)
-Error: 49 Error(s)
+Error: 48 Error(s)

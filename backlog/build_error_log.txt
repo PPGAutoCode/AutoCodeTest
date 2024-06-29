@@ -15,10 +15,6 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Go
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/GoLiveDeveloperTypeService.cs(13,47): error CS0535: 'GoLiveDeveloperTypeService' does not implement interface member 'IGoLiveDeveloperTypeService.GetGoLiveDeveloperTypeAsync(GoLiveDeveloperTypeRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/GoLiveDeveloperTypeService.cs(13,47): error CS0535: 'GoLiveDeveloperTypeService' does not implement interface member 'IGoLiveDeveloperTypeService.GetListGoLiveDeveloperTypeAsync(ListGoLiveDeveloperTypeRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/GoLiveDeveloperTypeService.cs(13,47): error CS0535: 'GoLiveDeveloperTypeService' does not implement interface member 'IGoLiveDeveloperTypeService.UpdateGoLiveDeveloperTypeAsync(UpdateGoLiveDeveloperTypeDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.DeleteImage(DeleteImageDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetImage(ImageRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.GetListImage(ListImageRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.UpdateImage(UpdateImageDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/OrganizationService.cs(14,40): error CS0535: 'OrganizationService' does not implement interface member 'IOrganizationService.GetListOrganization(ListOrganizationRequesteDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/OrganizationService.cs(14,40): error CS0535: 'OrganizationService' does not implement interface member 'IOrganizationService.GetOrganization(OrganizationDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.DeleteProduct(DeleteProductDto)'
@@ -42,4 +38,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileSe
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(46,19): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(25,44): error CS0246: The type or namespace name 'OrganizationDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(46,54): error CS0246: The type or namespace name 'ListOrganizationRequesteDto' could not be found (are you missing a using directive or an assembly reference?)
-Error: 44 Error(s)
+Error: 40 Error(s)

@@ -1,7 +1,4 @@
 
-// DeleteProductTagDto.cs
-using System;
-
 namespace ProjectName.Types
 {
     public class DeleteProductTagDto

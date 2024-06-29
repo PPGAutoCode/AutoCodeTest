@@ -1,9 +1,6 @@
 
 namespace ProjectName.Types
 {
-    using System;
-    using System.Collections.Generic;
-
     public class User
     {
         public Guid Id { get; set; }
@@ -21,7 +18,7 @@ namespace ProjectName.Types
         public string LastName { get; set; }
         public string Company { get; set; }
         public string Phone { get; set; }
-        public string IBMUId { get; set; }
+        public string IBM_UId { get; set; }
         public int? MaxNumApps { get; set; }
         public List<string> CompletedStories { get; set; }
         public Guid? UserType { get; set; }

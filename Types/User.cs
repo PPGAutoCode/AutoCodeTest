@@ -1,6 +1,9 @@
 
 namespace ProjectName.Types
 {
+    using System;
+    using System.Collections.Generic;
+
     public class User
     {
         public Guid Id { get; set; }

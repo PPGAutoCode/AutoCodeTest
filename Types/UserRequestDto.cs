@@ -1,6 +1,8 @@
 
 namespace ProjectName.Types
 {
+    using System;
+
     public class UserRequestDto
     {
         public Guid? Id { get; set; }

@@ -1,6 +1,8 @@
 
 namespace ProjectName.Types
 {
+    using System;
+
     public class UserRolesUsers
     {
         public Guid Id { get; set; }

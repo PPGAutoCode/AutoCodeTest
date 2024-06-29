@@ -14,14 +14,14 @@ namespace ProjectName.Interfaces
         /// Creates a new user questionnaire.
         /// </summary>
         /// <param name="createUserQuestionnaireDto">The data transfer object containing the details for creating a user questionnaire.</param>
-        /// <returns>A string representing the result of the creation operation.</returns>
+        /// <returns>A string representing the unique identifier of the created user questionnaire.</returns>
         Task<string> CreateUserQuestionnaire(CreateUserQuestionnaireDto createUserQuestionnaireDto);
 
         /// <summary>
         /// Updates an existing user questionnaire.
         /// </summary>
         /// <param name="updateUserQuestionnaireDto">The data transfer object containing the details for updating a user questionnaire.</param>
-        /// <returns>A string representing the result of the update operation.</returns>
+        /// <returns>A string representing the unique identifier of the updated user questionnaire.</returns>
         Task<string> UpdateUserQuestionnaire(UpdateUserQuestionnaireDto updateUserQuestionnaireDto);
 
         /// <summary>

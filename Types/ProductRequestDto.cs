@@ -1,5 +1,4 @@
 
-// File: ProductRequestDto.cs
 namespace ProjectName.Types
 {
     public class ProductRequestDto

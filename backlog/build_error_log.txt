@@ -1,5 +1,2 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.DeleteProduct(DeleteProductDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetListProduct(ListProductRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetProduct(ProductRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.UpdateProduct(UpdateProductDto)'
-Error: 4 Error(s)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Types/Product.cs(13,21): error CS0246: The type or namespace name 'Tag' could not be found (are you missing a using directive or an assembly reference?)
+Error: 1 Error(s)

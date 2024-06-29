@@ -21,7 +21,6 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Im
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ImageService.cs(12,33): error CS0535: 'ImageService' does not implement interface member 'IImageService.UpdateImage(UpdateImageDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/OrganizationService.cs(14,40): error CS0535: 'OrganizationService' does not implement interface member 'IOrganizationService.GetListOrganization(ListOrganizationRequesteDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/OrganizationService.cs(14,40): error CS0535: 'OrganizationService' does not implement interface member 'IOrganizationService.GetOrganization(OrganizationDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/PhpSdkSettingsService.cs(12,42): error CS0535: 'PhpSdkSettingsService' does not implement interface member 'IPhpSdkSettingsService.CreatePhpSdkSettings(CreatePhpSdkSettingsDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/PhpSdkSettingsService.cs(12,42): error CS0535: 'PhpSdkSettingsService' does not implement interface member 'IPhpSdkSettingsService.DeletePhpSdkSettings(DeletePhpSdkSettingsDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/PhpSdkSettingsService.cs(12,42): error CS0535: 'PhpSdkSettingsService' does not implement interface member 'IPhpSdkSettingsService.GetPhpSdkSettings(PhpSdkSettingsRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/PhpSdkSettingsService.cs(12,42): error CS0535: 'PhpSdkSettingsService' does not implement interface member 'IPhpSdkSettingsService.UpdatePhpSdkSettings(UpdatePhpSdkSettingsDto)'
@@ -46,4 +45,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileSe
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(46,19): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(25,44): error CS0246: The type or namespace name 'OrganizationDto' could not be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IOrganizationService.cs(46,54): error CS0246: The type or namespace name 'ListOrganizationRequesteDto' could not be found (are you missing a using directive or an assembly reference?)
-Error: 48 Error(s)
+Error: 47 Error(s)

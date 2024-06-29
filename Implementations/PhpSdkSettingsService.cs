@@ -18,7 +18,7 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task<string> CreatePhpSettingsSdk(CreatePhpSettingsSdkDto request)
+        public async Task<string> CreatePhpSdkSettings(CreatePhpSdkSettingsDto request)
         {
             // Step 1: Validate the request payload
             if (string.IsNullOrEmpty(request.IDSPortalEnabled) ||
@@ -34,10 +34,10 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 2: Create a new PhpSettingsSdk object
-            var phpSettingsSdk = new PhpSdkSettings
+            // Step 2: Create a new PhpSdkSettings object
+            var phpSdkSettings = new PhpSdkSettings
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid(),
                 IDSPortalEnabled = request.IDSPortalEnabled,
                 TokenUrl = request.TokenUrl,
                 AuthorizationUrl = request.AuthorizationUrl,
@@ -76,7 +76,7 @@ namespace ProjectName.Services
                 ChangedUser = request.CreatorId
             };
 
-            // Step 3: Save the newly created PhpSettingsSdk object to the database
+            // Step 3: Save the newly created PhpSdkSettings object to the database
             const string sql = @"
                 INSERT INTO PhpSdkSettings (
                     Id, IDSPortalEnabled, TokenUrl, AuthorizationUrl, UserInfoUrl, PortalUrl, ClientId, ClientSecret, GrantType, Scope,
@@ -85,7 +85,8 @@ namespace ProjectName.Services
                     ProductionSumAggregatesPerEndpointPerDayUrl, ProductionScopes, CertificateValidationUrl, ProductionCertificateValidationUrl, ReactUrl,
                     DrupalUrl, DrupalUrlAdmin, EmailAddress, MaxAppsPerUser, DisableSnippetGeneration, DisableDocumentationGeneration, JsonApiRoles,
                     Version, Created, Changed, CreatorId, ChangedUser
-                ) VALUES (
+                )
+                VALUES (
                     @Id, @IDSPortalEnabled, @TokenUrl, @AuthorizationUrl, @UserInfoUrl, @PortalUrl, @ClientId, @ClientSecret, @GrantType, @Scope,
                     @HeaderIBMClientId, @HeaderIBMClientSecret, @IDSConnectLogoutUrl, @DisplayApplicationAnalytics, @Development, @DevelopmentSandboxId,
                     @DevelopmentSumAggregatesPerEndpointUrl, @DevelopmentSumAggregatesPerEndpointPerDayUrl, @DevelopmentScopes, @ProductionSumAggregatesPerEndpointUrl,
@@ -97,8 +98,8 @@ namespace ProjectName.Services
 
             try
             {
-                await _dbConnection.ExecuteAsync(sql, phpSettingsSdk);
-                return phpSettingsSdk.Id;
+                await _dbConnection.ExecuteAsync(sql, phpSdkSettings);
+                return phpSdkSettings.Id.ToString();
             }
             catch (Exception)
             {

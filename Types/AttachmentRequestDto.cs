@@ -1,8 +1,7 @@
 
-// File: DeleteFileDto.cs
 namespace ProjectName.Types
 {
-    public class DeleteFileDto
+    public class AttachmentRequestDto
     {
         public Guid? Id { get; set; }
     }

@@ -1,6 +1,4 @@
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(14,35): error CS0535: 'ArticleService' does not implement interface member 'IArticleService.GetListArticle(ListArticleRequestDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/FileService.cs(122,32): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/FileService.cs(48,27): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.DeleteProduct(DeleteProductDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetListProduct(ListProductRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetProduct(ProductRequestDto)'
@@ -9,6 +7,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.GetListSupportTicket(ListSupportTicketRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.GetSupportTicket(RequestSupportTicketDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.UpdateSupportTicket(UpdateSupportTicketDto)'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(25,14): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Interfaces/IFileService.cs(46,19): error CS0104: 'File' is an ambiguous reference between 'ProjectName.Types.File' and 'System.IO.File'
-Error: 13 Error(s)
+Error: 9 Error(s)

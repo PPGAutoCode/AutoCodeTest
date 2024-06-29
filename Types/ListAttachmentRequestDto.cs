@@ -1,8 +1,7 @@
 
-// File: ListFileRequestDto.cs
 namespace ProjectName.Types
 {
-    public class ListFileRequestDto
+    public class ListAttachmentRequestDto
     {
         public int PageLimit { get; set; }
         public int PageOffset { get; set; }

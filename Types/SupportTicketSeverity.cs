@@ -1,4 +1,6 @@
 
+using System;
+
 namespace ProjectName.Types
 {
     public class SupportTicketSeverity
@@ -8,3 +10,4 @@ namespace ProjectName.Types
         public Guid SeverityId { get; set; }
     }
 }
+    

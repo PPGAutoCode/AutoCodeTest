@@ -1,4 +1,6 @@
 
+using System;
+
 namespace ProjectName.Types
 {
     public class SupportTicketEnvironment
@@ -8,3 +10,4 @@ namespace ProjectName.Types
         public Guid EnvironmentId { get; set; }
     }
 }
+    

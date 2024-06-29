@@ -66,12 +66,12 @@ namespace ProjectName.Services
 
             try
             {
-                var goLiveDeveloperType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(sql, new { Id = request.Id });
-                if (goLiveDeveloperType == null)
+                var result = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(sql, new { request.Id });
+                if (result == null)
                 {
                     throw new TechnicalException("DP-404", "Technical Error");
                 }
-                return goLiveDeveloperType;
+                return result;
             }
             catch (Exception)
             {
@@ -86,31 +86,31 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string fetchSql = @"
+            const string selectSql = @"
                 SELECT * FROM GoLiveDeveloperType WHERE Id = @Id;
             ";
 
-            var existingGoLiveDeveloperType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(fetchSql, new { Id = request.Id });
-            if (existingGoLiveDeveloperType == null)
+            var existingType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(selectSql, new { request.Id });
+            if (existingType == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            existingGoLiveDeveloperType.Name = request.Name;
-            existingGoLiveDeveloperType.Version += 1;
-            existingGoLiveDeveloperType.Changed = DateTime.UtcNow;
-            existingGoLiveDeveloperType.ChangedUser = request.ChangedUser;
+            existingType.Name = request.Name;
+            existingType.Version += 1;
+            existingType.Changed = DateTime.UtcNow;
+            existingType.ChangedUser = request.ChangedUser;
 
             const string updateSql = @"
-                UPDATE GoLiveDeveloperType 
-                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser 
+                UPDATE GoLiveDeveloperType
+                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
                 WHERE Id = @Id;
             ";
 
             try
             {
-                await _dbConnection.ExecuteAsync(updateSql, existingGoLiveDeveloperType);
-                return existingGoLiveDeveloperType.Id.ToString();
+                await _dbConnection.ExecuteAsync(updateSql, existingType);
+                return existingType.Id.ToString();
             }
             catch (Exception)
             {
@@ -125,12 +125,12 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string fetchSql = @"
+            const string selectSql = @"
                 SELECT * FROM GoLiveDeveloperType WHERE Id = @Id;
             ";
 
-            var existingGoLiveDeveloperType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(fetchSql, new { Id = request.Id });
-            if (existingGoLiveDeveloperType == null)
+            var existingType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(selectSql, new { request.Id });
+            if (existingType == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
@@ -141,7 +141,7 @@ namespace ProjectName.Services
 
             try
             {
-                await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
+                await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
                 return true;
             }
             catch (Exception)
@@ -158,16 +158,15 @@ namespace ProjectName.Services
             }
 
             const string sql = @"
-                SELECT * FROM GoLiveDeveloperType 
-                ORDER BY @SortField @SortOrder 
-                OFFSET @PageOffset ROWS 
-                FETCH NEXT @PageLimit ROWS ONLY;
+                SELECT * FROM GoLiveDeveloperType
+                ORDER BY @SortField @SortOrder
+                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY;
             ";
 
             try
             {
-                var goLiveDeveloperTypes = await _dbConnection.QueryAsync<GoLiveDeveloperType>(sql, new { request.SortField, request.SortOrder, request.PageOffset, request.PageLimit });
-                return goLiveDeveloperTypes.AsList();
+                var results = await _dbConnection.QueryAsync<GoLiveDeveloperType>(sql, new { request.PageLimit, request.PageOffset, request.SortField, request.SortOrder });
+                return results.AsList();
             }
             catch (Exception)
             {

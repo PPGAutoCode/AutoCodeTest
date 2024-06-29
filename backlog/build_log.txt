@@ -2,7 +2,6 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
   Determining projects to restore...
   All projects are up-to-date for restore.
 /usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Razor/targets/Sdk.Razor.CurrentVersion.targets(461,5): warning RAZORSDK1006: Detected Razor language version downgrade. This is typically caused by a reference to the Microsoft.AspNetCore.Razor.Design package. Consider removing this package reference. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(14,35): error CS0535: 'ArticleService' does not implement interface member 'IArticleService.GetListArticle(ListArticleRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetProduct(ProductRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.UpdateProduct(UpdateProductDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.DeleteProduct(DeleteProductDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -15,7 +14,6 @@ MSBuild version 17.6.11+5eb99e6e9 for .NET
 Build FAILED.
 
 /usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Razor/targets/Sdk.Razor.CurrentVersion.targets(461,5): warning RAZORSDK1006: Detected Razor language version downgrade. This is typically caused by a reference to the Microsoft.AspNetCore.Razor.Design package. Consider removing this package reference. [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(14,35): error CS0535: 'ArticleService' does not implement interface member 'IArticleService.GetListArticle(ListArticleRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetProduct(ProductRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.UpdateProduct(UpdateProductDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.DeleteProduct(DeleteProductDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
@@ -25,6 +23,6 @@ Build FAILED.
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.DeleteSupportTicket(DeleteSupportTicketDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.GetListSupportTicket(ListSupportTicketRequestDto)' [/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/ProjectName.csproj]
     1 Warning(s)
-    9 Error(s)
+    8 Error(s)
 
-Time Elapsed 00:00:01.23
+Time Elapsed 00:00:00.93

@@ -1,4 +1,3 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(14,35): error CS0535: 'ArticleService' does not implement interface member 'IArticleService.GetListArticle(ListArticleRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.DeleteProduct(DeleteProductDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetListProduct(ListProductRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(14,35): error CS0535: 'ProductService' does not implement interface member 'IProductService.GetProduct(ProductRequestDto)'
@@ -7,4 +6,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.GetListSupportTicket(ListSupportTicketRequestDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.GetSupportTicket(RequestSupportTicketDto)'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(14,41): error CS0535: 'SupportTicketService' does not implement interface member 'ISupportTicketService.UpdateSupportTicket(UpdateSupportTicketDto)'
-Error: 9 Error(s)
+Error: 8 Error(s)

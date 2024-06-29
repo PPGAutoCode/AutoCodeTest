@@ -1,5 +1,4 @@
 
-// ArticleBlogTag.cs
 using System;
 
 namespace ProjectName.Types

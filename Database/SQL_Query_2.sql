@@ -1,12 +1,7 @@
--- Steps Table
-CREATE TABLE Steps (
+-- Authors Table
+CREATE TABLE Authors (
     Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    Title NVARCHAR(255) NOT NULL UNIQUE,
-    Description NVARCHAR(MAX) NULL,
-    Image NVARCHAR(255) NULL,
-    Number INT NOT NULL UNIQUE,
-    TargetId NVARCHAR(255) NOT NULL,
-    NavLink NVARCHAR(255) NULL,
-    Styles NVARCHAR(MAX) NULL,
-    SpotlightClicks BIT NULL
+    Name NVARCHAR(200) NOT NULL,
+    ImageId UNIQUEIDENTIFIER,
+    Details NVARCHAR(MAX)
 );

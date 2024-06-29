@@ -88,11 +88,22 @@ namespace ProjectName.Services
             {
                 try
                 {
-                    await _dbConnection.ExecuteAsync("INSERT INTO Articles (Id, Title, AuthorId, Summary, Body, GoogleDriveID, HideScrollSpy, ImageId, PDF, Langcode, Status, Sticky, Promote, Version, Created, Changed) VALUES (@Id, @Title, @AuthorId, @Summary, @Body, @GoogleDriveID, @HideScrollSpy, @ImageId, @PDF, @Langcode, @Status, @Sticky, @Promote, @Version, @Created, @Changed)", article, transaction);
+                    var sql = @"
+                        INSERT INTO Articles (Id, Title, AuthorId, Summary, Body, GoogleDriveID, HideScrollSpy, ImageId, PDF, Langcode, Status, Sticky, Promote, Version, Created, Changed)
+                        VALUES (@Id, @Title, @AuthorId, @Summary, @Body, @GoogleDriveID, @HideScrollSpy, @ImageId, @PDF, @Langcode, @Status, @Sticky, @Promote, @Version, @Created, @Changed)";
+                    await _dbConnection.ExecuteAsync(sql, article, transaction);
 
-                    await _dbConnection.ExecuteAsync("INSERT INTO ArticleBlogCategories (Id, ArticleId, BlogCategoryId) VALUES (@Id, @ArticleId, @BlogCategoryId)", articleBlogCategories, transaction);
+                    foreach (var item in articleBlogCategories)
+                    {
+                        sql = "INSERT INTO ArticleBlogCategories (Id, ArticleId, BlogCategoryId) VALUES (@Id, @ArticleId, @BlogCategoryId)";
+                        await _dbConnection.ExecuteAsync(sql, item, transaction);
+                    }
 
-                    await _dbConnection.ExecuteAsync("INSERT INTO ArticleBlogTags (Id, ArticleId, BlogTagId) VALUES (@Id, @ArticleId, @BlogTagId)", articleBlogTags, transaction);
+                    foreach (var item in articleBlogTags)
+                    {
+                        sql = "INSERT INTO ArticleBlogTags (Id, ArticleId, BlogTagId) VALUES (@Id, @ArticleId, @BlogTagId)";
+                        await _dbConnection.ExecuteAsync(sql, item, transaction);
+                    }
 
                     transaction.Commit();
                 }
@@ -144,13 +155,13 @@ namespace ProjectName.Services
 
             // Fetch Blog Tags
             var blogTagIds = await _dbConnection.QueryAsync<Guid>("SELECT BlogTagId FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = article.Id });
-            var blogTags = await _dbConnection.QueryAsync<BlogTag>("SELECT * FROM BlogTags WHERE Id IN @Ids", new { Ids = blogTagIds });
-            if (blogTags.Count() != blogTagIds.Count())
+            var blogTags = await _dbConnection.QueryAsync<BlogTag>("SELECT * FROM BlogTags WHERE Id IN @BlogTagIds", new { BlogTagIds = blogTagIds });
+            if (blogTags.Any(tag => tag == null))
             {
-                throw new BusinessException("DP-404", "Some blog tags not found");
+                throw new BusinessException("DP-404", "Blog tag not found");
             }
 
-            article.BlogCategories = blogCategories.Select(bc => bc.Id).ToList();
+            article.BlogCategories = blogCategories;
             article.Tags = blogTags.ToList();
 
             return article;
@@ -189,7 +200,7 @@ namespace ProjectName.Services
 
             if (request.PDF != null)
             {
-                var pdf = await _dbConnection.QueryFirstOrDefaultAsync<File>("SELECT * FROM Files WHERE Id = @Pdf", new { Pdf = request.PDF });
+                var pdf = await _dbConnection.QueryFirstOrDefaultAsync<Attachment>("SELECT * FROM Attachments WHERE Id = @Pdf", new { Pdf = request.PDF });
                 if (pdf == null)
                 {
                     throw new BusinessException("DP-422", "PDF does not exist");
@@ -219,32 +230,46 @@ namespace ProjectName.Services
 
             // Step 6: Update ArticleBlogTags
             var existingTags = await _dbConnection.QueryAsync<Guid>("SELECT BlogTagId FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = existingArticle.Id });
-            var tagsToRemove = existingTags.Except(request.BlogTags.Select(bt => bt.Id)).ToList();
-            var tagsToAdd = request.BlogTags.Select(bt => bt.Id).Except(existingTags).ToList();
+            var tagsToRemove = existingTags.Except(request.BlogTags.Select(tag => tag.Id)).ToList();
+            var tagsToAdd = request.BlogTags.Select(tag => tag.Id).Except(existingTags).ToList();
 
             using (var transaction = _dbConnection.BeginTransaction())
             {
                 try
                 {
                     // Update Article Table
-                    await _dbConnection.ExecuteAsync("UPDATE Articles SET Title = @Title, AuthorId = @AuthorId, Summary = @Summary, Body = @Body, GoogleDriveID = @GoogleDriveID, HideScrollSpy = @HideScrollSpy, ImageId = @ImageId, PDF = @PDF, Langcode = @Langcode, Status = @Status, Sticky = @Sticky, Promote = @Promote, Version = @Version, Changed = @Changed WHERE Id = @Id", existingArticle, transaction);
+                    var sql = @"
+                        UPDATE Articles 
+                        SET Title = @Title, AuthorId = @AuthorId, Summary = @Summary, Body = @Body, GoogleDriveID = @GoogleDriveID, HideScrollSpy = @HideScrollSpy, ImageId = @ImageId, PDF = @PDF, Langcode = @Langcode, Status = @Status, Sticky = @Sticky, Promote = @Promote, Version = @Version, Changed = @Changed
+                        WHERE Id = @Id";
+                    await _dbConnection.ExecuteAsync(sql, existingArticle, transaction);
 
                     // Remove old categories
-                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId AND BlogCategoryId IN @CategoriesToRemove", new { ArticleId = existingArticle.Id, CategoriesToRemove = categoriesToRemove }, transaction);
+                    if (categoriesToRemove.Any())
+                    {
+                        sql = "DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId AND BlogCategoryId IN @BlogCategoryIds";
+                        await _dbConnection.ExecuteAsync(sql, new { ArticleId = existingArticle.Id, BlogCategoryIds = categoriesToRemove }, transaction);
+                    }
 
                     // Add new categories
                     foreach (var categoryId in categoriesToAdd)
                     {
-                        await _dbConnection.ExecuteAsync("INSERT INTO ArticleBlogCategories (Id, ArticleId, BlogCategoryId) VALUES (@Id, @ArticleId, @BlogCategoryId)", new { Id = Guid.NewGuid(), ArticleId = existingArticle.Id, BlogCategoryId = categoryId }, transaction);
+                        sql = "INSERT INTO ArticleBlogCategories (Id, ArticleId, BlogCategoryId) VALUES (@Id, @ArticleId, @BlogCategoryId)";
+                        await _dbConnection.ExecuteAsync(sql, new { Id = Guid.NewGuid(), ArticleId = existingArticle.Id, BlogCategoryId = categoryId }, transaction);
                     }
 
                     // Remove old tags
-                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId AND BlogTagId IN @TagsToRemove", new { ArticleId = existingArticle.Id, TagsToRemove = tagsToRemove }, transaction);
+                    if (tagsToRemove.Any())
+                    {
+                        sql = "DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId AND BlogTagId IN @BlogTagIds";
+                        await _dbConnection.ExecuteAsync(sql, new { ArticleId = existingArticle.Id, BlogTagIds = tagsToRemove }, transaction);
+                    }
 
                     // Add new tags
                     foreach (var tagId in tagsToAdd)
                     {
-                        await _dbConnection.ExecuteAsync("INSERT INTO ArticleBlogTags (Id, ArticleId, BlogTagId) VALUES (@Id, @ArticleId, @BlogTagId)", new { Id = Guid.NewGuid(), ArticleId = existingArticle.Id, BlogTagId = tagId }, transaction);
+                        sql = "INSERT INTO ArticleBlogTags (Id, ArticleId, BlogTagId) VALUES (@Id, @ArticleId, @BlogTagId)";
+                        await _dbConnection.ExecuteAsync(sql, new { Id = Guid.NewGuid(), ArticleId = existingArticle.Id, BlogTagId = tagId }, transaction);
                     }
 
                     transaction.Commit();
@@ -274,14 +299,29 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-404", "Article not found");
             }
 
-            // Step 3: Delete Article
+            // Step 3: Fetch Related Blog Categories
+            var blogCategoryIds = await _dbConnection.QueryAsync<Guid>("SELECT BlogCategoryId FROM ArticleBlogCategories WHERE ArticleId = @ArticleId", new { ArticleId = existingArticle.Id });
+            var blogCategories = await _dbConnection.QueryAsync<BlogCategory>("SELECT * FROM BlogCategories WHERE Id IN @BlogCategoryIds", new { BlogCategoryIds = blogCategoryIds });
+            if (blogCategories.Any(category => category == null))
+            {
+                throw new BusinessException("DP-404", "Blog category not found");
+            }
+
             using (var transaction = _dbConnection.BeginTransaction())
             {
                 try
                 {
-                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId", new { ArticleId = existingArticle.Id }, transaction);
-                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = existingArticle.Id }, transaction);
-                    await _dbConnection.ExecuteAsync("DELETE FROM Articles WHERE Id = @Id", new { Id = existingArticle.Id }, transaction);
+                    // Delete ArticleBlogCategories
+                    var sql = "DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId";
+                    await _dbConnection.ExecuteAsync(sql, new { ArticleId = existingArticle.Id }, transaction);
+
+                    // Delete ArticleBlogTags
+                    sql = "DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId";
+                    await _dbConnection.ExecuteAsync(sql, new { ArticleId = existingArticle.Id }, transaction);
+
+                    // Delete Article
+                    sql = "DELETE FROM Articles WHERE Id = @Id";
+                    await _dbConnection.ExecuteAsync(sql, new { Id = existingArticle.Id }, transaction);
 
                     transaction.Commit();
                 }

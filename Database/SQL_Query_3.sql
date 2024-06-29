@@ -1,6 +1,6 @@
--- StoriesSteps Table
-CREATE TABLE StoriesSteps (
-    Id INT NOT NULL PRIMARY KEY,
-    StoriesId NVARCHAR(255) NOT NULL,
-    StepsId NVARCHAR(MAX) NOT NULL
+-- ArticleBlogCategories Table
+CREATE TABLE ArticleBlogCategories (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    ArticleId UNIQUEIDENTIFIER NOT NULL,
+    BlogCategoryId UNIQUEIDENTIFIER NOT NULL
 );

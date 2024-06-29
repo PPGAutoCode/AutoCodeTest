@@ -44,7 +44,7 @@ namespace ProjectName.Controllers
             return await SafeExecutor.ExecuteAsync(async () =>
             {
                 var result = await _userRolesService.GetUserRole(request.Payload);
-                return Ok(new Response<UserRoles> { Payload = result });
+                return Ok(new Response<UserRole> { Payload = result });
             });
         }
 

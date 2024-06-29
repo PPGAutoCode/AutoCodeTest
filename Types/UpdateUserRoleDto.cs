@@ -1,5 +1,4 @@
 
-// File: UpdateUserRoleDto.cs
 namespace ProjectName.Types
 {
     public class UpdateUserRoleDto

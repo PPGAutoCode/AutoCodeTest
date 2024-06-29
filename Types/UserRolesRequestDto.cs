@@ -1,5 +1,4 @@
 
-// File: UserRolesRequestDto.cs
 namespace ProjectName.Types
 {
     public class UserRolesRequestDto

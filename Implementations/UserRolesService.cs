@@ -100,12 +100,13 @@ namespace ProjectName.Services
                     }
                 }
             }
-            else
+
+            // Step 4: Return UserRole
+            if (userRole == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 4: Return UserRole
             return userRole;
         }
 
@@ -197,6 +198,11 @@ namespace ProjectName.Services
             var userRoles = await _dbConnection.QueryAsync<UserRole>("SELECT * FROM UserRoles");
 
             // Step 2: Return UserRoles List
+            if (userRoles == null)
+            {
+                throw new TechnicalException("DP-500", "Technical Error");
+            }
+
             return userRoles.ToList();
         }
     }

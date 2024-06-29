@@ -14,14 +14,14 @@ namespace ProjectName.Interfaces
         /// Creates a new user questionnaire.
         /// </summary>
         /// <param name="createUserQuestionnaireDto">The data transfer object containing the details for creating a user questionnaire.</param>
-        /// <returns>A string representing the unique identifier of the created user questionnaire.</returns>
+        /// <returns>A string representing the result of the creation operation.</returns>
         Task<string> CreateUserQuestionnaire(CreateUserQuestionnaireDto createUserQuestionnaireDto);
 
         /// <summary>
         /// Updates an existing user questionnaire.
         /// </summary>
         /// <param name="updateUserQuestionnaireDto">The data transfer object containing the details for updating a user questionnaire.</param>
-        /// <returns>A string representing the unique identifier of the updated user questionnaire.</returns>
+        /// <returns>A string representing the result of the update operation.</returns>
         Task<string> UpdateUserQuestionnaire(UpdateUserQuestionnaireDto updateUserQuestionnaireDto);
 
         /// <summary>
@@ -34,15 +34,15 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Retrieves a list of user questionnaires based on the provided request details.
         /// </summary>
-        /// <param name="userQuestionnaireRequestDto">The data transfer object containing the request details for retrieving user questionnaires.</param>
+        /// <param name="listUserQuestionnaireRequestDto">The data transfer object containing the request details for listing user questionnaires.</param>
         /// <returns>A list of user questionnaires.</returns>
-        Task<List<UserQuestionnaire>> GetListUserQuestionnaire(UserQuestionnaireRequestDto userQuestionnaireRequestDto);
+        Task<List<UserQuestionnaire>> GetListUserQuestionnaire(ListUserQuestionnaireRequestDto listUserQuestionnaireRequestDto);
 
         /// <summary>
-        /// Retrieves a single user questionnaire based on the provided request details.
+        /// Retrieves a specific user questionnaire based on the provided request details.
         /// </summary>
-        /// <param name="userQuestionnaireRequestDto">The data transfer object containing the request details for retrieving a user questionnaire.</param>
-        /// <returns>A single user questionnaire.</returns>
+        /// <param name="userQuestionnaireRequestDto">The data transfer object containing the request details for retrieving a specific user questionnaire.</param>
+        /// <returns>A user questionnaire.</returns>
         Task<UserQuestionnaire> GetUserQuestionnaire(UserQuestionnaireRequestDto userQuestionnaireRequestDto);
     }
 }

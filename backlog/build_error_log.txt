@@ -1,2 +1,2 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(14,45): error CS0535: 'UserQuestionnaireService' does not implement interface member 'IUserQuestionnaireService.GetListUserQuestionnaire(ListUserQuestionnaireRequestDto)'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(14,45): error CS0535: 'UserQuestionnaireService' does not implement interface member 'IUserQuestionnaireService.GetUserQuestionnaireList(ListUserQuestionnaireRequestDto)'
 Error: 1 Error(s)

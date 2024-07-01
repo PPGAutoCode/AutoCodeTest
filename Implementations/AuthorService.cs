@@ -22,32 +22,27 @@ namespace ProjectName.Services
 
         public async Task<string> CreateAuthor(CreateAuthorDto request)
         {
-            // Validation
+            // Step 1: Validation
             if (string.IsNullOrEmpty(request.Name))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Create a new Author object
+            // Step 2: Create a new Author object
             var author = new Author
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 ImageId = request.ImageId,
-                Details = request.Details,
-                Version = 1,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow,
-                CreatorId = request.CreatorId,
-                ChangedUser = request.CreatorId
+                Details = request.Details
             };
 
-            // Check if ImageId exists
-            if (request.ImageId.HasValue)
+            // Step 3: Check if ImageId exists
+            if (author.ImageId.HasValue)
             {
                 var imageExists = await _dbConnection.ExecuteScalarAsync<bool>(
                     "SELECT COUNT(1) FROM Images WHERE Id = @ImageId",
-                    new { ImageId = request.ImageId.Value });
+                    new { ImageId = author.ImageId.Value });
 
                 if (!imageExists)
                 {
@@ -55,14 +50,13 @@ namespace ProjectName.Services
                 }
             }
 
-            // Save to the database
-            const string sql = @"
-                INSERT INTO Authors (Id, Name, ImageId, Details, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @ImageId, @Details, @Version, @Created, @Changed, @CreatorId, @ChangedUser)";
-
+            // Step 4: Save to the database
             try
             {
-                await _dbConnection.ExecuteAsync(sql, author);
+                await _dbConnection.ExecuteAsync(
+                    "INSERT INTO Authors (Id, Name, ImageId, Details) VALUES (@Id, @Name, @ImageId, @Details)",
+                    author);
+
                 return author.Id.ToString();
             }
             catch (Exception)
@@ -73,26 +67,28 @@ namespace ProjectName.Services
 
         public async Task<Author> GetAuthor(AuthorRequestDto request)
         {
-            // Validation
+            // Step 1: Validation
             if (request.Id == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Fetch from the database
-            const string sql = "SELECT * FROM Authors WHERE Id = @Id";
-            var author = await _dbConnection.QuerySingleOrDefaultAsync<Author>(sql, new { Id = request.Id });
+            // Step 2: Fetch the Author from the database
+            var author = await _dbConnection.QuerySingleOrDefaultAsync<Author>(
+                "SELECT * FROM Authors WHERE Id = @Id",
+                new { Id = request.Id });
 
             if (author == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Fetch associated image if exists
+            // Step 3: Fetch the image if ImageId is not null
             if (author.ImageId.HasValue)
             {
-                const string imageSql = "SELECT * FROM Images WHERE Id = @ImageId";
-                author.Image = await _dbConnection.QuerySingleOrDefaultAsync<Image>(imageSql, new { ImageId = author.ImageId.Value });
+                author.Image = await _dbConnection.QuerySingleOrDefaultAsync<Image>(
+                    "SELECT * FROM Images WHERE Id = @ImageId",
+                    new { ImageId = author.ImageId.Value });
             }
 
             return author;
@@ -100,35 +96,33 @@ namespace ProjectName.Services
 
         public async Task<string> UpdateAuthor(UpdateAuthorDto request)
         {
-            // Validation
+            // Step 1: Validation
             if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Name))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Fetch the Author from the database
-            const string fetchSql = "SELECT * FROM Authors WHERE Id = @Id";
-            var author = await _dbConnection.QuerySingleOrDefaultAsync<Author>(fetchSql, new { Id = request.Id });
+            // Step 2: Fetch the Author from the database
+            var author = await _dbConnection.QuerySingleOrDefaultAsync<Author>(
+                "SELECT * FROM Authors WHERE Id = @Id",
+                new { Id = request.Id });
 
             if (author == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Update the Author object
+            // Step 3: Update the Author object
             author.Name = request.Name;
             author.ImageId = request.ImageId;
             author.Details = request.Details;
-            author.Version += 1;
-            author.Changed = DateTime.UtcNow;
-            author.ChangedUser = request.ChangedUser;
 
-            // Check if ImageId exists
-            if (request.ImageId.HasValue)
+            // Step 4: Check if ImageId exists
+            if (author.ImageId.HasValue)
             {
                 var imageExists = await _dbConnection.ExecuteScalarAsync<bool>(
                     "SELECT COUNT(1) FROM Images WHERE Id = @ImageId",
-                    new { ImageId = request.ImageId.Value });
+                    new { ImageId = author.ImageId.Value });
 
                 if (!imageExists)
                 {
@@ -136,15 +130,13 @@ namespace ProjectName.Services
                 }
             }
 
-            // Save to the database
-            const string updateSql = @"
-                UPDATE Authors 
-                SET Name = @Name, ImageId = @ImageId, Details = @Details, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser 
-                WHERE Id = @Id";
-
+            // Step 5: Save to the database
             try
             {
-                await _dbConnection.ExecuteAsync(updateSql, author);
+                await _dbConnection.ExecuteAsync(
+                    "UPDATE Authors SET Name = @Name, ImageId = @ImageId, Details = @Details WHERE Id = @Id",
+                    author);
+
                 return author.Id.ToString();
             }
             catch (Exception)
@@ -155,34 +147,37 @@ namespace ProjectName.Services
 
         public async Task<bool> DeleteAuthor(DeleteAuthorDto request)
         {
-            // Validation
+            // Step 1: Validation
             if (request.Id == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Fetch the Author from the database
-            const string fetchSql = "SELECT * FROM Authors WHERE Id = @Id";
-            var author = await _dbConnection.QuerySingleOrDefaultAsync<Author>(fetchSql, new { Id = request.Id });
+            // Step 2: Fetch the Author from the database
+            var author = await _dbConnection.QuerySingleOrDefaultAsync<Author>(
+                "SELECT * FROM Authors WHERE Id = @Id",
+                new { Id = request.Id });
 
             if (author == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Delete associated image if exists
+            // Step 3: Delete the image if ImageId is not null
             if (author.ImageId.HasValue)
             {
-                const string deleteImageSql = "DELETE FROM Images WHERE Id = @ImageId";
-                await _dbConnection.ExecuteAsync(deleteImageSql, new { ImageId = author.ImageId.Value });
+                await _dbConnection.ExecuteAsync(
+                    "DELETE FROM Images WHERE Id = @ImageId",
+                    new { ImageId = author.ImageId.Value });
             }
 
-            // Delete the Author
-            const string deleteSql = "DELETE FROM Authors WHERE Id = @Id";
-
+            // Step 4: Delete the Author from the database
             try
             {
-                await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
+                await _dbConnection.ExecuteAsync(
+                    "DELETE FROM Authors WHERE Id = @Id",
+                    new { Id = request.Id });
+
                 return true;
             }
             catch (Exception)
@@ -193,28 +188,31 @@ namespace ProjectName.Services
 
         public async Task<List<Author>> GetListAuthor(ListAuthorRequestDto request)
         {
-            // Validation
+            // Step 1: Validation
             if (request.PageLimit <= 0 || request.PageOffset < 0)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Fetch the list of Authors from the database
-            var sql = $@"
-                SELECT * FROM Authors 
-                ORDER BY {request.SortField} {request.SortOrder} 
-                OFFSET {request.PageOffset} ROWS 
-                FETCH NEXT {request.PageLimit} ROWS ONLY";
+            // Step 2: Fetch the list of Authors from the database
+            var authors = await _dbConnection.QueryAsync<Author>(
+                "SELECT * FROM Authors ORDER BY @SortField @SortOrder LIMIT @PageLimit OFFSET @PageOffset",
+                new
+                {
+                    SortField = request.SortField,
+                    SortOrder = request.SortOrder,
+                    PageLimit = request.PageLimit,
+                    PageOffset = request.PageOffset
+                });
 
-            var authors = await _dbConnection.QueryAsync<Author>(sql);
-
-            // Fetch associated images if exists
+            // Step 3: Fetch the images for each author if ImageId is present
             foreach (var author in authors)
             {
                 if (author.ImageId.HasValue)
                 {
-                    const string imageSql = "SELECT * FROM Images WHERE Id = @ImageId";
-                    author.Image = await _dbConnection.QuerySingleOrDefaultAsync<Image>(imageSql, new { ImageId = author.ImageId.Value });
+                    author.Image = await _dbConnection.QuerySingleOrDefaultAsync<Image>(
+                        "SELECT * FROM Images WHERE Id = @ImageId",
+                        new { ImageId = author.ImageId.Value });
                 }
             }
 

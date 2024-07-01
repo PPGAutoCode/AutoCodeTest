@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ProjectName.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("userQuestionnaire")]
     public class UserQuestionnaireController : ControllerBase
     {
         private readonly IUserQuestionnaireService _userQuestionnaireService;
@@ -19,58 +19,53 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUserQuestionnaire([FromBody] Request<CreateUserQuestionnaireDto> request)
+        public async Task<IActionResult> CreateUserQuestionnaire([FromBody] CreateUserQuestionnaireDto request)
         {
-            var result = await SafeExecutor.ExecuteAsync(async () =>
+            return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var response = await _userQuestionnaireService.CreateUserQuestionnaire(request.Payload);
-                return new Response<string> { Payload = response };
+                var result = await _userQuestionnaireService.CreateUserQuestionnaire(request);
+                return Ok(new Response<string>(result));
             });
-            return Ok(result);
         }
 
         [HttpPost("getList")]
-        public async Task<IActionResult> GetListUserQuestionnaire([FromBody] Request<ListUserQuestionnaireRequestDto> request)
+        public async Task<IActionResult> GetListUserQuestionnaire([FromBody] ListUserQuestionnaireRequestDto request)
         {
-            var result = await SafeExecutor.ExecuteAsync(async () =>
+            return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var response = await _userQuestionnaireService.GetListUserQuestionnaire(request.Payload);
-                return new Response<List<UserQuestionnaire>> { Payload = response };
+                var result = await _userQuestionnaireService.GetListUserQuestionnaire(request);
+                return Ok(result);
             });
-            return Ok(result);
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> GetUserQuestionnaire([FromBody] Request<UserQuestionnaireRequestDto> request)
+        public async Task<IActionResult> GetUserQuestionnaire([FromBody] UserQuestionnaireRequestDto request)
         {
-            var result = await SafeExecutor.ExecuteAsync(async () =>
+            return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var response = await _userQuestionnaireService.GetUserQuestionnaire(request.Payload);
-                return new Response<UserQuestionnaire> { Payload = response };
+                var result = await _userQuestionnaireService.GetUserQuestionnaire(request);
+                return Ok(new Response<UserQuestionnaire>(result));
             });
-            return Ok(result);
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateUserQuestionnaire([FromBody] Request<UpdateUserQuestionnaireDto> request)
+        public async Task<IActionResult> UpdateUserQuestionnaire([FromBody] UpdateUserQuestionnaireDto request)
         {
-            var result = await SafeExecutor.ExecuteAsync(async () =>
+            return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var response = await _userQuestionnaireService.UpdateUserQuestionnaire(request.Payload);
-                return new Response<string> { Payload = response };
+                var result = await _userQuestionnaireService.UpdateUserQuestionnaire(request);
+                return Ok(new Response<UserQuestionnaire>(result));
             });
-            return Ok(result);
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteUserQuestionnaire([FromBody] Request<DeleteUserQuestionnaireDto> request)
+        public async Task<IActionResult> DeleteUserQuestionnaire([FromBody] DeleteUserQuestionnaireDto request)
         {
-            var result = await SafeExecutor.ExecuteAsync(async () =>
+            return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var response = await _userQuestionnaireService.DeleteUserQuestionnaire(request.Payload);
-                return new Response<bool> { Payload = response };
+                var result = await _userQuestionnaireService.DeleteUserQuestionnaire(request);
+                return Ok(new Response<bool>(result));
             });
-            return Ok(result);
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ProjectName.Controllers
 {
     [ApiController]
-    [Route("userQuestionnaire")]
+    [Route("api/[controller]")]
     public class UserQuestionnaireController : ControllerBase
     {
         private readonly IUserQuestionnaireService _userQuestionnaireService;
@@ -19,52 +19,52 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUserQuestionnaire([FromBody] CreateUserQuestionnaireDto request)
+        public async Task<IActionResult> CreateUserQuestionnaire([FromBody] Request<CreateUserQuestionnaireDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var result = await _userQuestionnaireService.CreateUserQuestionnaire(request);
-                return Ok(new Response<string>(result));
+                var result = await _userQuestionnaireService.CreateUserQuestionnaire(request.Payload);
+                return Ok(new Response<string> { Payload = result });
             });
         }
 
         [HttpPost("getList")]
-        public async Task<IActionResult> GetListUserQuestionnaire([FromBody] ListUserQuestionnaireRequestDto request)
+        public async Task<IActionResult> GetListUserQuestionnaire([FromBody] Request<ListUserQuestionnaireRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var result = await _userQuestionnaireService.GetListUserQuestionnaire(request);
-                return Ok(result);
+                var result = await _userQuestionnaireService.GetListUserQuestionnaire(request.Payload);
+                return Ok(new Response<List<UserQuestionnaire>> { Payload = result });
             });
         }
 
         [HttpPost("get")]
-        public async Task<IActionResult> GetUserQuestionnaire([FromBody] UserQuestionnaireRequestDto request)
+        public async Task<IActionResult> GetUserQuestionnaire([FromBody] Request<UserQuestionnaireRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var result = await _userQuestionnaireService.GetUserQuestionnaire(request);
-                return Ok(new Response<UserQuestionnaire>(result));
+                var result = await _userQuestionnaireService.GetUserQuestionnaire(request.Payload);
+                return Ok(new Response<UserQuestionnaire> { Payload = result });
             });
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateUserQuestionnaire([FromBody] UpdateUserQuestionnaireDto request)
+        public async Task<IActionResult> UpdateUserQuestionnaire([FromBody] Request<UpdateUserQuestionnaireDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var result = await _userQuestionnaireService.UpdateUserQuestionnaire(request);
-                return Ok(new Response<UserQuestionnaire>(result));
+                var result = await _userQuestionnaireService.UpdateUserQuestionnaire(request.Payload);
+                return Ok(new Response<string> { Payload = result });
             });
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteUserQuestionnaire([FromBody] DeleteUserQuestionnaireDto request)
+        public async Task<IActionResult> DeleteUserQuestionnaire([FromBody] Request<DeleteUserQuestionnaireDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var result = await _userQuestionnaireService.DeleteUserQuestionnaire(request);
-                return Ok(new Response<bool>(result));
+                var result = await _userQuestionnaireService.DeleteUserQuestionnaire(request.Payload);
+                return Ok(new Response<bool> { Payload = result });
             });
         }
     }

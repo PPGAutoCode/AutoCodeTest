@@ -1,4 +1,3 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/UserQuestionnaireController.cs(36,62): error CS1061: 'IUserQuestionnaireService' does not contain a definition for 'GetListUserQuestionnaire' and no accessible extension method 'GetListUserQuestionnaire' accepting a first argument of type 'IUserQuestionnaireService' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(130,29): error CS1061: 'APIEndpoint' does not contain a definition for 'ApiTags' and no accessible extension method 'ApiTags' accepting a first argument of type 'APIEndpoint' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(158,21): error CS0136: A local or parameter named 'existingTags' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(186,83): error CS1503: Argument 1: cannot convert from 'System.Guid' to 'string'
@@ -20,4 +19,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(81,42): error CS0029: Cannot implicitly convert type 'System.Guid' to 'ProjectName.Types.AppEnvironment'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(84,17): error CS0117: 'SupportTicket' does not contain a definition for 'SeverityId'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(87,17): error CS0117: 'SupportTicket' does not contain a definition for 'Message'
-Error: 22 Error(s)
+Error: 21 Error(s)

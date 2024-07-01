@@ -29,11 +29,11 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("getList")]
-        public async Task<IActionResult> GetListUserQuestionnaire([FromBody] Request<ListUserQuestionnaireRequestDto> request)
+        public async Task<IActionResult> GetUserQuestionnairesList([FromBody] Request<ListUserQuestionnaireRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {
-                var result = await _userQuestionnaireService.GetListUserQuestionnaire(request.Payload);
+                var result = await _userQuestionnaireService.GetUserQuestionnairesList(request.Payload);
                 return Ok(new Response<List<UserQuestionnaire>> { Payload = result });
             });
         }

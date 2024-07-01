@@ -1,5 +1,4 @@
 
-// CreateSelectTicketPriorityDto.cs
 namespace ProjectName.Types
 {
     public class CreateSelectTicketPriorityDto

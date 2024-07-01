@@ -1,7 +1,4 @@
 
-// DeleteSelectTicketPriorityDto.cs
-using System;
-
 namespace ProjectName.Types
 {
     public class DeleteSelectTicketPriorityDto

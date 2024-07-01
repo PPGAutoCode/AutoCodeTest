@@ -30,26 +30,18 @@ namespace ProjectName.Services
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
-                Version = 1,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow,
-                CreatorId = request.CreatorId,
-                ChangedUser = request.CreatorId
+                Body = string.Empty // Assuming Body is required but not provided in the request
             };
 
-            const string sql = @"
-                INSERT INTO BasicPages (Id, Name, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser)";
+            const string sql = "INSERT INTO BasicPages (Id, Name, Body) VALUES (@Id, @Name, @Body)";
+            var affectedRows = await _dbConnection.ExecuteAsync(sql, basicPage);
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(sql, basicPage);
-                return basicPage.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return basicPage.Id.ToString();
         }
 
         public async Task<BasicPage> GetBasicPage(BasicPageRequestDto request)
@@ -60,20 +52,14 @@ namespace ProjectName.Services
             }
 
             const string sql = "SELECT * FROM BasicPages WHERE Id = @Id";
+            var basicPage = await _dbConnection.QuerySingleOrDefaultAsync<BasicPage>(sql, new { request.Id });
 
-            try
+            if (basicPage == null)
             {
-                var basicPage = await _dbConnection.QuerySingleOrDefaultAsync<BasicPage>(sql, new { request.Id });
-                if (basicPage == null)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-                return basicPage;
+                throw new TechnicalException("DP-404", "Technical Error");
             }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
-            }
+
+            return basicPage;
         }
 
         public async Task<string> UpdateBasicPage(UpdateBasicPageDto request)
@@ -84,32 +70,24 @@ namespace ProjectName.Services
             }
 
             const string selectSql = "SELECT * FROM BasicPages WHERE Id = @Id";
-            var existingBasicPage = await _dbConnection.QuerySingleOrDefaultAsync<BasicPage>(selectSql, new { request.Id });
+            var basicPage = await _dbConnection.QuerySingleOrDefaultAsync<BasicPage>(selectSql, new { request.Id });
 
-            if (existingBasicPage == null)
+            if (basicPage == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            existingBasicPage.Name = request.Name;
-            existingBasicPage.Version += 1;
-            existingBasicPage.Changed = DateTime.UtcNow;
-            existingBasicPage.ChangedUser = request.ChangedUser;
+            basicPage.Name = request.Name;
 
-            const string updateSql = @"
-                UPDATE BasicPages
-                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
-                WHERE Id = @Id";
+            const string updateSql = "UPDATE BasicPages SET Name = @Name WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(updateSql, new { basicPage.Name, basicPage.Id });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(updateSql, existingBasicPage);
-                return existingBasicPage.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return basicPage.Id.ToString();
         }
 
         public async Task<string> DeleteBasicPage(DeleteBasicPageDto request)
@@ -120,24 +98,22 @@ namespace ProjectName.Services
             }
 
             const string selectSql = "SELECT * FROM BasicPages WHERE Id = @Id";
-            var existingBasicPage = await _dbConnection.QuerySingleOrDefaultAsync<BasicPage>(selectSql, new { request.Id });
+            var basicPage = await _dbConnection.QuerySingleOrDefaultAsync<BasicPage>(selectSql, new { request.Id });
 
-            if (existingBasicPage == null)
+            if (basicPage == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
             const string deleteSql = "DELETE FROM BasicPages WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
-                return request.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return basicPage.Id.ToString();
         }
 
         public async Task<List<BasicPage>> GetListBasicPage(ListBasicPageRequestDto request)
@@ -147,21 +123,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM BasicPages
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS
-                FETCH NEXT @PageLimit ROWS ONLY";
+            const string sql = "SELECT * FROM BasicPages ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
+            var basicPages = await _dbConnection.QueryAsync<BasicPage>(sql, new { request.SortField, request.SortOrder, request.PageOffset, request.PageLimit });
 
-            try
-            {
-                var basicPages = await _dbConnection.QueryAsync<BasicPage>(sql, new { request.SortField, request.SortOrder, request.PageOffset, request.PageLimit });
-                return basicPages.AsList();
-            }
-            catch (Exception)
+            if (basicPages == null)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return basicPages.AsList();
         }
     }
 }

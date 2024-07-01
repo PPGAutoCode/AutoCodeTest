@@ -1,67 +1,94 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(18,45): error CS0246: The type or namespace name 'Response<>' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(20,37): error CS0246: The type or namespace name 'ExceptionInfo' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(23,38): error CS0246: The type or namespace name 'BusinessException' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(23,65): error CS0246: The type or namespace name 'TechnicalException' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(24,45): error CS0246: The type or namespace name 'BusinessException' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Controllers/SafeExecutor.cs(24,72): error CS0246: The type or namespace name 'TechnicalException' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(120,39): error CS0029: Cannot implicitly convert type 'System.Collections.Generic.List<ProjectName.Types.ApiTag>' to 'System.Guid'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(150,21): error CS0136: A local or parameter named 'existingTags' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(165,86): error CS1061: 'APIEndpointTag' does not contain a definition for 'ApiTagId' and no accessible extension method 'ApiTagId' accepting a first argument of type 'APIEndpointTag' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(166,185): error CS0117: 'APIEndpointTag' does not contain a definition for 'ApiTagId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(166,87): error CS1061: 'APIEndpointTag' does not contain a definition for 'ApiTagId' and no accessible extension method 'ApiTagId' accepting a first argument of type 'APIEndpointTag' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(271,39): error CS0029: Cannot implicitly convert type 'System.Collections.Generic.List<ProjectName.Types.ApiTag>' to 'System.Guid'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(42,17): error CS0117: 'APIEndpoint' does not contain a definition for 'Name'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(49,49): error CS1061: 'bool' does not contain a definition for 'Value' and no accessible extension method 'Value' accepting a first argument of type 'bool' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(54,17): error CS0117: 'APIEndpoint' does not contain a definition for 'ProviderId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(62,120): error CS0117: 'APIEndpointTag' does not contain a definition for 'ApiTagId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(164,38): error CS0029: Cannot implicitly convert type 'System.Collections.Generic.List<ProjectName.Types.BlogCategory>' to 'System.Collections.Generic.List<System.Guid>'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(233,87): error CS1061: 'string' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(234,64): error CS1061: 'string' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/AuthorService.cs(213,28): error CS1061: 'Author' does not contain a definition for 'Image' and no accessible extension method 'Image' accepting a first argument of type 'Author' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/AuthorService.cs(89,24): error CS1061: 'Author' does not contain a definition for 'Image' and no accessible extension method 'Image' accepting a first argument of type 'Author' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogCategoryService.cs(45,26): error CS0266: Cannot implicitly convert type 'System.Guid?' to 'System.Guid'. An explicit conversion exists (are you missing a cast?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(33,17): error CS0117: 'BlogTag' does not contain a definition for 'Created'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(34,17): error CS0117: 'BlogTag' does not contain a definition for 'Changed'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(35,17): error CS0117: 'BlogTag' does not contain a definition for 'CreatorId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(36,17): error CS0117: 'BlogTag' does not contain a definition for 'ChangedUser'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(96,29): error CS1061: 'BlogTag' does not contain a definition for 'Changed' and no accessible extension method 'Changed' accepting a first argument of type 'BlogTag' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(109,38): error CS1503: Argument 1: cannot convert from 'System.Guid' to 'string?'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(222,58): error CS0019: Operator '==' cannot be applied to operands of type 'Guid' and 'string'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(223,58): error CS0019: Operator '==' cannot be applied to operands of type 'Guid' and 'string'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/OrganizationService.cs(143,44): error CS0029: Cannot implicitly convert type 'string' to 'System.Guid?'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/OrganizationService.cs(47,27): error CS0029: Cannot implicitly convert type 'string' to 'System.Guid?'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductCategoryService.cs(105,39): error CS0029: Cannot implicitly convert type 'System.Guid?' to 'string'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductCategoryService.cs(107,39): error CS0266: Cannot implicitly convert type 'int?' to 'int'. An explicit conversion exists (are you missing a cast?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductCategoryService.cs(48,26): error CS0029: Cannot implicitly convert type 'System.Guid?' to 'string'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductCategoryService.cs(50,26): error CS0266: Cannot implicitly convert type 'int?' to 'int'. An explicit conversion exists (are you missing a cast?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(115,59): error CS1061: 'CreateProductDto' does not contain a definition for 'ProductSubscribers' and no accessible extension method 'ProductSubscribers' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(134,54): error CS1061: 'CreateProductDto' does not contain a definition for 'ProductComparison' and no accessible extension method 'ProductComparison' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(135,17): error CS0117: 'Product' does not contain a definition for 'ProductCategoryId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(135,54): error CS1061: 'CreateProductDto' does not contain a definition for 'ProductCategoryId' and no accessible extension method 'ProductCategoryId' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(136,35): error CS0029: Cannot implicitly convert type 'System.Collections.Generic.List<System.Guid>' to 'System.Collections.Generic.List<ProjectName.Types.ProductDomain>'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(140,50): error CS1061: 'CreateProductDto' does not contain a definition for 'AttachmentsId' and no accessible extension method 'AttachmentsId' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(141,50): error CS1061: 'CreateProductDto' does not contain a definition for 'AppEnviroment' and no accessible extension method 'AppEnviroment' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(158,107): error CS0117: 'ProductAdvantage' does not contain a definition for 'AdvantageId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(158,83): error CS0117: 'ProductAdvantage' does not contain a definition for 'ProductId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(159,101): error CS0117: 'ProductFeature' does not contain a definition for 'FeatureId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(159,77): error CS0117: 'ProductFeature' does not contain a definition for 'ProductId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(160,68): error CS0246: The type or namespace name 'ProductAPIEndpoint' could not be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(161,17): error CS0128: A local variable or function named 'productTags' is already defined in this scope
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(161,72): error CS0117: 'ProductTag' does not contain a definition for 'ProductId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(161,96): error CS0117: 'ProductTag' does not contain a definition for 'TagId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(162,17): error CS0128: A local variable or function named 'relatedProducts' is already defined in this scope
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(163,117): error CS0117: 'ProductSubscriber' does not contain a definition for 'SubscriberId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(163,17): error CS0128: A local variable or function named 'productSubscribers' is already defined in this scope
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(236,34): error CS1061: 'CreateProductDto' does not contain a definition for 'ProductCategoryId' and no accessible extension method 'ProductCategoryId' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(246,34): error CS1061: 'CreateProductDto' does not contain a definition for 'CreatorId' and no accessible extension method 'CreatorId' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(251,34): error CS1061: 'CreateProductDto' does not contain a definition for 'ChangedUser' and no accessible extension method 'ChangedUser' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductService.cs(31,40): error CS1061: 'CreateProductDto' does not contain a definition for 'ProductCategoryId' and no accessible extension method 'ProductCategoryId' accepting a first argument of type 'CreateProductDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SelectTicketPriorityService.cs(101,43): error CS1061: 'UpdateSelectTicketPriorityDto' does not contain a definition for 'ChangedUser' and no accessible extension method 'ChangedUser' accepting a first argument of type 'UpdateSelectTicketPriorityDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SelectTicketPriorityService.cs(38,37): error CS1061: 'CreateSelectTicketPriorityDto' does not contain a definition for 'CreatorId' and no accessible extension method 'CreatorId' accepting a first argument of type 'CreateSelectTicketPriorityDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SelectTicketPriorityService.cs(39,39): error CS1061: 'CreateSelectTicketPriorityDto' does not contain a definition for 'CreatorId' and no accessible extension method 'CreatorId' accepting a first argument of type 'CreateSelectTicketPriorityDto' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(49,51): error CS0718: 'Environment': static types cannot be used as type arguments
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(81,39): error CS0029: Cannot implicitly convert type 'System.Guid' to 'ProjectName.Types.AppEnvironment'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(84,17): error CS0117: 'SupportTicket' does not contain a definition for 'SeverityId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(87,17): error CS0117: 'SupportTicket' does not contain a definition for 'Message'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(42,156): error CS1061: 'CreateUserQuestionnaireDto' does not contain a definition for 'CorporateUserId' and no accessible extension method 'CorporateUserId' accepting a first argument of type 'CreateUserQuestionnaireDto' could be found (are you missing a using directive or an assembly reference?)
-Error: 66 Error(s)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(192,20): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(192,20): error CS1514: { expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(193,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(194,567): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(196,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(197,44): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(197,44): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(197,44): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(198,164): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(200,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(201,168): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(202,39): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(202,39): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(202,39): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(203,180): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(205,41): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(206,33): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(206,33): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(207,43): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(208,78): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(210,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(211,50): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(213,9): error CS0106: The modifier 'public' is not valid for this item
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(215,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(216,36): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(216,36): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(216,36): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(217,70): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(219,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(220,164): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,42): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,42): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,42): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(222,73): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(224,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(225,184): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(226,126): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(228,48): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(228,48): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(228,48): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(229,73): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(231,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(232,71): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(232,71): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(232,71): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(233,20): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(233,20): error CS1514: { expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(234,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(235,143): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(237,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(238,179): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(240,41): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(241,33): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(241,33): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(242,43): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(243,78): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(245,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(246,24): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(248,9): error CS0106: The modifier 'public' is not valid for this item
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(248,99): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(248,99): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(249,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(250,40): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(250,50): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(250,51): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(250,65): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(250,65): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(251,70): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(253,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(254,326): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(256,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(257,40): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(257,51): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(257,52): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(257,67): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(257,67): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(258,73): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(260,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(261,75): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(262,182): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(263,126): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(265,48): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(265,48): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(265,48): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(266,73): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(268,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(269,54): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(269,54): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(269,54): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(270,86): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(272,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(273,41): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(275,2): error CS1513: } expected
+Error: 93 Error(s)

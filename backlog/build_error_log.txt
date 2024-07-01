@@ -11,8 +11,14 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Au
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/AuthorService.cs(89,24): error CS1061: 'Author' does not contain a definition for 'Image' and no accessible extension method 'Image' accepting a first argument of type 'Author' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogCategoryService.cs(45,26): error CS0266: Cannot implicitly convert type 'System.Guid?' to 'System.Guid'. An explicit conversion exists (are you missing a cast?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(109,38): error CS1503: Argument 1: cannot convert from 'System.Guid' to 'string?'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(222,58): error CS0019: Operator '==' cannot be applied to operands of type 'Guid' and 'string'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(223,58): error CS0019: Operator '==' cannot be applied to operands of type 'Guid' and 'string'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(110,38): error CS1503: Argument 1: cannot convert from 'System.Guid' to 'string?'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(111,38): error CS1503: Argument 1: cannot convert from 'System.Guid' to 'string?'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(152,38): error CS1503: Argument 1: cannot convert from 'System.Guid' to 'string?'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(222,27): error CS1061: 'ChangeLog' does not contain a definition for 'Product' and no accessible extension method 'Product' accepting a first argument of type 'ChangeLog' could be found (are you missing a using directive or an assembly reference?)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(223,27): error CS1061: 'ChangeLog' does not contain a definition for 'Creator' and no accessible extension method 'Creator' accepting a first argument of type 'ChangeLog' could be found (are you missing a using directive or an assembly reference?)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(27,38): error CS1503: Argument 1: cannot convert from 'System.Guid' to 'string?'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(45,29): error CS0029: Cannot implicitly convert type 'string' to 'System.Guid'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(46,31): error CS0029: Cannot implicitly convert type 'string' to 'System.Guid'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductCategoryService.cs(105,39): error CS0029: Cannot implicitly convert type 'System.Guid?' to 'string'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductCategoryService.cs(107,39): error CS0266: Cannot implicitly convert type 'int?' to 'int'. An explicit conversion exists (are you missing a cast?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ProductCategoryService.cs(48,26): error CS0029: Cannot implicitly convert type 'System.Guid?' to 'string'
@@ -45,4 +51,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(84,17): error CS0117: 'SupportTicket' does not contain a definition for 'SeverityId'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(87,17): error CS0117: 'SupportTicket' does not contain a definition for 'Message'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(42,156): error CS1061: 'CreateUserQuestionnaireDto' does not contain a definition for 'CorporateUserId' and no accessible extension method 'CorporateUserId' accepting a first argument of type 'CreateUserQuestionnaireDto' could be found (are you missing a using directive or an assembly reference?)
-Error: 47 Error(s)
+Error: 53 Error(s)

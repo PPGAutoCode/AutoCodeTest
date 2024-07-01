@@ -5,7 +5,7 @@ namespace ProjectName.Types
     {
         public string Title { get; set; }
         public string Notes { get; set; }
-        public string ProductId { get; set; }
+        public Guid ProductId { get; set; }
         public DateTime ReleaseDate { get; set; }
         public string ChangeLogVersion { get; set; }
         public int? Version { get; set; }

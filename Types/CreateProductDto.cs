@@ -1,5 +1,4 @@
 
-// File: CreateProductDto.cs
 namespace ProjectName.Types
 {
     public class CreateProductDto
@@ -12,9 +11,9 @@ namespace ProjectName.Types
         public List<Guid>? APIEndpoint { get; set; }
         public List<string>? Tags { get; set; }
         public List<Guid>? Subscribers { get; set; }
-        public List<Guid>? Categories { get; set; }
+        public List<Guid>? ProductCategories { get; set; }
         public Guid? Comparison { get; set; }
-        public string Version { get; set; }
+        public string ProductVersion { get; set; }
         public bool? Enabled { get; set; }
         public string? ApicHostname { get; set; }
         public string? Attachments { get; set; }

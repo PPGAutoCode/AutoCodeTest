@@ -1,10 +1,10 @@
 
 namespace ProjectName.Types
 {
-    public class ProductProductComparison
+    public class ProductProductTag
     {
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }
-        public Guid ComparisonId { get; set; }
+        public Guid ProductTagId { get; set; }
     }
 }

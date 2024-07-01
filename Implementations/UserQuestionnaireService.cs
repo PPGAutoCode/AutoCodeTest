@@ -22,10 +22,13 @@ namespace ProjectName.Services
 
         public async Task<string> CreateUserQuestionnaire(CreateUserQuestionnaireDto request)
         {
-            ValidateCreateUserQuestionnaire(request);
+            ValidateCreateUserQuestionnaireRequest(request);
 
             var productCategories = await FetchProductCategories(request.ProductCategoriesId);
-            var corporateUser = await FetchCorporateUser(request.CorporateUserId);
+            if (productCategories.Count != request.ProductCategoriesId.Count)
+            {
+                throw new BusinessException("DP-404", "One or more ProductCategories do not exist.");
+            }
 
             var userQuestionnaire = new UserQuestionnaire
             {
@@ -47,11 +50,11 @@ namespace ProjectName.Services
                 Changed = DateTime.UtcNow
             };
 
-            var productProductCategories = productCategories.Select(pc => new ProductProductCategory
+            var productProductCategories = request.ProductCategoriesId.Select(pcId => new ProductProductCategory
             {
                 Id = Guid.NewGuid(),
                 ProductId = userQuestionnaire.Id,
-                ProductCategoryId = pc.Id
+                ProductCategoryId = pcId
             }).ToList();
 
             using (var transaction = _dbConnection.BeginTransaction())
@@ -60,12 +63,14 @@ namespace ProjectName.Services
                 {
                     const string insertUserQuestionnaireQuery = @"
                         INSERT INTO UserQuestionnaire (Id, CompanyErpSolutionName, CompanyErpSolutionVersion, CompanyKad, CompanyLegalName, CompanyOwnsBankAccount, CompanyReprEmail, CompanyRepFullName, CompanyRepNumber, CompanyTaxId, CompanyUsesErp, CompanyWebsite, CorporateUserId, ErpBankingActivities, Created, Changed)
-                        VALUES (@Id, @CompanyErpSolutionName, @CompanyErpSolutionVersion, @CompanyKad, @CompanyLegalName, @CompanyOwnsBankAccount, @CompanyReprEmail, @CompanyRepFullName, @CompanyRepNumber, @CompanyTaxId, @CompanyUsesErp, @CompanyWebsite, @CorporateUserId, @ErpBankingActivities, @Created, @Changed)";
+                        VALUES (@Id, @CompanyErpSolutionName, @CompanyErpSolutionVersion, @CompanyKad, @CompanyLegalName, @CompanyOwnsBankAccount, @CompanyReprEmail, @CompanyRepFullName, @CompanyRepNumber, @CompanyTaxId, @CompanyUsesErp, @CompanyWebsite, @CorporateUserId, @ErpBankingActivities, @Created, @Changed);
+                    ";
                     await _dbConnection.ExecuteAsync(insertUserQuestionnaireQuery, userQuestionnaire, transaction);
 
                     const string insertProductProductCategoriesQuery = @"
                         INSERT INTO ProductProductCategories (Id, ProductId, ProductCategoryId)
-                        VALUES (@Id, @ProductId, @ProductCategoryId)";
+                        VALUES (@Id, @ProductId, @ProductCategoryId);
+                    ";
                     await _dbConnection.ExecuteAsync(insertProductProductCategoriesQuery, productProductCategories, transaction);
 
                     transaction.Commit();
@@ -73,7 +78,7 @@ namespace ProjectName.Services
                 catch (Exception)
                 {
                     transaction.Rollback();
-                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator");
+                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator.");
                 }
             }
 
@@ -82,27 +87,18 @@ namespace ProjectName.Services
 
         public async Task<List<UserQuestionnaire>> GetListUserQuestionnaire(ListUserQuestionnaireRequestDto request)
         {
-            ValidateListUserQuestionnaire(request);
+            ValidateListUserQuestionnaireRequest(request);
 
             const string query = @"
                 SELECT * FROM UserQuestionnaire
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
+                ORDER BY {0} {1}
+                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY;
+            ";
 
-            var parameters = new
-            {
-                PageOffset = request.PageOffset,
-                PageLimit = request.PageLimit,
-                SortField = request.SortField,
-                SortOrder = request.SortOrder
-            };
+            var sortField = string.IsNullOrEmpty(request.SortField) ? "Id" : request.SortField;
+            var sortOrder = string.IsNullOrEmpty(request.SortOrder) ? "ASC" : request.SortOrder;
 
-            var userQuestionnaires = await _dbConnection.QueryAsync<UserQuestionnaire>(query, parameters);
-
-            if (request.PageLimit == 0 && request.PageOffset == 0)
-            {
-                return new List<UserQuestionnaire>();
-            }
+            var userQuestionnaires = await _dbConnection.QueryAsync<UserQuestionnaire>(string.Format(query, sortField, sortOrder), new { request.PageOffset, request.PageLimit });
 
             return userQuestionnaires.ToList();
         }
@@ -112,13 +108,14 @@ namespace ProjectName.Services
             ValidateUserQuestionnaireRequest(request);
 
             const string query = @"
-                SELECT * FROM UserQuestionnaire WHERE Id = @Id";
+                SELECT * FROM UserQuestionnaire WHERE Id = @Id;
+            ";
 
-            var userQuestionnaire = await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(query, new { Id = request.Id });
+            var userQuestionnaire = await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(query, new { request.Id });
 
             if (userQuestionnaire == null)
             {
-                throw new TechnicalException("DP-404", "UserQuestionnaire not found");
+                throw new BusinessException("DP-404", "UserQuestionnaire not found.");
             }
 
             return userQuestionnaire;
@@ -126,9 +123,19 @@ namespace ProjectName.Services
 
         public async Task<string> UpdateUserQuestionnaire(UpdateUserQuestionnaireDto request)
         {
-            ValidateUpdateUserQuestionnaire(request);
+            ValidateUpdateUserQuestionnaireRequest(request);
 
-            var existingUserQuestionnaire = await FetchUserQuestionnaire(request.Id);
+            var existingUserQuestionnaire = await FetchUserQuestionnaireById(request.Id);
+            if (existingUserQuestionnaire == null)
+            {
+                throw new BusinessException("DP-404", "UserQuestionnaire not found.");
+            }
+
+            var productCategories = await FetchProductCategories(request.ProductCategoriesId);
+            if (productCategories.Count != request.ProductCategoriesId.Count)
+            {
+                throw new BusinessException("DP-422", "One or more ProductCategories do not exist.");
+            }
 
             existingUserQuestionnaire.CompanyErpSolutionName = request.CompanyErpSolutionName;
             existingUserQuestionnaire.CompanyErpSolutionVersion = request.CompanyErpSolutionVersion;
@@ -145,44 +152,97 @@ namespace ProjectName.Services
             existingUserQuestionnaire.ErpBankingActivities = request.ErpBankingActivities;
             existingUserQuestionnaire.Changed = DateTime.UtcNow;
 
-            const string updateQuery = @"
-                UPDATE UserQuestionnaire
-                SET CompanyErpSolutionName = @CompanyErpSolutionName,
-                    CompanyErpSolutionVersion = @CompanyErpSolutionVersion,
-                    CompanyKad = @CompanyKad,
-                    CompanyLegalName = @CompanyLegalName,
-                    CompanyOwnsBankAccount = @CompanyOwnsBankAccount,
-                    CompanyReprEmail = @CompanyReprEmail,
-                    CompanyRepFullName = @CompanyRepFullName,
-                    CompanyRepNumber = @CompanyRepNumber,
-                    CompanyTaxId = @CompanyTaxId,
-                    CompanyUsesErp = @CompanyUsesErp,
-                    CompanyWebsite = @CompanyWebsite,
-                    CorporateUserId = @CorporateUserId,
-                    ErpBankingActivities = @ErpBankingActivities,
-                    Changed = @Changed
-                WHERE Id = @Id";
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                try
+                {
+                    const string updateUserQuestionnaireQuery = @"
+                        UPDATE UserQuestionnaire
+                        SET CompanyErpSolutionName = @CompanyErpSolutionName,
+                            CompanyErpSolutionVersion = @CompanyErpSolutionVersion,
+                            CompanyKad = @CompanyKad,
+                            CompanyLegalName = @CompanyLegalName,
+                            CompanyOwnsBankAccount = @CompanyOwnsBankAccount,
+                            CompanyReprEmail = @CompanyReprEmail,
+                            CompanyRepFullName = @CompanyRepFullName,
+                            CompanyRepNumber = @CompanyRepNumber,
+                            CompanyTaxId = @CompanyTaxId,
+                            CompanyUsesErp = @CompanyUsesErp,
+                            CompanyWebsite = @CompanyWebsite,
+                            CorporateUserId = @CorporateUserId,
+                            ErpBankingActivities = @ErpBankingActivities,
+                            Changed = @Changed
+                        WHERE Id = @Id;
+                    ";
+                    await _dbConnection.ExecuteAsync(updateUserQuestionnaireQuery, existingUserQuestionnaire, transaction);
 
-            await _dbConnection.ExecuteAsync(updateQuery, existingUserQuestionnaire);
+                    const string deleteProductProductCategoriesQuery = @"
+                        DELETE FROM ProductProductCategories WHERE ProductId = @ProductId;
+                    ";
+                    await _dbConnection.ExecuteAsync(deleteProductProductCategoriesQuery, new { ProductId = existingUserQuestionnaire.Id }, transaction);
+
+                    var productProductCategories = request.ProductCategoriesId.Select(pcId => new ProductProductCategory
+                    {
+                        Id = Guid.NewGuid(),
+                        ProductId = existingUserQuestionnaire.Id,
+                        ProductCategoryId = pcId
+                    }).ToList();
+
+                    const string insertProductProductCategoriesQuery = @"
+                        INSERT INTO ProductProductCategories (Id, ProductId, ProductCategoryId)
+                        VALUES (@Id, @ProductId, @ProductCategoryId);
+                    ";
+                    await _dbConnection.ExecuteAsync(insertProductProductCategoriesQuery, productProductCategories, transaction);
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator.");
+                }
+            }
 
             return existingUserQuestionnaire.Id.ToString();
         }
 
         public async Task<bool> DeleteUserQuestionnaire(DeleteUserQuestionnaireDto request)
         {
-            ValidateDeleteUserQuestionnaire(request);
+            ValidateDeleteUserQuestionnaireRequest(request);
 
-            var existingUserQuestionnaire = await FetchUserQuestionnaire(request.Id);
+            var existingUserQuestionnaire = await FetchUserQuestionnaireById(request.Id);
+            if (existingUserQuestionnaire == null)
+            {
+                throw new BusinessException("DP-404", "UserQuestionnaire not found.");
+            }
 
-            const string deleteQuery = @"
-                DELETE FROM UserQuestionnaire WHERE Id = @Id";
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                try
+                {
+                    const string deleteProductProductCategoriesQuery = @"
+                        DELETE FROM ProductProductCategories WHERE ProductId = @ProductId;
+                    ";
+                    await _dbConnection.ExecuteAsync(deleteProductProductCategoriesQuery, new { ProductId = existingUserQuestionnaire.Id }, transaction);
 
-            await _dbConnection.ExecuteAsync(deleteQuery, new { Id = request.Id });
+                    const string deleteUserQuestionnaireQuery = @"
+                        DELETE FROM UserQuestionnaire WHERE Id = @Id;
+                    ";
+                    await _dbConnection.ExecuteAsync(deleteUserQuestionnaireQuery, new { existingUserQuestionnaire.Id }, transaction);
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator.");
+                }
+            }
 
             return true;
         }
 
-        private void ValidateCreateUserQuestionnaire(CreateUserQuestionnaireDto request)
+        private void ValidateCreateUserQuestionnaireRequest(CreateUserQuestionnaireDto request)
         {
             if (string.IsNullOrEmpty(request.CompanyErpSolutionName) ||
                 string.IsNullOrEmpty(request.CompanyErpSolutionVersion) ||
@@ -193,18 +253,18 @@ namespace ProjectName.Services
                 string.IsNullOrEmpty(request.CompanyRepNumber) ||
                 string.IsNullOrEmpty(request.CompanyTaxId) ||
                 string.IsNullOrEmpty(request.CompanyWebsite) ||
-                request.CorporateUserId == Guid.Empty ||
-                request.ProductCategoriesId == Guid.Empty)
+                request.ProductCategoriesId == null ||
+                !request.ProductCategoriesId.Any())
             {
-                throw new BusinessException("DP-422", "Client Error");
+                throw new BusinessException("DP-422", "One or more mandatory fields are missing or invalid.");
             }
         }
 
-        private void ValidateListUserQuestionnaire(ListUserQuestionnaireRequestDto request)
+        private void ValidateListUserQuestionnaireRequest(ListUserQuestionnaireRequestDto request)
         {
             if (request.PageLimit < 0 || request.PageOffset < 0)
             {
-                throw new BusinessException("DP-422", "Client Error");
+                throw new BusinessException("DP-422", "PageLimit and PageOffset must be non-negative integers.");
             }
         }
 
@@ -212,11 +272,11 @@ namespace ProjectName.Services
         {
             if (request.Id == Guid.Empty)
             {
-                throw new BusinessException("DP-422", "Client Error");
+                throw new BusinessException("DP-422", "UserQuestionnaire ID is required.");
             }
         }
 
-        private void ValidateUpdateUserQuestionnaire(UpdateUserQuestionnaireDto request)
+        private void ValidateUpdateUserQuestionnaireRequest(UpdateUserQuestionnaireDto request)
         {
             if (string.IsNullOrEmpty(request.CompanyErpSolutionName) ||
                 string.IsNullOrEmpty(request.CompanyErpSolutionVersion) ||
@@ -227,64 +287,37 @@ namespace ProjectName.Services
                 string.IsNullOrEmpty(request.CompanyRepNumber) ||
                 string.IsNullOrEmpty(request.CompanyTaxId) ||
                 string.IsNullOrEmpty(request.CompanyWebsite) ||
-                request.CorporateUserId == Guid.Empty ||
-                request.ProductCategoriesId == Guid.Empty)
+                request.ProductCategoriesId == null ||
+                !request.ProductCategoriesId.Any())
             {
-                throw new BusinessException("DP-422", "Client Error");
+                throw new BusinessException("DP-422", "One or more mandatory fields are missing or invalid.");
             }
         }
 
-        private void ValidateDeleteUserQuestionnaire(DeleteUserQuestionnaireDto request)
+        private void ValidateDeleteUserQuestionnaireRequest(DeleteUserQuestionnaireDto request)
         {
             if (request.Id == Guid.Empty)
             {
-                throw new BusinessException("DP-422", "Client Error");
+                throw new BusinessException("DP-422", "UserQuestionnaire ID is required.");
             }
         }
 
-        private async Task<List<ProductCategory>> FetchProductCategories(Guid productCategoriesId)
+        private async Task<List<ProductCategory>> FetchProductCategories(List<Guid> productCategoryIds)
         {
             const string query = @"
-                SELECT * FROM ProductCategories WHERE Id = @Id";
+                SELECT * FROM ProductCategory WHERE Id IN @Ids;
+            ";
 
-            var productCategories = await _dbConnection.QueryAsync<ProductCategory>(query, new { Id = productCategoriesId });
-
-            if (!productCategories.Any())
-            {
-                throw new TechnicalException("DP-404", "ProductCategory not found");
-            }
-
-            return productCategories.ToList();
+            return (await _dbConnection.QueryAsync<ProductCategory>(query, new { Ids = productCategoryIds })).ToList();
         }
 
-        private async Task<UserQuestionnaire> FetchUserQuestionnaire(Guid id)
+        private async Task<UserQuestionnaire> FetchUserQuestionnaireById(Guid id)
         {
             const string query = @"
-                SELECT * FROM UserQuestionnaire WHERE Id = @Id";
+                SELECT * FROM UserQuestionnaire WHERE Id = @Id;
+            ";
 
-            var userQuestionnaire = await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(query, new { Id = id });
-
-            if (userQuestionnaire == null)
-            {
-                throw new TechnicalException("DP-404", "UserQuestionnaire not found");
-            }
-
-            return userQuestionnaire;
-        }
-
-        private async Task<CorporateUser> FetchCorporateUser(Guid corporateUserId)
-        {
-            const string query = @"
-                SELECT * FROM CorporateUser WHERE Id = @Id";
-
-            var corporateUser = await _dbConnection.QuerySingleOrDefaultAsync<CorporateUser>(query, new { Id = corporateUserId });
-
-            if (corporateUser == null)
-            {
-                throw new TechnicalException("DP-404", "CorporateUser not found");
-            }
-
-            return corporateUser;
+            return await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(query, new { Id = id });
         }
     }
 }

@@ -1,5 +1,4 @@
 
-// File: Users.cs
 namespace ProjectName.Types
 {
     public class Users

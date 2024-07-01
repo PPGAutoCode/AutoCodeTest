@@ -16,19 +16,19 @@ namespace ProjectName.Types
         public List<Guid> ProductCategories { get; set; }
         public List<Guid> ProductDomainId { get; set; }
         public string Version { get; set; }
-        public bool? Enabled { get; set; }
+        public bool Enabled { get; set; }
         public string ApicHostname { get; set; }
         public string Attachments { get; set; }
         public Guid AppEnviromentId { get; set; }
         public string HeaderImage { get; set; }
         public string Label { get; set; }
-        public bool? OverviewDisplay { get; set; }
+        public bool OverviewDisplay { get; set; }
         public Guid ImageId { get; set; }
-        public int? Weight { get; set; }
+        public int Weight { get; set; }
         public string Langcode { get; set; }
-        public bool? Sticky { get; set; }
-        public bool? Status { get; set; }
-        public bool? Promote { get; set; }
-        public bool? CommercialProduct { get; set; }
+        public bool Sticky { get; set; }
+        public bool Status { get; set; }
+        public bool Promote { get; set; }
+        public bool CommercialProduct { get; set; }
     }
 }

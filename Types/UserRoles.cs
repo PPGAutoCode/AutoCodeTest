@@ -1,5 +1,4 @@
 
-// File: UserRoles.cs
 namespace ProjectName.Types
 {
     public class UserRoles

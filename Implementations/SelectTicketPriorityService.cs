@@ -21,137 +21,116 @@ namespace ProjectName.Services
 
         public async Task<string> CreateSelectTicketPriority(CreateSelectTicketPriorityDto request)
         {
-            // Step 1: Validate the request payload
             if (string.IsNullOrEmpty(request.Name))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 2: Create a new SelectTicketPriority object
-            var selectTicketPriority = new SelectTicketPriority
+            var newSelectTicketPriority = new SelectTicketPriority
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                Version = 1,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow,
-                CreatorId = request.CreatorId,
-                ChangedUser = request.CreatorId
+                Name = request.Name
             };
 
-            // Step 3: Insert the newly created SelectTicketPriority object to the database
-            const string sql = @"
-                INSERT INTO SelectTicketPriority (Id, Name, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser);
-            ";
+            const string sql = "INSERT INTO SelectTicketPriority (Id, Name) VALUES (@Id, @Name)";
+            var affectedRows = await _dbConnection.ExecuteAsync(sql, newSelectTicketPriority);
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(sql, selectTicketPriority);
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
 
-            // Step 4: Return the ID of the newly created SelectTicketPriority
-            return selectTicketPriority.Id.ToString();
+            return newSelectTicketPriority.Id.ToString();
         }
 
         public async Task<SelectTicketPriority> GetSelectTicketPriority(SelectTicketPriorityRequestDto request)
         {
-            const string sql = @"
-                SELECT Id, Name, Version, Created, Changed, CreatorId, ChangedUser
-                FROM SelectTicketPriority
-                WHERE Id = @Id;
-            ";
-
-            try
-            {
-                return await _dbConnection.QuerySingleOrDefaultAsync<SelectTicketPriority>(sql, new { request.Id });
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
-            }
-        }
-
-        public async Task<string> UpdateSelectTicketPriority(UpdateSelectTicketPriorityDto request)
-        {
-            // Step 1: Validate the request payload
-            if (request.Id == null || string.IsNullOrEmpty(request.Name))
+            if (request.Id == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 2: Update the SelectTicketPriority object in the database
-            const string sql = @"
-                UPDATE SelectTicketPriority
-                SET Name = @Name, Changed = @Changed, ChangedUser = @ChangedUser
-                WHERE Id = @Id;
-            ";
+            const string sql = "SELECT Id, Name FROM SelectTicketPriority WHERE Id = @Id";
+            var selectTicketPriority = await _dbConnection.QuerySingleOrDefaultAsync<SelectTicketPriority>(sql, new { Id = request.Id });
 
-            try
+            if (selectTicketPriority == null)
             {
-                await _dbConnection.ExecuteAsync(sql, new
-                {
-                    request.Id,
-                    request.Name,
-                    Changed = DateTime.UtcNow,
-                    ChangedUser = request.ChangedUser
-                });
+                throw new TechnicalException("DP-404", "Technical Error");
             }
-            catch (Exception)
+
+            return selectTicketPriority;
+        }
+
+        public async Task<string> UpdateSelectTicketPriority(UpdateSelectTicketPriorityDto request)
+        {
+            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Name))
+            {
+                throw new BusinessException("DP-422", "Client Error");
+            }
+
+            const string selectSql = "SELECT Id, Name FROM SelectTicketPriority WHERE Id = @Id";
+            var existingSelectTicketPriority = await _dbConnection.QuerySingleOrDefaultAsync<SelectTicketPriority>(selectSql, new { Id = request.Id });
+
+            if (existingSelectTicketPriority == null)
+            {
+                throw new TechnicalException("DP-404", "Technical Error");
+            }
+
+            existingSelectTicketPriority.Name = request.Name;
+
+            const string updateSql = "UPDATE SelectTicketPriority SET Name = @Name WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(updateSql, new { Id = request.Id, Name = request.Name });
+
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
 
-            // Step 3: Return the ID of the updated SelectTicketPriority
-            return request.Id.ToString();
+            return existingSelectTicketPriority.Id.ToString();
         }
 
         public async Task<bool> DeleteSelectTicketPriority(DeleteSelectTicketPriorityDto request)
         {
-            const string sql = @"
-                DELETE FROM SelectTicketPriority
-                WHERE Id = @Id;
-            ";
-
-            try
+            if (request.Id == Guid.Empty)
             {
-                var result = await _dbConnection.ExecuteAsync(sql, new { request.Id });
-                return result > 0;
+                throw new BusinessException("DP-422", "Client Error");
             }
-            catch (Exception)
+
+            const string selectSql = "SELECT Id, Name FROM SelectTicketPriority WHERE Id = @Id";
+            var existingSelectTicketPriority = await _dbConnection.QuerySingleOrDefaultAsync<SelectTicketPriority>(selectSql, new { Id = request.Id });
+
+            if (existingSelectTicketPriority == null)
+            {
+                throw new TechnicalException("DP-404", "Technical Error");
+            }
+
+            const string deleteSql = "DELETE FROM SelectTicketPriority WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
+
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return true;
         }
 
         public async Task<List<SelectTicketPriority>> GetListSelectTicketPriority(ListSelectTicketPriorityRequestDto request)
         {
-            const string sql = @"
-                SELECT Id, Name, Version, Created, Changed, CreatorId, ChangedUser
-                FROM SelectTicketPriority
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY;
-            ";
-
-            try
+            if (request.PageLimit <= 0 || request.PageOffset < 0 || string.IsNullOrEmpty(request.SortField) || string.IsNullOrEmpty(request.SortOrder))
             {
-                var result = await _dbConnection.QueryAsync<SelectTicketPriority>(sql, new
-                {
-                    request.PageLimit,
-                    request.PageOffset,
-                    SortField = request.SortField,
-                    SortOrder = request.SortOrder
-                });
-                return result.AsList();
+                throw new BusinessException("DP-422", "Client Error");
             }
-            catch (Exception)
+
+            const string sql = "SELECT Id, Name FROM SelectTicketPriority ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
+            var selectTicketPriorities = await _dbConnection.QueryAsync<SelectTicketPriority>(sql, new { PageOffset = request.PageOffset, PageLimit = request.PageLimit, SortField = request.SortField, SortOrder = request.SortOrder });
+
+            if (selectTicketPriorities == null)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return selectTicketPriorities.AsList();
         }
     }
 }

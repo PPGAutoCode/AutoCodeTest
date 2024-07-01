@@ -1,5 +1,4 @@
 
-// File: ListUserQuestionnaireRequestDto.cs
 namespace ProjectName.Types
 {
     public class ListUserQuestionnaireRequestDto

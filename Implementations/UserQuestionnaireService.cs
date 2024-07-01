@@ -22,53 +22,59 @@ namespace ProjectName.Services
 
         public async Task<string> CreateUserQuestionnaire(CreateUserQuestionnaireDto request)
         {
-            // Step 1: Validate Fields
-            if (string.IsNullOrEmpty(request.Label) || string.IsNullOrEmpty(request.HelpText) || string.IsNullOrEmpty(request.ReferenceMethod) || request.DefaultValue == null || !request.DefaultValue.Any())
-            {
-                throw new BusinessException("DP-422", "Client Error");
-            }
+            ValidateCreateUserQuestionnaire(request);
 
-            // Step 2: Fetch ProductCategories
-            foreach (var id in request.DefaultValue)
-            {
-                var exists = await _dbConnection.ExecuteScalarAsync<bool>("SELECT COUNT(1) FROM ProductCategories WHERE Id = @Id", new { Id = id });
-                if (!exists)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-            }
+            var productCategories = await FetchProductCategories(request.ProductCategoriesId);
+            var corporateUser = await FetchCorporateUser(request.CorporateUserId);
 
-            // Step 3: Fetch CorporateUser
-            var corporateUserExists = await _dbConnection.ExecuteScalarAsync<bool>("SELECT COUNT(1) FROM CorporateUser WHERE Id = @Id", new { Id = request.CorporateUserId });
-            if (!corporateUserExists)
-            {
-                throw new TechnicalException("DP-404", "Technical Error");
-            }
-
-            // Step 4: Create UserQuestionnaire Object
             var userQuestionnaire = new UserQuestionnaire
             {
                 Id = Guid.NewGuid(),
-                Label = request.Label,
-                HelpText = request.HelpText,
-                ReferenceMethod = request.ReferenceMethod,
-                DefaultValue = request.DefaultValue,
+                CompanyErpSolutionName = request.CompanyErpSolutionName,
+                CompanyErpSolutionVersion = request.CompanyErpSolutionVersion,
+                CompanyKad = request.CompanyKad,
+                CompanyLegalName = request.CompanyLegalName,
+                CompanyOwnsBankAccount = request.CompanyOwnsBankAccount,
+                CompanyReprEmail = request.CompanyReprEmail,
+                CompanyRepFullName = request.CompanyRepFullName,
+                CompanyRepNumber = request.CompanyRepNumber,
+                CompanyTaxId = request.CompanyTaxId,
+                CompanyUsesErp = request.CompanyUsesErp,
+                CompanyWebsite = request.CompanyWebsite,
+                CorporateUserId = request.CorporateUserId,
+                ErpBankingActivities = request.ErpBankingActivities,
                 Created = DateTime.UtcNow,
                 Changed = DateTime.UtcNow
             };
 
-            // Step 5: Insert UserQuestionnaire into Database
-            const string sql = @"
-                INSERT INTO UserQuestionnaire (Id, Label, HelpText, ReferenceMethod, DefaultValue, Created, Changed)
-                VALUES (@Id, @Label, @HelpText, @ReferenceMethod, @DefaultValue, @Created, @Changed)";
+            var productProductCategories = productCategories.Select(pc => new ProductProductCategory
+            {
+                Id = Guid.NewGuid(),
+                ProductId = userQuestionnaire.Id,
+                ProductCategoryId = pc.Id
+            }).ToList();
 
-            try
+            using (var transaction = _dbConnection.BeginTransaction())
             {
-                await _dbConnection.ExecuteAsync(sql, userQuestionnaire);
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
+                try
+                {
+                    const string insertUserQuestionnaireQuery = @"
+                        INSERT INTO UserQuestionnaire (Id, CompanyErpSolutionName, CompanyErpSolutionVersion, CompanyKad, CompanyLegalName, CompanyOwnsBankAccount, CompanyReprEmail, CompanyRepFullName, CompanyRepNumber, CompanyTaxId, CompanyUsesErp, CompanyWebsite, CorporateUserId, ErpBankingActivities, Created, Changed)
+                        VALUES (@Id, @CompanyErpSolutionName, @CompanyErpSolutionVersion, @CompanyKad, @CompanyLegalName, @CompanyOwnsBankAccount, @CompanyReprEmail, @CompanyRepFullName, @CompanyRepNumber, @CompanyTaxId, @CompanyUsesErp, @CompanyWebsite, @CorporateUserId, @ErpBankingActivities, @Created, @Changed)";
+                    await _dbConnection.ExecuteAsync(insertUserQuestionnaireQuery, userQuestionnaire, transaction);
+
+                    const string insertProductProductCategoriesQuery = @"
+                        INSERT INTO ProductProductCategories (Id, ProductId, ProductCategoryId)
+                        VALUES (@Id, @ProductId, @ProductCategoryId)";
+                    await _dbConnection.ExecuteAsync(insertProductProductCategoriesQuery, productProductCategories, transaction);
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator");
+                }
             }
 
             return userQuestionnaire.Id.ToString();
@@ -76,132 +82,209 @@ namespace ProjectName.Services
 
         public async Task<List<UserQuestionnaire>> GetListUserQuestionnaire(ListUserQuestionnaireRequestDto request)
         {
-            // Step 1: Validate Fields
-            if (request.PageLimit < 0 || request.PageOffset < 0)
-            {
-                throw new BusinessException("DP-422", "Client Error");
-            }
+            ValidateListUserQuestionnaire(request);
 
-            // Step 2: Fetch UserQuestionnaires
-            var sql = @"
+            const string query = @"
                 SELECT * FROM UserQuestionnaire
                 ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS
-                FETCH NEXT @PageLimit ROWS ONLY";
+                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
 
-            try
+            var parameters = new
             {
-                var userQuestionnaires = await _dbConnection.QueryAsync<UserQuestionnaire>(sql, new
-                {
-                    SortField = request.SortField,
-                    SortOrder = request.SortOrder,
-                    PageOffset = request.PageOffset,
-                    PageLimit = request.PageLimit
-                });
+                PageOffset = request.PageOffset,
+                PageLimit = request.PageLimit,
+                SortField = request.SortField,
+                SortOrder = request.SortOrder
+            };
 
-                return userQuestionnaires.ToList();
-            }
-            catch (Exception)
+            var userQuestionnaires = await _dbConnection.QueryAsync<UserQuestionnaire>(query, parameters);
+
+            if (request.PageLimit == 0 && request.PageOffset == 0)
             {
-                throw new TechnicalException("DP-500", "Technical Error");
+                return new List<UserQuestionnaire>();
             }
+
+            return userQuestionnaires.ToList();
         }
 
         public async Task<UserQuestionnaire> GetUserQuestionnaire(UserQuestionnaireRequestDto request)
         {
-            // Step 1: Validate Fields
-            if (request.Id == Guid.Empty)
+            ValidateUserQuestionnaireRequest(request);
+
+            const string query = @"
+                SELECT * FROM UserQuestionnaire WHERE Id = @Id";
+
+            var userQuestionnaire = await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(query, new { Id = request.Id });
+
+            if (userQuestionnaire == null)
             {
-                throw new BusinessException("DP-422", "Client Error");
+                throw new TechnicalException("DP-404", "UserQuestionnaire not found");
             }
 
-            // Step 2: Fetch UserQuestionnaire
-            var sql = @"SELECT * FROM UserQuestionnaire WHERE Id = @Id";
-
-            try
-            {
-                var userQuestionnaire = await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(sql, new { Id = request.Id });
-                if (userQuestionnaire == null)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-
-                return userQuestionnaire;
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
-            }
+            return userQuestionnaire;
         }
 
         public async Task<string> UpdateUserQuestionnaire(UpdateUserQuestionnaireDto request)
         {
-            // Step 1: Validate Fields
-            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Label) || string.IsNullOrEmpty(request.HelpText) || string.IsNullOrEmpty(request.ReferenceMethod) || request.DefaultValue == null || !request.DefaultValue.Any())
-            {
-                throw new BusinessException("DP-422", "Client Error");
-            }
+            ValidateUpdateUserQuestionnaire(request);
 
-            // Step 2: Fetch Existing UserQuestionnaire
-            var existingUserQuestionnaire = await GetUserQuestionnaire(new UserQuestionnaireRequestDto { Id = request.Id });
-            if (existingUserQuestionnaire == null)
-            {
-                throw new TechnicalException("DP-404", "Technical Error");
-            }
+            var existingUserQuestionnaire = await FetchUserQuestionnaire(request.Id);
 
-            // Step 3: Update UserQuestionnaire Object
-            existingUserQuestionnaire.Label = request.Label;
-            existingUserQuestionnaire.HelpText = request.HelpText;
-            existingUserQuestionnaire.ReferenceMethod = request.ReferenceMethod;
-            existingUserQuestionnaire.DefaultValue = request.DefaultValue;
+            existingUserQuestionnaire.CompanyErpSolutionName = request.CompanyErpSolutionName;
+            existingUserQuestionnaire.CompanyErpSolutionVersion = request.CompanyErpSolutionVersion;
+            existingUserQuestionnaire.CompanyKad = request.CompanyKad;
+            existingUserQuestionnaire.CompanyLegalName = request.CompanyLegalName;
+            existingUserQuestionnaire.CompanyOwnsBankAccount = request.CompanyOwnsBankAccount;
+            existingUserQuestionnaire.CompanyReprEmail = request.CompanyReprEmail;
+            existingUserQuestionnaire.CompanyRepFullName = request.CompanyRepFullName;
+            existingUserQuestionnaire.CompanyRepNumber = request.CompanyRepNumber;
+            existingUserQuestionnaire.CompanyTaxId = request.CompanyTaxId;
+            existingUserQuestionnaire.CompanyUsesErp = request.CompanyUsesErp;
+            existingUserQuestionnaire.CompanyWebsite = request.CompanyWebsite;
+            existingUserQuestionnaire.CorporateUserId = request.CorporateUserId;
+            existingUserQuestionnaire.ErpBankingActivities = request.ErpBankingActivities;
             existingUserQuestionnaire.Changed = DateTime.UtcNow;
 
-            // Step 4: Save Changes to Database
-            const string sql = @"
+            const string updateQuery = @"
                 UPDATE UserQuestionnaire
-                SET Label = @Label, HelpText = @HelpText, ReferenceMethod = @ReferenceMethod, DefaultValue = @DefaultValue, Changed = @Changed
+                SET CompanyErpSolutionName = @CompanyErpSolutionName,
+                    CompanyErpSolutionVersion = @CompanyErpSolutionVersion,
+                    CompanyKad = @CompanyKad,
+                    CompanyLegalName = @CompanyLegalName,
+                    CompanyOwnsBankAccount = @CompanyOwnsBankAccount,
+                    CompanyReprEmail = @CompanyReprEmail,
+                    CompanyRepFullName = @CompanyRepFullName,
+                    CompanyRepNumber = @CompanyRepNumber,
+                    CompanyTaxId = @CompanyTaxId,
+                    CompanyUsesErp = @CompanyUsesErp,
+                    CompanyWebsite = @CompanyWebsite,
+                    CorporateUserId = @CorporateUserId,
+                    ErpBankingActivities = @ErpBankingActivities,
+                    Changed = @Changed
                 WHERE Id = @Id";
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(sql, existingUserQuestionnaire);
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
-            }
+            await _dbConnection.ExecuteAsync(updateQuery, existingUserQuestionnaire);
 
             return existingUserQuestionnaire.Id.ToString();
         }
 
         public async Task<bool> DeleteUserQuestionnaire(DeleteUserQuestionnaireDto request)
         {
-            // Step 1: Validate Fields
+            ValidateDeleteUserQuestionnaire(request);
+
+            var existingUserQuestionnaire = await FetchUserQuestionnaire(request.Id);
+
+            const string deleteQuery = @"
+                DELETE FROM UserQuestionnaire WHERE Id = @Id";
+
+            await _dbConnection.ExecuteAsync(deleteQuery, new { Id = request.Id });
+
+            return true;
+        }
+
+        private void ValidateCreateUserQuestionnaire(CreateUserQuestionnaireDto request)
+        {
+            if (string.IsNullOrEmpty(request.CompanyErpSolutionName) ||
+                string.IsNullOrEmpty(request.CompanyErpSolutionVersion) ||
+                string.IsNullOrEmpty(request.CompanyKad) ||
+                string.IsNullOrEmpty(request.CompanyLegalName) ||
+                string.IsNullOrEmpty(request.CompanyReprEmail) ||
+                string.IsNullOrEmpty(request.CompanyRepFullName) ||
+                string.IsNullOrEmpty(request.CompanyRepNumber) ||
+                string.IsNullOrEmpty(request.CompanyTaxId) ||
+                string.IsNullOrEmpty(request.CompanyWebsite) ||
+                request.CorporateUserId == Guid.Empty ||
+                request.ProductCategoriesId == Guid.Empty)
+            {
+                throw new BusinessException("DP-422", "Client Error");
+            }
+        }
+
+        private void ValidateListUserQuestionnaire(ListUserQuestionnaireRequestDto request)
+        {
+            if (request.PageLimit < 0 || request.PageOffset < 0)
+            {
+                throw new BusinessException("DP-422", "Client Error");
+            }
+        }
+
+        private void ValidateUserQuestionnaireRequest(UserQuestionnaireRequestDto request)
+        {
             if (request.Id == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
+        }
 
-            // Step 2: Fetch Existing UserQuestionnaire
-            var existingUserQuestionnaire = await GetUserQuestionnaire(new UserQuestionnaireRequestDto { Id = request.Id });
-            if (existingUserQuestionnaire == null)
+        private void ValidateUpdateUserQuestionnaire(UpdateUserQuestionnaireDto request)
+        {
+            if (string.IsNullOrEmpty(request.CompanyErpSolutionName) ||
+                string.IsNullOrEmpty(request.CompanyErpSolutionVersion) ||
+                string.IsNullOrEmpty(request.CompanyKad) ||
+                string.IsNullOrEmpty(request.CompanyLegalName) ||
+                string.IsNullOrEmpty(request.CompanyReprEmail) ||
+                string.IsNullOrEmpty(request.CompanyRepFullName) ||
+                string.IsNullOrEmpty(request.CompanyRepNumber) ||
+                string.IsNullOrEmpty(request.CompanyTaxId) ||
+                string.IsNullOrEmpty(request.CompanyWebsite) ||
+                request.CorporateUserId == Guid.Empty ||
+                request.ProductCategoriesId == Guid.Empty)
             {
-                throw new TechnicalException("DP-404", "Technical Error");
+                throw new BusinessException("DP-422", "Client Error");
+            }
+        }
+
+        private void ValidateDeleteUserQuestionnaire(DeleteUserQuestionnaireDto request)
+        {
+            if (request.Id == Guid.Empty)
+            {
+                throw new BusinessException("DP-422", "Client Error");
+            }
+        }
+
+        private async Task<List<ProductCategory>> FetchProductCategories(Guid productCategoriesId)
+        {
+            const string query = @"
+                SELECT * FROM ProductCategories WHERE Id = @Id";
+
+            var productCategories = await _dbConnection.QueryAsync<ProductCategory>(query, new { Id = productCategoriesId });
+
+            if (!productCategories.Any())
+            {
+                throw new TechnicalException("DP-404", "ProductCategory not found");
             }
 
-            // Step 3: Delete UserQuestionnaire
-            const string sql = @"DELETE FROM UserQuestionnaire WHERE Id = @Id";
+            return productCategories.ToList();
+        }
 
-            try
+        private async Task<UserQuestionnaire> FetchUserQuestionnaire(Guid id)
+        {
+            const string query = @"
+                SELECT * FROM UserQuestionnaire WHERE Id = @Id";
+
+            var userQuestionnaire = await _dbConnection.QuerySingleOrDefaultAsync<UserQuestionnaire>(query, new { Id = id });
+
+            if (userQuestionnaire == null)
             {
-                await _dbConnection.ExecuteAsync(sql, new { Id = request.Id });
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
+                throw new TechnicalException("DP-404", "UserQuestionnaire not found");
             }
 
-            return true;
+            return userQuestionnaire;
+        }
+
+        private async Task<CorporateUser> FetchCorporateUser(Guid corporateUserId)
+        {
+            const string query = @"
+                SELECT * FROM CorporateUser WHERE Id = @Id";
+
+            var corporateUser = await _dbConnection.QuerySingleOrDefaultAsync<CorporateUser>(query, new { Id = corporateUserId });
+
+            if (corporateUser == null)
+            {
+                throw new TechnicalException("DP-404", "CorporateUser not found");
+            }
+
+            return corporateUser;
         }
     }
 }

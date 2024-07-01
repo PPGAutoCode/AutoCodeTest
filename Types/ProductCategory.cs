@@ -9,6 +9,6 @@ namespace ProjectName.Types
         public string Description { get; set; }
         public string Parent { get; set; }
         public string UrlAlias { get; set; }
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
     }
 }

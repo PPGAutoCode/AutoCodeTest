@@ -1,7 +1,5 @@
 
-// DeleteBlogCategoryDto.cs
-using System;
-
+// File: DeleteBlogCategoryDto.cs
 namespace ProjectName.Types
 {
     public class DeleteBlogCategoryDto

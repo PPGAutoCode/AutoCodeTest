@@ -1,7 +1,5 @@
 
-// BlogTagRequestDto.cs
-using System;
-
+// File: BlogTagRequestDto.cs
 namespace ProjectName.Types
 {
     public class BlogTagRequestDto

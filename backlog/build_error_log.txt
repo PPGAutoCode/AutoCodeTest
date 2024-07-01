@@ -16,11 +16,6 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Ar
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/AuthorService.cs(213,28): error CS1061: 'Author' does not contain a definition for 'Image' and no accessible extension method 'Image' accepting a first argument of type 'Author' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/AuthorService.cs(89,24): error CS1061: 'Author' does not contain a definition for 'Image' and no accessible extension method 'Image' accepting a first argument of type 'Author' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogCategoryService.cs(45,26): error CS0266: Cannot implicitly convert type 'System.Guid?' to 'System.Guid'. An explicit conversion exists (are you missing a cast?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(33,17): error CS0117: 'BlogTag' does not contain a definition for 'Created'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(34,17): error CS0117: 'BlogTag' does not contain a definition for 'Changed'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(35,17): error CS0117: 'BlogTag' does not contain a definition for 'CreatorId'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(36,17): error CS0117: 'BlogTag' does not contain a definition for 'ChangedUser'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/BlogTagService.cs(96,29): error CS1061: 'BlogTag' does not contain a definition for 'Changed' and no accessible extension method 'Changed' accepting a first argument of type 'BlogTag' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(109,38): error CS1503: Argument 1: cannot convert from 'System.Guid' to 'string?'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(222,58): error CS0019: Operator '==' cannot be applied to operands of type 'Guid' and 'string'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ChangeLogService.cs(223,58): error CS0019: Operator '==' cannot be applied to operands of type 'Guid' and 'string'
@@ -61,4 +56,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(84,17): error CS0117: 'SupportTicket' does not contain a definition for 'SeverityId'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(87,17): error CS0117: 'SupportTicket' does not contain a definition for 'Message'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/UserQuestionnaireService.cs(42,156): error CS1061: 'CreateUserQuestionnaireDto' does not contain a definition for 'CorporateUserId' and no accessible extension method 'CorporateUserId' accepting a first argument of type 'CreateUserQuestionnaireDto' could be found (are you missing a using directive or an assembly reference?)
-Error: 63 Error(s)
+Error: 58 Error(s)

@@ -1,7 +1,5 @@
 
-// UpdateBlogTagDto.cs
-using System;
-
+// File: UpdateBlogTagDto.cs
 namespace ProjectName.Types
 {
     public class UpdateBlogTagDto

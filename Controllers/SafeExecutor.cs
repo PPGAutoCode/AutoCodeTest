@@ -28,29 +28,4 @@ namespace ProjectName.Controllers
             }
         }
     }
-
-    public class Response<T>
-    {
-        public T Payload { get; set; }
-        public ExceptionInfo Exception { get; set; }
-    }
-
-    public class ExceptionInfo
-    {
-        public string Id { get; set; }
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
-
-    public class BusinessException : Exception
-    {
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
-
-    public class TechnicalException : Exception
-    {
-        public string Code { get; set; }
-        public string Description { get; set; }
-    }
 }

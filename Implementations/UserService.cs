@@ -69,8 +69,15 @@ namespace ProjectName.Services
             try
             {
                 const string sql = @"
-                    INSERT INTO Users (Id, Nickname, Status, Email, ContactSettings, UserRoles, SiteLanguage, LocaleSettings, Image, FirstName, LastName, Company, Phone, IBM_UId, MaxNumApps, CompletedStories, UserType, UserQuestionnaire, Created, LastAccess)
-                    VALUES (@Id, @Nickname, @Status, @Email, @ContactSettings, @UserRoles, @SiteLanguage, @LocaleSettings, @Image, @FirstName, @LastName, @Company, @Phone, @IBM_UId, @MaxNumApps, @CompletedStories, @UserType, @UserQuestionnaire, @Created, @LastAccess);
+                    INSERT INTO Users (
+                        Id, Nickname, Status, Email, ContactSettings, UserRoles, SiteLanguage, LocaleSettings, Image, 
+                        FirstName, LastName, Company, Phone, IBM_UId, MaxNumApps, CompletedStories, UserType, UserQuestionnaire, 
+                        Created, LastAccess
+                    ) VALUES (
+                        @Id, @Nickname, @Status, @Email, @ContactSettings, @UserRoles, @SiteLanguage, @LocaleSettings, @Image, 
+                        @FirstName, @LastName, @Company, @Phone, @IBM_UId, @MaxNumApps, @CompletedStories, @UserType, @UserQuestionnaire, 
+                        @Created, @LastAccess
+                    );
                 ";
                 await _dbConnection.ExecuteAsync(sql, user);
             }
@@ -86,7 +93,7 @@ namespace ProjectName.Services
         public async Task<User> GetUser(UserRequestDto request)
         {
             // Step 1: Validate UserRequestDto fields
-            if (request == null || !request.AnyFieldSet())
+            if (request == null || !ValidateUserRequestDto(request))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
@@ -119,41 +126,45 @@ namespace ProjectName.Services
             }
 
             // Step 3: Fetch the existing User object from the database
-            var existingUser = await FetchUserById(request.Id);
-            if (existingUser == null)
+            var user = await FetchUserById(request.Id);
+            if (user == null)
             {
-                throw new BusinessException("DP-404", "Technical Error");
+                throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 4: Update the User object with the provided changes
-            existingUser.Nickname = request.Nickname;
-            existingUser.Status = request.Status;
-            existingUser.Email = request.Email;
-            existingUser.ContactSettings = request.ContactSettings;
-            existingUser.UserRoles = request.UserRoles;
-            existingUser.SiteLanguage = request.SiteLanguage;
-            existingUser.LocaleSettings = request.LocaleSettings;
-            existingUser.Image = request.Image;
-            existingUser.FirstName = request.FirstName;
-            existingUser.LastName = request.LastName;
-            existingUser.Company = request.Company;
-            existingUser.Phone = request.Phone;
-            existingUser.IBM_UId = request.IBM_UId;
-            existingUser.MaxNumApps = request.MaxNumApps;
-            existingUser.CompletedStories = request.CompletedStories;
-            existingUser.UserType = request.UserType;
-            existingUser.UserQuestionnaire = request.UserQuestionnaire;
-            existingUser.LastAccess = DateTime.UtcNow;
+            user.Nickname = request.Nickname;
+            user.Status = request.Status;
+            user.Email = request.Email;
+            user.ContactSettings = request.ContactSettings;
+            user.UserRoles = request.UserRoles;
+            user.SiteLanguage = request.SiteLanguage;
+            user.LocaleSettings = request.LocaleSettings;
+            user.Image = request.Image;
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.Company = request.Company;
+            user.Phone = request.Phone;
+            user.IBM_UId = request.IBM_UId;
+            user.MaxNumApps = request.MaxNumApps;
+            user.CompletedStories = request.CompletedStories;
+            user.UserType = request.UserType;
+            user.UserQuestionnaire = request.UserQuestionnaire;
+            user.LastAccess = DateTime.UtcNow;
 
             // Step 5: Save the updated User object back to the database
             try
             {
                 const string sql = @"
-                    UPDATE Users 
-                    SET Nickname = @Nickname, Status = @Status, Email = @Email, ContactSettings = @ContactSettings, UserRoles = @UserRoles, SiteLanguage = @SiteLanguage, LocaleSettings = @LocaleSettings, Image = @Image, FirstName = @FirstName, LastName = @LastName, Company = @Company, Phone = @Phone, IBM_UId = @IBM_UId, MaxNumApps = @MaxNumApps, CompletedStories = @CompletedStories, UserType = @UserType, UserQuestionnaire = @UserQuestionnaire, LastAccess = @LastAccess
+                    UPDATE Users SET
+                        Nickname = @Nickname, Status = @Status, Email = @Email, ContactSettings = @ContactSettings, UserRoles = @UserRoles, 
+                        SiteLanguage = @SiteLanguage, LocaleSettings = @LocaleSettings, Image = @Image, FirstName = @FirstName, 
+                        LastName = @LastName, Company = @Company, Phone = @Phone, IBM_UId = @IBM_UId, MaxNumApps = @MaxNumApps, 
+                        CompletedStories = @CompletedStories, UserType = @UserType, UserQuestionnaire = @UserQuestionnaire, 
+                        LastAccess = @LastAccess
                     WHERE Id = @Id;
                 ";
-                await _dbConnection.ExecuteAsync(sql, existingUser);
+                await _dbConnection.ExecuteAsync(sql, user);
             }
             catch (Exception)
             {
@@ -161,7 +172,7 @@ namespace ProjectName.Services
             }
 
             // Step 6: Return UserId from database
-            return existingUser.Id.ToString();
+            return user.Id.ToString();
         }
 
         public async Task<bool> DeleteUser(DeleteUserRequestDto request)
@@ -173,20 +184,17 @@ namespace ProjectName.Services
             }
 
             // Step 2: Get the existing User object from the database
-            var existingUser = await FetchUserById(request.Id);
-            if (existingUser == null)
+            var user = await FetchUserById(request.Id);
+            if (user == null)
             {
-                throw new BusinessException("DP-404", "Technical Error");
+                throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 3: Delete the User object from the database
             try
             {
-                const string sql = @"
-                    DELETE FROM Users 
-                    WHERE Id = @Id;
-                ";
-                await _dbConnection.ExecuteAsync(sql, new { Id = request.Id });
+                const string sql = "DELETE FROM Users WHERE Id = @Id;";
+                await _dbConnection.ExecuteAsync(sql, new { user.Id });
             }
             catch (Exception)
             {
@@ -206,16 +214,32 @@ namespace ProjectName.Services
             }
 
             // Step 2: Apply sorting and pagination
-            var sortField = request.SortField ?? "Nickname";
-            var sortOrder = request.SortOrder ?? "ASC";
-            var pageLimit = request.PageLimit ?? 10;
-            var pageOffset = request.PageOffset ?? 0;
+            var sortField = string.IsNullOrEmpty(request.SortField) ? "Nickname" : request.SortField;
+            var sortOrder = string.IsNullOrEmpty(request.SortOrder) ? "ASC" : request.SortOrder;
+            var pageLimit = request.PageLimit <= 0 ? 10 : request.PageLimit;
+            var pageOffset = request.PageOffset < 0 ? 0 : request.PageOffset;
 
             // Step 3: Fetching User Data
-            var users = await FetchUsersByRequest(request, sortField, sortOrder, pageLimit, pageOffset);
+            var sql = $@"
+                SELECT * FROM Users
+                WHERE (@Id IS NULL OR Id = @Id)
+                AND (@Nickname IS NULL OR Nickname = @Nickname)
+                AND (@Email IS NULL OR Email = @Email)
+                AND (@Status IS NULL OR Status = @Status)
+                ORDER BY {sortField} {sortOrder}
+                LIMIT {pageLimit} OFFSET {pageOffset};
+            ";
 
-            // Step 4: Constructing the Response
-            return users;
+            var users = await _dbConnection.QueryAsync<User>(sql, new
+            {
+                request.Id,
+                request.Nickname,
+                request.Email,
+                request.Status
+            });
+
+            // Step 4: Return the list of Users
+            return users.ToList();
         }
 
         private bool ValidateCreateUserRequest(CreateUserRequestDto request)
@@ -229,8 +253,16 @@ namespace ProjectName.Services
                    !string.IsNullOrEmpty(request.FirstName) &&
                    !string.IsNullOrEmpty(request.LastName) &&
                    !string.IsNullOrEmpty(request.Phone) &&
-                   !string.IsNullOrEmpty(request.IBM_UId) &&
                    request.UserType != Guid.Empty;
+        }
+
+        private bool ValidateUserRequestDto(UserRequestDto request)
+        {
+            return request.Id != Guid.Empty ||
+                   !string.IsNullOrEmpty(request.Nickname) ||
+                   !string.IsNullOrEmpty(request.Email) ||
+                   !string.IsNullOrEmpty(request.Phone) ||
+                   !string.IsNullOrEmpty(request.IBM_UId);
         }
 
         private bool ValidateUpdateUserRequest(UpdateUserRequestDto request)
@@ -244,7 +276,6 @@ namespace ProjectName.Services
                    !string.IsNullOrEmpty(request.FirstName) &&
                    !string.IsNullOrEmpty(request.LastName) &&
                    !string.IsNullOrEmpty(request.Phone) &&
-                   !string.IsNullOrEmpty(request.IBM_UId) &&
                    request.UserType != Guid.Empty;
         }
 
@@ -255,100 +286,34 @@ namespace ProjectName.Services
 
         private async Task<bool> ValidateUniqueFields(string nickname, string email, string phone, string ibmUId)
         {
-            const string sql = @"
-                SELECT COUNT(1) 
-                FROM Users 
+            var sql = @"
+                SELECT COUNT(1) FROM Users
                 WHERE Nickname = @Nickname OR Email = @Email OR Phone = @Phone OR IBM_UId = @IBM_UId;
             ";
-            var count = await _dbConnection.ExecuteScalarAsync<int>(sql, new { Nickname = nickname, Email = email, Phone = phone, IBM_UId = ibmUId });
+            var count = await _dbConnection.ExecuteScalarAsync<int>(sql, new { nickname, email, phone, ibmUId });
             return count == 0;
-        }
-
-        private async Task<User> FetchUserById(Guid id)
-        {
-            const string sql = @"
-                SELECT * 
-                FROM Users 
-                WHERE Id = @Id;
-            ";
-            return await _dbConnection.QuerySingleOrDefaultAsync<User>(sql, new { Id = id });
         }
 
         private async Task<User> FetchUserByRequest(UserRequestDto request)
         {
             var sql = @"
-                SELECT * 
-                FROM Users 
-                WHERE 1=1";
-
-            var parameters = new DynamicParameters();
-
-            if (request.Id != Guid.Empty)
+                SELECT * FROM Users
+                WHERE Id = @Id OR Nickname = @Nickname OR Email = @Email OR Phone = @Phone OR IBM_UId = @IBM_UId;
+            ";
+            return await _dbConnection.QueryFirstOrDefaultAsync<User>(sql, new
             {
-                sql += " AND Id = @Id";
-                parameters.Add("Id", request.Id);
-            }
-
-            if (!string.IsNullOrEmpty(request.Nickname))
-            {
-                sql += " AND Nickname = @Nickname";
-                parameters.Add("Nickname", request.Nickname);
-            }
-
-            if (!string.IsNullOrEmpty(request.Email))
-            {
-                sql += " AND Email = @Email";
-                parameters.Add("Email", request.Email);
-            }
-
-            return await _dbConnection.QuerySingleOrDefaultAsync<User>(sql, parameters);
+                request.Id,
+                request.Nickname,
+                request.Email,
+                request.Phone,
+                request.IBM_UId
+            });
         }
 
-        private async Task<List<User>> FetchUsersByRequest(ListUserRequestDto request, string sortField, string sortOrder, int pageLimit, int pageOffset)
+        private async Task<User> FetchUserById(Guid id)
         {
-            var sql = @"
-                SELECT * 
-                FROM Users 
-                WHERE 1=1";
-
-            var parameters = new DynamicParameters();
-
-            if (request.Id != Guid.Empty)
-            {
-                sql += " AND Id = @Id";
-                parameters.Add("Id", request.Id);
-            }
-
-            if (!string.IsNullOrEmpty(request.Nickname))
-            {
-                sql += " AND Nickname = @Nickname";
-                parameters.Add("Nickname", request.Nickname);
-            }
-
-            if (!string.IsNullOrEmpty(request.Email))
-            {
-                sql += " AND Email = @Email";
-                parameters.Add("Email", request.Email);
-            }
-
-            if (request.Status != null)
-            {
-                sql += " AND Status = @Status";
-                parameters.Add("Status", request.Status);
-            }
-
-            if (request.UserRoles != null && request.UserRoles.Any())
-            {
-                sql += " AND UserRoles IN @UserRoles";
-                parameters.Add("UserRoles", request.UserRoles);
-            }
-
-            sql += $" ORDER BY {sortField} {sortOrder}";
-            sql += " LIMIT @PageLimit OFFSET @PageOffset";
-            parameters.Add("PageLimit", pageLimit);
-            parameters.Add("PageOffset", pageOffset);
-
-            return (await _dbConnection.QueryAsync<User>(sql, parameters)).ToList();
+            var sql = "SELECT * FROM Users WHERE Id = @Id;";
+            return await _dbConnection.QueryFirstOrDefaultAsync<User>(sql, new { Id = id });
         }
     }
 }

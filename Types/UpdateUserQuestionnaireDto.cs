@@ -3,7 +3,7 @@ namespace ProjectName.Types
 {
     public class UpdateUserQuestionnaireDto
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
         public string CompanyErpSolutionName { get; set; }
         public string CompanyErpSolutionVersion { get; set; }
         public string CompanyKad { get; set; }
@@ -17,6 +17,6 @@ namespace ProjectName.Types
         public string CompanyWebsite { get; set; }
         public Guid CorporateUserId { get; set; }
         public string ErpBankingActivities { get; set; }
-        public Guid ProductCategoriesId { get; set; }
+        public List<Guid> ProductCategoriesId { get; set; }
     }
 }

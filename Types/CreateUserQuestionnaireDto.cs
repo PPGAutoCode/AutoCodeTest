@@ -16,6 +16,6 @@ namespace ProjectName.Types
         public string CompanyWebsite { get; set; }
         public Guid CorporateUserId { get; set; }
         public string ErpBankingActivities { get; set; }
-        public Guid ProductCategoriesId { get; set; }
+        public List<Guid> ProductCategoriesId { get; set; }
     }
 }

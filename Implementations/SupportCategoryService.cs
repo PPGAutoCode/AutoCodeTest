@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
+using ProjectName.ControllersExceptions;
 using ProjectName.Interfaces;
 using ProjectName.Types;
-using ProjectName.ControllersExceptions;
 
 namespace ProjectName.Services
 {
@@ -29,28 +29,18 @@ namespace ProjectName.Services
             var supportCategory = new SupportCategory
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                Version = 1,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow,
-                CreatorId = request.CreatorId,
-                ChangedUser = request.CreatorId
+                Name = request.Name
             };
 
-            const string sql = @"
-                INSERT INTO SupportCategories (Id, Name, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser);
-            ";
+            const string sql = "INSERT INTO SupportCategories (Id, Name) VALUES (@Id, @Name)";
+            var affectedRows = await _dbConnection.ExecuteAsync(sql, supportCategory);
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(sql, supportCategory);
-                return supportCategory.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return supportCategory.Id.ToString();
         }
 
         public async Task<SupportCategory> GetSupportCategory(SupportCategoryRequestDto request)
@@ -60,23 +50,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM SupportCategories WHERE Id = @Id;
-            ";
+            const string sql = "SELECT * FROM SupportCategories WHERE Id = @Id";
+            var supportCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(sql, new { Id = request.Id });
 
-            try
+            if (supportCategory == null)
             {
-                var supportCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(sql, new { request.Id });
-                if (supportCategory == null)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-                return supportCategory;
+                throw new TechnicalException("DP-404", "Technical Error");
             }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
-            }
+
+            return supportCategory;
         }
 
         public async Task<string> UpdateSupportCategory(UpdateSupportCategoryDto request)
@@ -86,36 +68,25 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM SupportCategories WHERE Id = @Id;
-            ";
+            const string selectSql = "SELECT * FROM SupportCategories WHERE Id = @Id";
+            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(selectSql, new { Id = request.Id });
 
-            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(selectSql, new { request.Id });
             if (existingCategory == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
             existingCategory.Name = request.Name;
-            existingCategory.Version += 1;
-            existingCategory.Changed = DateTime.UtcNow;
-            existingCategory.ChangedUser = request.ChangedUser;
 
-            const string updateSql = @"
-                UPDATE SupportCategories
-                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
-                WHERE Id = @Id;
-            ";
+            const string updateSql = "UPDATE SupportCategories SET Name = @Name WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(updateSql, new { Id = existingCategory.Id, Name = existingCategory.Name });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(updateSql, existingCategory);
-                return existingCategory.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return existingCategory.Id.ToString();
         }
 
         public async Task<bool> DeleteSupportCategory(DeleteSupportCategoryDto request)
@@ -125,59 +96,41 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM SupportCategories WHERE Id = @Id;
-            ";
+            const string selectSql = "SELECT * FROM SupportCategories WHERE Id = @Id";
+            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(selectSql, new { Id = request.Id });
 
-            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<SupportCategory>(selectSql, new { request.Id });
             if (existingCategory == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            const string deleteSql = @"
-                DELETE FROM SupportCategories WHERE Id = @Id;
-            ";
+            const string deleteSql = "DELETE FROM SupportCategories WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
-                return true;
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return true;
         }
 
         public async Task<List<SupportCategory>> GetListSupportCategory(ListSupportCategoryRequestDto request)
         {
-            if (request.PageLimit <= 0 || request.PageOffset < 0)
+            if (request.PageLimit <= 0 || request.PageOffset < 0 || string.IsNullOrEmpty(request.SortField) || string.IsNullOrEmpty(request.SortOrder))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM SupportCategories
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY;
-            ";
+            const string sql = "SELECT * FROM SupportCategories ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
+            var supportCategories = await _dbConnection.QueryAsync<SupportCategory>(sql, new { PageOffset = request.PageOffset, PageLimit = request.PageLimit, SortField = request.SortField, SortOrder = request.SortOrder });
 
-            try
-            {
-                var supportCategories = await _dbConnection.QueryAsync<SupportCategory>(sql, new
-                {
-                    request.PageOffset,
-                    request.PageLimit,
-                    SortField = request.SortField,
-                    SortOrder = request.SortOrder
-                });
-                return supportCategories.AsList();
-            }
-            catch (Exception)
+            if (supportCategories == null)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return supportCategories.AsList();
         }
     }
 }

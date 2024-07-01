@@ -5,6 +5,6 @@ namespace ProjectName.Types
     {
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }
-        public Guid FeatureId { get; set; }
+        public Guid ProductFeatureId { get; set; }
     }
 }

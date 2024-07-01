@@ -1,6 +1,4 @@
 
-using System;
-
 namespace ProjectName.Types
 {
     public class DeleteProductDomainDto
@@ -8,4 +6,3 @@ namespace ProjectName.Types
         public Guid Id { get; set; }
     }
 }
-    

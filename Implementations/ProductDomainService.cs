@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using ProjectName.Interfaces;
 using ProjectName.Types;
+using ProjectName.Interfaces;
 using ProjectName.ControllersExceptions;
 
 namespace ProjectName.Services
@@ -29,28 +29,18 @@ namespace ProjectName.Services
             var productDomain = new ProductDomain
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                Version = 1,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow,
-                CreatorId = request.CreatorId,
-                ChangedUser = request.CreatorId
+                Name = request.Name
             };
 
-            const string sql = @"
-                INSERT INTO ProductDomains (Id, Name, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser);
-            ";
+            const string sql = "INSERT INTO ProductDomains (Id, Name) VALUES (@Id, @Name)";
+            var affectedRows = await _dbConnection.ExecuteAsync(sql, productDomain);
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(sql, productDomain);
-                return productDomain.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return productDomain.Id.ToString();
         }
 
         public async Task<ProductDomain> GetProductDomain(ProductDomainRequestDto request)
@@ -60,23 +50,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM ProductDomains WHERE Id = @Id;
-            ";
+            const string sql = "SELECT * FROM ProductDomains WHERE Id = @Id";
+            var productDomain = await _dbConnection.QuerySingleOrDefaultAsync<ProductDomain>(sql, new { Id = request.Id });
 
-            try
-            {
-                var productDomain = await _dbConnection.QuerySingleOrDefaultAsync<ProductDomain>(sql, new { request.Id });
-                if (productDomain == null)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-                return productDomain;
-            }
-            catch (Exception)
+            if (productDomain == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
+
+            return productDomain;
         }
 
         public async Task<string> UpdateProductDomain(UpdateProductDomainDto request)
@@ -86,36 +68,25 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM ProductDomains WHERE Id = @Id;
-            ";
+            const string selectSql = "SELECT * FROM ProductDomains WHERE Id = @Id";
+            var existingProductDomain = await _dbConnection.QuerySingleOrDefaultAsync<ProductDomain>(selectSql, new { Id = request.Id });
 
-            var existingProductDomain = await _dbConnection.QuerySingleOrDefaultAsync<ProductDomain>(selectSql, new { request.Id });
             if (existingProductDomain == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
             existingProductDomain.Name = request.Name;
-            existingProductDomain.Version += 1;
-            existingProductDomain.Changed = DateTime.UtcNow;
-            existingProductDomain.ChangedUser = request.ChangedUser;
 
-            const string updateSql = @"
-                UPDATE ProductDomains
-                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
-                WHERE Id = @Id;
-            ";
+            const string updateSql = "UPDATE ProductDomains SET Name = @Name WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(updateSql, new { Id = existingProductDomain.Id, Name = existingProductDomain.Name });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(updateSql, existingProductDomain);
-                return existingProductDomain.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return existingProductDomain.Id.ToString();
         }
 
         public async Task<bool> DeleteProductDomain(DeleteProductDomainDto request)
@@ -125,29 +96,23 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM ProductDomains WHERE Id = @Id;
-            ";
+            const string selectSql = "SELECT * FROM ProductDomains WHERE Id = @Id";
+            var existingProductDomain = await _dbConnection.QuerySingleOrDefaultAsync<ProductDomain>(selectSql, new { Id = request.Id });
 
-            var existingProductDomain = await _dbConnection.QuerySingleOrDefaultAsync<ProductDomain>(selectSql, new { request.Id });
             if (existingProductDomain == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            const string deleteSql = @"
-                DELETE FROM ProductDomains WHERE Id = @Id;
-            ";
+            const string deleteSql = "DELETE FROM ProductDomains WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
-                return true;
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return true;
         }
 
         public async Task<List<ProductDomain>> GetListProductDomain(ListProductDomainRequestDto request)
@@ -157,22 +122,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM ProductDomains
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS
-                FETCH NEXT @PageLimit ROWS ONLY;
-            ";
+            const string sql = "SELECT * FROM ProductDomains ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
+            var productDomains = await _dbConnection.QueryAsync<ProductDomain>(sql, new { PageOffset = request.PageOffset, PageLimit = request.PageLimit, SortField = request.SortField, SortOrder = request.SortOrder });
 
-            try
-            {
-                var productDomains = await _dbConnection.QueryAsync<ProductDomain>(sql, new { request.PageLimit, request.PageOffset, request.SortField, request.SortOrder });
-                return productDomains.AsList();
-            }
-            catch (Exception)
+            if (productDomains == null)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return productDomains.AsList();
         }
     }
 }

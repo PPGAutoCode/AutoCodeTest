@@ -1,6 +1,4 @@
 
-using System;
-
 namespace ProjectName.Types
 {
     public class UpdateProductDomainDto
@@ -9,4 +7,3 @@ namespace ProjectName.Types
         public string Name { get; set; }
     }
 }
-    

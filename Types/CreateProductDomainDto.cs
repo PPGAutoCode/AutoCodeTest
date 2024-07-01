@@ -6,4 +6,3 @@ namespace ProjectName.Types
         public string Name { get; set; }
     }
 }
-    

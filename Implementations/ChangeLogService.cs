@@ -23,9 +23,7 @@ namespace ProjectName.Services
         public async Task<string> CreateChangeLog(CreateChangeLogDto request)
         {
             // Step 1: Validate the request payload
-            if (string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.Notes) ||
-                string.IsNullOrEmpty(request.ProductId) || request.ReleaseDate == default ||
-                request.Version == null || string.IsNullOrEmpty(request.CreatorId))
+            if (string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.Notes) || request.ProductId == Guid.Empty || request.ReleaseDate == default || request.Version == null || string.IsNullOrEmpty(request.CreatorId))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
@@ -42,14 +40,15 @@ namespace ProjectName.Services
                 Version = request.Version,
                 Created = DateTime.UtcNow,
                 Changed = DateTime.UtcNow,
-                CreatorId = request.CreatorId,
-                ChangedUser = request.CreatorId
+                CreatorId = Guid.Parse(request.CreatorId),
+                ChangedUser = Guid.Parse(request.CreatorId)
             };
 
-            // Step 3: Save the newly created ChangeLog object to the database
+            // Step 3: Save the new ChangeLog object to the database
             const string sql = @"
                 INSERT INTO ChangeLogs (Id, Title, Notes, ProductId, ReleaseDate, ChangeLogVersion, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Title, @Notes, @ProductId, @ReleaseDate, @ChangeLogVersion, @Version, @Created, @Changed, @CreatorId, @ChangedUser)";
+                VALUES (@Id, @Title, @Notes, @ProductId, @ReleaseDate, @ChangeLogVersion, @Version, @Created, @Changed, @CreatorId, @ChangedUser);
+            ";
 
             try
             {
@@ -64,21 +63,23 @@ namespace ProjectName.Services
 
         public async Task<ChangeLog> GetChangeLog(ChangeLogRequestDto request)
         {
-            // Step 1: Validate Request Payload
+            // Step 1: Validate the request payload
             if (request.Id == Guid.Empty && string.IsNullOrEmpty(request.Title))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            // Step 2: Fetch Existing ChangeLog
+            // Step 2: Fetch the ChangeLog from the database
             ChangeLog changeLog;
             if (request.Id != Guid.Empty)
             {
-                changeLog = await _dbConnection.QuerySingleOrDefaultAsync<ChangeLog>("SELECT * FROM ChangeLogs WHERE Id = @Id", new { Id = request.Id });
+                const string sql = "SELECT * FROM ChangeLogs WHERE Id = @Id";
+                changeLog = await _dbConnection.QuerySingleOrDefaultAsync<ChangeLog>(sql, new { Id = request.Id });
             }
             else
             {
-                changeLog = await _dbConnection.QuerySingleOrDefaultAsync<ChangeLog>("SELECT * FROM ChangeLogs WHERE Title = @Title", new { Title = request.Title });
+                const string sql = "SELECT * FROM ChangeLogs WHERE Title = @Title";
+                changeLog = await _dbConnection.QuerySingleOrDefaultAsync<ChangeLog>(sql, new { Title = request.Title });
             }
 
             if (changeLog == null)
@@ -86,15 +87,16 @@ namespace ProjectName.Services
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 3: Fetch the product associated with the ChangeLog
-            var product = await _dbConnection.QuerySingleOrDefaultAsync<Product>("SELECT * FROM Products WHERE Id = @ProductId", new { ProductId = changeLog.ProductId });
+            // Step 3: Fetch the product and creator
+            const string productSql = "SELECT * FROM Products WHERE Id = @ProductId";
+            var product = await _dbConnection.QuerySingleOrDefaultAsync<Product>(productSql, new { ProductId = changeLog.ProductId });
             if (product == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 4: Fetch the creator from the database
-            var creator = await _dbConnection.QuerySingleOrDefaultAsync<User>("SELECT * FROM Users WHERE Id = @CreatorId", new { CreatorId = changeLog.CreatorId });
+            const string creatorSql = "SELECT * FROM Users WHERE Id = @CreatorId";
+            var creator = await _dbConnection.QuerySingleOrDefaultAsync<User>(creatorSql, new { CreatorId = changeLog.CreatorId });
             if (creator == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
@@ -106,21 +108,20 @@ namespace ProjectName.Services
         public async Task<string> UpdateChangeLog(UpdateChangeLogDto request)
         {
             // Step 1: Validate the request payload
-            if (string.IsNullOrEmpty(request.Id) || string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.Notes) ||
-                string.IsNullOrEmpty(request.ProductId) || request.ReleaseDate == default ||
-                string.IsNullOrEmpty(request.ChangedUser))
+            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.Notes) || request.ProductId == Guid.Empty || request.ReleaseDate == default || request.Version == null || request.ChangedUser == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
             // Step 2: Fetch the existing ChangeLog from the database
-            var changeLog = await _dbConnection.QuerySingleOrDefaultAsync<ChangeLog>("SELECT * FROM ChangeLogs WHERE Id = @Id", new { Id = request.Id });
+            const string fetchSql = "SELECT * FROM ChangeLogs WHERE Id = @Id";
+            var changeLog = await _dbConnection.QuerySingleOrDefaultAsync<ChangeLog>(fetchSql, new { Id = request.Id });
             if (changeLog == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 3: Update the ChangeLog object with the new details
+            // Step 3: Update the ChangeLog object
             changeLog.Title = request.Title;
             changeLog.Notes = request.Notes;
             changeLog.ProductId = request.ProductId;
@@ -130,14 +131,15 @@ namespace ProjectName.Services
             changeLog.ChangedUser = request.ChangedUser;
 
             // Step 4: Save the updated ChangeLog object to the database
-            const string sql = @"
-                UPDATE ChangeLogs 
+            const string updateSql = @"
+                UPDATE ChangeLogs
                 SET Title = @Title, Notes = @Notes, ProductId = @ProductId, ReleaseDate = @ReleaseDate, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
-                WHERE Id = @Id";
+                WHERE Id = @Id;
+            ";
 
             try
             {
-                await _dbConnection.ExecuteAsync(sql, changeLog);
+                await _dbConnection.ExecuteAsync(updateSql, changeLog);
                 return changeLog.Id.ToString();
             }
             catch (Exception)
@@ -149,24 +151,25 @@ namespace ProjectName.Services
         public async Task<bool> DeleteChangeLog(DeleteChangeLogDto request)
         {
             // Step 1: Validate the request payload
-            if (string.IsNullOrEmpty(request.Id))
+            if (request.Id == Guid.Empty)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
             // Step 2: Fetch the existing ChangeLog from the database
-            var changeLog = await _dbConnection.QuerySingleOrDefaultAsync<ChangeLog>("SELECT * FROM ChangeLogs WHERE Id = @Id", new { Id = request.Id });
+            const string fetchSql = "SELECT * FROM ChangeLogs WHERE Id = @Id";
+            var changeLog = await _dbConnection.QuerySingleOrDefaultAsync<ChangeLog>(fetchSql, new { Id = request.Id });
             if (changeLog == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 3: Delete the ChangeLog object from the database
-            const string sql = "DELETE FROM ChangeLogs WHERE Id = @Id";
+            const string deleteSql = "DELETE FROM ChangeLogs WHERE Id = @Id";
 
             try
             {
-                await _dbConnection.ExecuteAsync(sql, new { Id = request.Id });
+                await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
                 return true;
             }
             catch (Exception)
@@ -184,7 +187,7 @@ namespace ProjectName.Services
             }
 
             // Step 2: Query the database to fetch the list of ChangeLogs
-            var sql = "SELECT * FROM ChangeLogs";
+            string sql = "SELECT * FROM ChangeLogs";
             if (!string.IsNullOrEmpty(request.SortField) && !string.IsNullOrEmpty(request.SortOrder))
             {
                 sql += $" ORDER BY {request.SortField} {request.SortOrder}";
@@ -198,29 +201,21 @@ namespace ProjectName.Services
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 3: Retrieve all product IDs associated with the fetched ChangeLogs
+            // Step 3: Fetch the products and creators
             var productIds = changeLogs.Select(cl => cl.ProductId).Distinct().ToList();
-
-            // Step 4: Perform a single query to fetch all products using the retrieved IDs
-            var products = await _dbConnection.QueryAsync<Product>("SELECT * FROM Products WHERE Id IN @ProductIds", new { ProductIds = productIds });
+            const string productsSql = "SELECT * FROM Products WHERE Id IN @ProductIds";
+            var products = await _dbConnection.QueryAsync<Product>(productsSql, new { ProductIds = productIds });
             if (products == null || products.Count() != productIds.Count)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 5: Fetch the creators for each ChangeLog
             var creatorIds = changeLogs.Select(cl => cl.CreatorId).Distinct().ToList();
-            var creators = await _dbConnection.QueryAsync<User>("SELECT * FROM Users WHERE Id IN @CreatorIds", new { CreatorIds = creatorIds });
+            const string creatorsSql = "SELECT * FROM Users WHERE Id IN @CreatorIds";
+            var creators = await _dbConnection.QueryAsync<User>(creatorsSql, new { CreatorIds = creatorIds });
             if (creators == null || creators.Count() != creatorIds.Count)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
-            }
-
-            // Step 6: Map the database objects to the ChangeLog objects
-            foreach (var changeLog in changeLogs)
-            {
-                changeLog.Product = products.Single(p => p.Id == changeLog.ProductId);
-                changeLog.Creator = creators.Single(c => c.Id == changeLog.CreatorId);
             }
 
             return changeLogs.ToList();

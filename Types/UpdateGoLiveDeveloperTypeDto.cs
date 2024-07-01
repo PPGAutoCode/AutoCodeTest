@@ -1,6 +1,4 @@
 
-using System;
-
 namespace ProjectName.Types
 {
     public class UpdateGoLiveDeveloperTypeDto

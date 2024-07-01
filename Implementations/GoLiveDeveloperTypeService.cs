@@ -29,28 +29,18 @@ namespace ProjectName.Services
             var newGoLiveDeveloperType = new GoLiveDeveloperType
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                Version = 1,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow,
-                CreatorId = request.CreatorId,
-                ChangedUser = request.CreatorId
+                Name = request.Name
             };
 
-            const string sql = @"
-                INSERT INTO GoLiveDeveloperType (Id, Name, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser);
-            ";
+            const string sql = "INSERT INTO GoLiveDeveloperType (Id, Name) VALUES (@Id, @Name)";
+            var affectedRows = await _dbConnection.ExecuteAsync(sql, newGoLiveDeveloperType);
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(sql, newGoLiveDeveloperType);
-                return newGoLiveDeveloperType.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return newGoLiveDeveloperType.Id.ToString();
         }
 
         public async Task<GoLiveDeveloperType> GetGoLiveDeveloperType(GoLiveDeveloperTypeRequestDto request)
@@ -60,23 +50,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM GoLiveDeveloperType WHERE Id = @Id;
-            ";
+            const string sql = "SELECT Id, Name FROM GoLiveDeveloperType WHERE Id = @Id";
+            var goLiveDeveloperType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(sql, new { Id = request.Id });
 
-            try
-            {
-                var result = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(sql, new { request.Id });
-                if (result == null)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-                return result;
-            }
-            catch (Exception)
+            if (goLiveDeveloperType == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
+
+            return goLiveDeveloperType;
         }
 
         public async Task<string> UpdateGoLiveDeveloperType(UpdateGoLiveDeveloperTypeDto request)
@@ -86,36 +68,25 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM GoLiveDeveloperType WHERE Id = @Id;
-            ";
+            const string selectSql = "SELECT Id, Name FROM GoLiveDeveloperType WHERE Id = @Id";
+            var existingGoLiveDeveloperType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(selectSql, new { Id = request.Id });
 
-            var existingType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(selectSql, new { request.Id });
-            if (existingType == null)
+            if (existingGoLiveDeveloperType == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            existingType.Name = request.Name;
-            existingType.Version += 1;
-            existingType.Changed = DateTime.UtcNow;
-            existingType.ChangedUser = request.ChangedUser;
+            existingGoLiveDeveloperType.Name = request.Name;
 
-            const string updateSql = @"
-                UPDATE GoLiveDeveloperType
-                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
-                WHERE Id = @Id;
-            ";
+            const string updateSql = "UPDATE GoLiveDeveloperType SET Name = @Name WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(updateSql, new { Id = existingGoLiveDeveloperType.Id, Name = existingGoLiveDeveloperType.Name });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(updateSql, existingType);
-                return existingType.Id.ToString();
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return existingGoLiveDeveloperType.Id.ToString();
         }
 
         public async Task<bool> DeleteGoLiveDeveloperType(DeleteGoLiveDeveloperTypeDto request)
@@ -125,29 +96,23 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM GoLiveDeveloperType WHERE Id = @Id;
-            ";
+            const string selectSql = "SELECT Id, Name FROM GoLiveDeveloperType WHERE Id = @Id";
+            var existingGoLiveDeveloperType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(selectSql, new { Id = request.Id });
 
-            var existingType = await _dbConnection.QuerySingleOrDefaultAsync<GoLiveDeveloperType>(selectSql, new { request.Id });
-            if (existingType == null)
+            if (existingGoLiveDeveloperType == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            const string deleteSql = @"
-                DELETE FROM GoLiveDeveloperType WHERE Id = @Id;
-            ";
+            const string deleteSql = "DELETE FROM GoLiveDeveloperType WHERE Id = @Id";
+            var affectedRows = await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
-                return true;
-            }
-            catch (Exception)
+            if (affectedRows == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return true;
         }
 
         public async Task<List<GoLiveDeveloperType>> GetListGoLiveDeveloperType(ListGoLiveDeveloperTypeRequestDto request)
@@ -157,21 +122,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM GoLiveDeveloperType
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY;
-            ";
+            const string sql = "SELECT Id, Name FROM GoLiveDeveloperType ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
+            var goLiveDeveloperTypes = await _dbConnection.QueryAsync<GoLiveDeveloperType>(sql, new { PageOffset = request.PageOffset, PageLimit = request.PageLimit, SortField = request.SortField, SortOrder = request.SortOrder });
 
-            try
-            {
-                var results = await _dbConnection.QueryAsync<GoLiveDeveloperType>(sql, new { request.PageLimit, request.PageOffset, request.SortField, request.SortOrder });
-                return results.AsList();
-            }
-            catch (Exception)
+            if (goLiveDeveloperTypes == null)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return goLiveDeveloperTypes.AsList();
         }
     }
 }

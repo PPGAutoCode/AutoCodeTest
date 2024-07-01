@@ -38,11 +38,11 @@ namespace ProjectName.Services
             };
 
             // Step 3: Check if ImageId exists
-            if (author.ImageId.HasValue)
+            if (request.ImageId.HasValue)
             {
                 var imageExists = await _dbConnection.ExecuteScalarAsync<bool>(
                     "SELECT COUNT(1) FROM Images WHERE Id = @ImageId",
-                    new { ImageId = author.ImageId.Value });
+                    new { ImageId = request.ImageId.Value });
 
                 if (!imageExists)
                 {
@@ -50,19 +50,19 @@ namespace ProjectName.Services
                 }
             }
 
-            // Step 4: Save to the database
+            // Step 4: Save the Author to the database
             try
             {
                 await _dbConnection.ExecuteAsync(
                     "INSERT INTO Authors (Id, Name, ImageId, Details) VALUES (@Id, @Name, @ImageId, @Details)",
                     author);
-
-                return author.Id.ToString();
             }
             catch (Exception)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return author.Id.ToString();
         }
 
         public async Task<Author> GetAuthor(AuthorRequestDto request)
@@ -83,7 +83,7 @@ namespace ProjectName.Services
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 3: Fetch the image if ImageId is not null
+            // Step 3: Fetch the Image if ImageId is not null
             if (author.ImageId.HasValue)
             {
                 author.Image = await _dbConnection.QuerySingleOrDefaultAsync<Image>(
@@ -118,11 +118,11 @@ namespace ProjectName.Services
             author.Details = request.Details;
 
             // Step 4: Check if ImageId exists
-            if (author.ImageId.HasValue)
+            if (request.ImageId.HasValue)
             {
                 var imageExists = await _dbConnection.ExecuteScalarAsync<bool>(
                     "SELECT COUNT(1) FROM Images WHERE Id = @ImageId",
-                    new { ImageId = author.ImageId.Value });
+                    new { ImageId = request.ImageId.Value });
 
                 if (!imageExists)
                 {
@@ -130,19 +130,19 @@ namespace ProjectName.Services
                 }
             }
 
-            // Step 5: Save to the database
+            // Step 5: Save the updated Author to the database
             try
             {
                 await _dbConnection.ExecuteAsync(
                     "UPDATE Authors SET Name = @Name, ImageId = @ImageId, Details = @Details WHERE Id = @Id",
                     author);
-
-                return author.Id.ToString();
             }
             catch (Exception)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return author.Id.ToString();
         }
 
         public async Task<bool> DeleteAuthor(DeleteAuthorDto request)
@@ -163,27 +163,26 @@ namespace ProjectName.Services
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 3: Delete the image if ImageId is not null
-            if (author.ImageId.HasValue)
-            {
-                await _dbConnection.ExecuteAsync(
-                    "DELETE FROM Images WHERE Id = @ImageId",
-                    new { ImageId = author.ImageId.Value });
-            }
-
-            // Step 4: Delete the Author from the database
+            // Step 3: Delete the Author from the database
             try
             {
+                if (author.ImageId.HasValue)
+                {
+                    await _dbConnection.ExecuteAsync(
+                        "DELETE FROM Images WHERE Id = @ImageId",
+                        new { ImageId = author.ImageId.Value });
+                }
+
                 await _dbConnection.ExecuteAsync(
                     "DELETE FROM Authors WHERE Id = @Id",
                     new { Id = request.Id });
-
-                return true;
             }
             catch (Exception)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return true;
         }
 
         public async Task<List<Author>> GetListAuthor(ListAuthorRequestDto request)
@@ -205,8 +204,10 @@ namespace ProjectName.Services
                     PageOffset = request.PageOffset
                 });
 
-            // Step 3: Fetch the images for each author if ImageId is present
-            foreach (var author in authors)
+            var authorList = authors.ToList();
+
+            // Step 3: Fetch the Images for each Author if ImageId is not null
+            foreach (var author in authorList)
             {
                 if (author.ImageId.HasValue)
                 {
@@ -216,7 +217,7 @@ namespace ProjectName.Services
                 }
             }
 
-            return authors.ToList();
+            return authorList;
         }
     }
 }

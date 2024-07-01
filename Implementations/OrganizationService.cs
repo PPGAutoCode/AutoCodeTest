@@ -40,17 +40,8 @@ namespace ProjectName.Services
             // Assuming File validation logic here
 
             // Step 4: Creating the Organization
-            var organization = new Organization
-            {
-                Id = Guid.NewGuid(),
-                Title = request.Title,
-                ImageId = request.ImageId,
-                Description = request.Description,
-                Status = request.Status,
-                FileId = request.File,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow
-            };
+            var organizationId = Guid.NewGuid();
+            var fileId = Guid.NewGuid();
 
             // Step 5: Single SQL Transaction
             using (var transaction = _dbConnection.BeginTransaction())
@@ -58,13 +49,12 @@ namespace ProjectName.Services
                 try
                 {
                     await _dbConnection.ExecuteAsync(
-                        "INSERT INTO Organization (Id, Title, ImageId, Description, Status, FileId, Created, Changed) " +
-                        "VALUES (@Id, @Title, @ImageId, @Description, @Status, @FileId, @Created, @Changed)",
-                        organization, transaction);
+                        "INSERT INTO File (Id, FileName, FileUrl, Timestamp) VALUES (@Id, @FileName, @FileUrl, @Timestamp)",
+                        new { Id = fileId, FileName = "FileName", FileUrl = new byte[0], Timestamp = DateTime.UtcNow }, transaction);
 
                     await _dbConnection.ExecuteAsync(
-                        "INSERT INTO File (Id, FileName, FileUrl, Timestamp) VALUES (@Id, @FileName, @FileUrl, @Timestamp)",
-                        new { Id = request.File, FileName = "FileName", FileUrl = new byte[0], Timestamp = DateTime.UtcNow }, transaction);
+                        "INSERT INTO Organization (Id, Title, ImageId, Description, Status, FileId) VALUES (@Id, @Title, @ImageId, @Description, @Status, @FileId)",
+                        new { Id = organizationId, request.Title, request.ImageId, request.Description, request.Status, FileId = fileId }, transaction);
 
                     transaction.Commit();
                 }
@@ -76,7 +66,7 @@ namespace ProjectName.Services
             }
 
             // Step 6: Return Value
-            return organization.Id.ToString();
+            return organizationId.ToString();
         }
 
         public async Task<List<Organization>> GetListOrganization(ListOrganizationRequestDto request)
@@ -88,17 +78,13 @@ namespace ProjectName.Services
             }
 
             // Step 2: Sorting and Pagination
-            var query = "SELECT * FROM Organization";
-            if (!string.IsNullOrEmpty(request.SortField) && !string.IsNullOrEmpty(request.SortOrder))
-            {
-                query += $" ORDER BY {request.SortField} {request.SortOrder}";
-            }
-            query += $" OFFSET {request.PageOffset} ROWS FETCH NEXT {request.PageLimit} ROWS ONLY";
+            var sortField = string.IsNullOrEmpty(request.SortField) ? "Title" : request.SortField;
+            var sortOrder = string.IsNullOrEmpty(request.SortOrder) ? "ASC" : request.SortOrder;
 
             // Step 3: Fetching Organization Data
-            var organizations = await _dbConnection.QueryAsync<Organization>(query);
+            var query = $"SELECT * FROM Organization ORDER BY {sortField} {sortOrder} OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY";
+            var organizations = await _dbConnection.QueryAsync<Organization>(query, new { Offset = request.PageOffset, Limit = request.PageLimit });
 
-            // Step 4: Return Value
             return organizations.ToList();
         }
 
@@ -114,7 +100,6 @@ namespace ProjectName.Services
             var organization = await _dbConnection.QueryFirstOrDefaultAsync<Organization>(
                 "SELECT * FROM Organization WHERE Id = @Id OR Title = @Title", new { request.Id, request.Title });
 
-            // Step 3: Return Value
             if (organization == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
@@ -134,6 +119,7 @@ namespace ProjectName.Services
             // Step 2: Fetch Existing Organization
             var existingOrganization = await _dbConnection.QueryFirstOrDefaultAsync<Organization>(
                 "SELECT * FROM Organization WHERE Id = @Id", new { request.Id });
+
             if (existingOrganization == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
@@ -145,14 +131,12 @@ namespace ProjectName.Services
             existingOrganization.Description = request.Description;
             existingOrganization.Status = request.Status;
             existingOrganization.FileId = request.File;
-            existingOrganization.Changed = DateTime.UtcNow;
 
             // Step 4: Save Changes to Database
             await _dbConnection.ExecuteAsync(
-                "UPDATE Organization SET Title = @Title, ImageId = @ImageId, Description = @Description, Status = @Status, FileId = @FileId, Changed = @Changed WHERE Id = @Id",
-                existingOrganization);
+                "UPDATE Organization SET Title = @Title, ImageId = @ImageId, Description = @Description, Status = @Status, FileId = @FileId WHERE Id = @Id",
+                new { existingOrganization.Title, existingOrganization.ImageId, existingOrganization.Description, existingOrganization.Status, existingOrganization.FileId, existingOrganization.Id });
 
-            // Step 5: Return Value
             return existingOrganization.Id.ToString();
         }
 
@@ -167,6 +151,7 @@ namespace ProjectName.Services
             // Step 2: Fetch Existing Organization
             var existingOrganization = await _dbConnection.QueryFirstOrDefaultAsync<Organization>(
                 "SELECT * FROM Organization WHERE Id = @Id", new { request.Id });
+
             if (existingOrganization == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
@@ -175,7 +160,6 @@ namespace ProjectName.Services
             // Step 3: Delete Organization
             await _dbConnection.ExecuteAsync("DELETE FROM Organization WHERE Id = @Id", new { request.Id });
 
-            // Step 4: Return Value
             return true;
         }
     }

@@ -1,6 +1,4 @@
 
-using System;
-
 namespace ProjectName.Types
 {
     public class Organization
@@ -11,8 +9,5 @@ namespace ProjectName.Types
         public string Description { get; set; }
         public bool Status { get; set; }
         public Guid FileId { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Changed { get; set; }
     }
 }
-    

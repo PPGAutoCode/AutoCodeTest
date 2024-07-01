@@ -44,7 +44,7 @@ namespace ProjectName.Services
             {
                 Id = Guid.NewGuid(),
                 Title = request.Title,
-                ImageId = request.Image,
+                ImageId = request.ImageId,
                 Description = request.Description,
                 Status = request.Status,
                 FileId = request.File,
@@ -62,7 +62,9 @@ namespace ProjectName.Services
                         "VALUES (@Id, @Title, @ImageId, @Description, @Status, @FileId, @Created, @Changed)",
                         organization, transaction);
 
-                    // Assuming File insertion logic here
+                    await _dbConnection.ExecuteAsync(
+                        "INSERT INTO File (Id, FileName, FileUrl, Timestamp) VALUES (@Id, @FileName, @FileUrl, @Timestamp)",
+                        new { Id = request.File, FileName = "FileName", FileUrl = new byte[0], Timestamp = DateTime.UtcNow }, transaction);
 
                     transaction.Commit();
                 }
@@ -124,7 +126,7 @@ namespace ProjectName.Services
         public async Task<string> UpdateOrganization(UpdateOrganizationDto request)
         {
             // Step 1: Validate Necessary Parameters
-            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Title) || request.Status == null || request.File == Guid.Empty)
+            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Title))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
@@ -139,15 +141,15 @@ namespace ProjectName.Services
 
             // Step 3: Update Organization Object
             existingOrganization.Title = request.Title;
-            existingOrganization.Status = request.Status;
-            existingOrganization.ImageId = request.Image;
+            existingOrganization.ImageId = request.ImageId;
             existingOrganization.Description = request.Description;
+            existingOrganization.Status = request.Status;
             existingOrganization.FileId = request.File;
             existingOrganization.Changed = DateTime.UtcNow;
 
             // Step 4: Save Changes to Database
             await _dbConnection.ExecuteAsync(
-                "UPDATE Organization SET Title = @Title, Status = @Status, ImageId = @ImageId, Description = @Description, FileId = @FileId, Changed = @Changed WHERE Id = @Id",
+                "UPDATE Organization SET Title = @Title, ImageId = @ImageId, Description = @Description, Status = @Status, FileId = @FileId, Changed = @Changed WHERE Id = @Id",
                 existingOrganization);
 
             // Step 5: Return Value

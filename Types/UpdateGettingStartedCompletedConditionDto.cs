@@ -1,5 +1,4 @@
 
-// File: UpdateGettingStartedCompletedConditionDto.cs
 namespace ProjectName.Types
 {
     public class UpdateGettingStartedCompletedConditionDto

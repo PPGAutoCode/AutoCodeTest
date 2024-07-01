@@ -1,5 +1,4 @@
 
-// File: ListGettingStartedCompletedConditionRequestDto.cs
 namespace ProjectName.Types
 {
     public class ListGettingStartedCompletedConditionRequestDto

@@ -29,17 +29,10 @@ namespace ProjectName.Services
             var productTag = new ProductTag
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow,
-                CreatorId = Guid.NewGuid(), // Assuming a default creator ID or fetch from context
-                ChangedUser = Guid.NewGuid() // Assuming a default changed user ID or fetch from context
+                Name = request.Name
             };
 
-            const string sql = @"
-                INSERT INTO ProductTags (Id, Name, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Created, @Changed, @CreatorId, @ChangedUser)";
-
+            const string sql = "INSERT INTO ProductTags (Id, Name) VALUES (@Id, @Name)";
             try
             {
                 await _dbConnection.ExecuteAsync(sql, productTag);
@@ -58,22 +51,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM ProductTags WHERE Id = @Id";
+            const string sql = "SELECT * FROM ProductTags WHERE Id = @Id";
+            var productTag = await _dbConnection.QuerySingleOrDefaultAsync<ProductTag>(sql, new { Id = request.Id });
 
-            try
+            if (productTag == null)
             {
-                var productTag = await _dbConnection.QuerySingleOrDefaultAsync<ProductTag>(sql, new { request.Id });
-                if (productTag == null)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-                return productTag;
+                throw new TechnicalException("DP-404", "Technical Error");
             }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
-            }
+
+            return productTag;
         }
 
         public async Task<string> UpdateProductTag(UpdateProductTagDto request)
@@ -83,24 +69,20 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM ProductTags WHERE Id = @Id";
+            const string selectSql = "SELECT * FROM ProductTags WHERE Id = @Id";
+            var existingProductTag = await _dbConnection.QuerySingleOrDefaultAsync<ProductTag>(selectSql, new { Id = request.Id });
 
-            var existingProductTag = await _dbConnection.QuerySingleOrDefaultAsync<ProductTag>(selectSql, new { request.Id });
             if (existingProductTag == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
             existingProductTag.Name = request.Name;
-            existingProductTag.Changed = DateTime.UtcNow;
 
-            const string updateSql = @"
-                UPDATE ProductTags SET Name = @Name, Changed = @Changed WHERE Id = @Id";
-
+            const string updateSql = "UPDATE ProductTags SET Name = @Name WHERE Id = @Id";
             try
             {
-                await _dbConnection.ExecuteAsync(updateSql, existingProductTag);
+                await _dbConnection.ExecuteAsync(updateSql, new { Id = existingProductTag.Id, Name = existingProductTag.Name });
                 return existingProductTag.Id.ToString();
             }
             catch (Exception)
@@ -116,21 +98,18 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM ProductTags WHERE Id = @Id";
+            const string selectSql = "SELECT * FROM ProductTags WHERE Id = @Id";
+            var existingProductTag = await _dbConnection.QuerySingleOrDefaultAsync<ProductTag>(selectSql, new { Id = request.Id });
 
-            var existingProductTag = await _dbConnection.QuerySingleOrDefaultAsync<ProductTag>(selectSql, new { request.Id });
             if (existingProductTag == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            const string deleteSql = @"
-                DELETE FROM ProductTags WHERE Id = @Id";
-
+            const string deleteSql = "DELETE FROM ProductTags WHERE Id = @Id";
             try
             {
-                await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
+                await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
                 return true;
             }
             catch (Exception)
@@ -146,21 +125,16 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            var sql = @"
-                SELECT * FROM ProductTags 
-                ORDER BY @SortField @SortOrder 
-                OFFSET @PageOffset ROWS 
-                FETCH NEXT @PageLimit ROWS ONLY";
+            var sql = "SELECT * FROM ProductTags";
+            if (!string.IsNullOrEmpty(request.SortField) && !string.IsNullOrEmpty(request.SortOrder))
+            {
+                sql += $" ORDER BY {request.SortField} {request.SortOrder}";
+            }
+            sql += " OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
 
             try
             {
-                var productTags = await _dbConnection.QueryAsync<ProductTag>(sql, new
-                {
-                    request.PageLimit,
-                    request.PageOffset,
-                    SortField = request.SortField ?? "Created",
-                    SortOrder = request.SortOrder ?? "ASC"
-                });
+                var productTags = await _dbConnection.QueryAsync<ProductTag>(sql, new { PageOffset = request.PageOffset, PageLimit = request.PageLimit });
                 return productTags.AsList();
             }
             catch (Exception)

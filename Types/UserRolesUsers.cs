@@ -3,7 +3,7 @@ namespace ProjectName.Types
 {
     public class UserRolesUsers
     {
-        public Guid Id { get; set; }
+        public Guid id { get; set; }
         public Guid UsersId { get; set; }
         public Guid UserRolesId { get; set; }
         public int? Version { get; set; }

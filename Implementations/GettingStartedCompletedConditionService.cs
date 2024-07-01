@@ -29,28 +29,18 @@ namespace ProjectName.Services
             var newCondition = new GettingStartedCompletedCondition
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                Version = 1,
-                Created = DateTime.UtcNow,
-                Changed = DateTime.UtcNow,
-                CreatorId = request.CreatorId,
-                ChangedUser = request.CreatorId
+                Name = request.Name
             };
 
-            const string sql = @"
-                INSERT INTO GettingStartedCompletedCondition (Id, Name, Version, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser);
-            ";
+            const string sql = "INSERT INTO GettingStartedCompletedCondition (Id, Name) VALUES (@Id, @Name)";
+            int rowsAffected = await _dbConnection.ExecuteAsync(sql, newCondition);
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(sql, newCondition);
-                return newCondition.Id.ToString();
-            }
-            catch (Exception)
+            if (rowsAffected == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return newCondition.Id.ToString();
         }
 
         public async Task<GettingStartedCompletedCondition> GetGettingStartedCompletedCondition(GettingStartedCompletedConditionRequestDto request)
@@ -60,23 +50,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM GettingStartedCompletedCondition WHERE Id = @Id;
-            ";
+            const string sql = "SELECT * FROM GettingStartedCompletedCondition WHERE Id = @Id";
+            var condition = await _dbConnection.QuerySingleOrDefaultAsync<GettingStartedCompletedCondition>(sql, new { Id = request.Id });
 
-            try
+            if (condition == null)
             {
-                var condition = await _dbConnection.QuerySingleOrDefaultAsync<GettingStartedCompletedCondition>(sql, new { request.Id });
-                if (condition == null)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-                return condition;
+                throw new TechnicalException("DP-404", "Technical Error");
             }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "Technical Error");
-            }
+
+            return condition;
         }
 
         public async Task<string> UpdateGettingStartedCompletedCondition(UpdateGettingStartedCompletedConditionDto request)
@@ -86,36 +68,25 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM GettingStartedCompletedCondition WHERE Id = @Id;
-            ";
+            const string selectSql = "SELECT * FROM GettingStartedCompletedCondition WHERE Id = @Id";
+            var existingCondition = await _dbConnection.QuerySingleOrDefaultAsync<GettingStartedCompletedCondition>(selectSql, new { Id = request.Id });
 
-            var existingCondition = await _dbConnection.QuerySingleOrDefaultAsync<GettingStartedCompletedCondition>(selectSql, new { request.Id });
             if (existingCondition == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
             existingCondition.Name = request.Name;
-            existingCondition.Version += 1;
-            existingCondition.Changed = DateTime.UtcNow;
-            existingCondition.ChangedUser = request.ChangedUser;
 
-            const string updateSql = @"
-                UPDATE GettingStartedCompletedCondition
-                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
-                WHERE Id = @Id;
-            ";
+            const string updateSql = "UPDATE GettingStartedCompletedCondition SET Name = @Name WHERE Id = @Id";
+            int rowsAffected = await _dbConnection.ExecuteAsync(updateSql, new { Id = existingCondition.Id, Name = existingCondition.Name });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(updateSql, existingCondition);
-                return existingCondition.Id.ToString();
-            }
-            catch (Exception)
+            if (rowsAffected == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return existingCondition.Id.ToString();
         }
 
         public async Task<bool> DeleteGettingStartedCompletedCondition(DeleteGettingStartedCompletedConditionDto request)
@@ -125,29 +96,23 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM GettingStartedCompletedCondition WHERE Id = @Id;
-            ";
+            const string selectSql = "SELECT * FROM GettingStartedCompletedCondition WHERE Id = @Id";
+            var existingCondition = await _dbConnection.QuerySingleOrDefaultAsync<GettingStartedCompletedCondition>(selectSql, new { Id = request.Id });
 
-            var existingCondition = await _dbConnection.QuerySingleOrDefaultAsync<GettingStartedCompletedCondition>(selectSql, new { request.Id });
             if (existingCondition == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            const string deleteSql = @"
-                DELETE FROM GettingStartedCompletedCondition WHERE Id = @Id;
-            ";
+            const string deleteSql = "DELETE FROM GettingStartedCompletedCondition WHERE Id = @Id";
+            int rowsAffected = await _dbConnection.ExecuteAsync(deleteSql, new { Id = request.Id });
 
-            try
-            {
-                await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
-                return true;
-            }
-            catch (Exception)
+            if (rowsAffected == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return true;
         }
 
         public async Task<List<GettingStartedCompletedCondition>> GetListGettingStartedCompletedCondition(ListGettingStartedCompletedConditionRequestDto request)
@@ -157,22 +122,15 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM GettingStartedCompletedCondition
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS
-                FETCH NEXT @PageLimit ROWS ONLY;
-            ";
+            const string sql = "SELECT * FROM GettingStartedCompletedCondition ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
+            var conditions = await _dbConnection.QueryAsync<GettingStartedCompletedCondition>(sql, new { PageOffset = request.PageOffset, PageLimit = request.PageLimit, SortField = request.SortField, SortOrder = request.SortOrder });
 
-            try
-            {
-                var conditions = await _dbConnection.QueryAsync<GettingStartedCompletedCondition>(sql, new { request.PageLimit, request.PageOffset, request.SortField, request.SortOrder });
-                return conditions.AsList();
-            }
-            catch (Exception)
+            if (conditions == null)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
+
+            return conditions.AsList();
         }
     }
 }

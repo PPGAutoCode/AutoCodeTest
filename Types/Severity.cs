@@ -1,4 +1,5 @@
 
+// File: Severity.cs
 namespace ProjectName.Types
 {
     public class Severity

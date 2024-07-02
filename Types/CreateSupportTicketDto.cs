@@ -1,4 +1,5 @@
 
+// File: CreateSupportTicketDto.cs
 namespace ProjectName.Types
 {
     public class CreateSupportTicketDto
@@ -13,7 +14,7 @@ namespace ProjectName.Types
         public Guid SeverityId { get; set; }
         public string ShortDescription { get; set; }
         public string State { get; set; }
-        public List<Guid> Message { get; set; }
+        public CreateMessageDto Message { get; set; }
         public List<Guid>? SupportCategories { get; set; }
     }
 }

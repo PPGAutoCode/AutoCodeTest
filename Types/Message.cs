@@ -1,4 +1,5 @@
 
+// File: Message.cs
 namespace ProjectName.Types
 {
     public class Message

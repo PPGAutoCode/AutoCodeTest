@@ -1,4 +1,5 @@
 
+// File: SupportTicketAppEnvironment.cs
 namespace ProjectName.Types
 {
     public class SupportTicketAppEnvironment

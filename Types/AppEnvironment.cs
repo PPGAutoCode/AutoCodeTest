@@ -1,4 +1,5 @@
 
+// File: AppEnvironment.cs
 namespace ProjectName.Types
 {
     public class AppEnvironment

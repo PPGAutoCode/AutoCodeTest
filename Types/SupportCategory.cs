@@ -1,4 +1,5 @@
 
+// File: SupportCategory.cs
 namespace ProjectName.Types
 {
     public class SupportCategory

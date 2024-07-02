@@ -1,4 +1,5 @@
 
+// File: AttachmentFile.cs
 namespace ProjectName.Types
 {
     public class AttachmentFile

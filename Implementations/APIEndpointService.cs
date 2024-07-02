@@ -241,7 +241,8 @@ namespace ProjectName.Services
             // Step 4: Delete the APIEndpoint
             using (var transaction = _dbConnection.BeginTransaction())
             {
-                try:
+                try
+                {
                     // Remove the APIEndpoint object from the database
                     await _dbConnection.ExecuteAsync("DELETE FROM APIEndpoints WHERE Id = @Id", new { Id = existingAPIEndpoint.Id }, transaction);
 
@@ -249,17 +250,21 @@ namespace ProjectName.Services
                     await _dbConnection.ExecuteAsync("DELETE FROM APIEndpointTags WHERE APIEndpointId = @APIEndpointId", new { APIEndpointId = existingAPIEndpoint.Id }, transaction);
 
                     transaction.Commit();
-                except Exception:
+                }
+                catch (Exception)
+                {
                     transaction.Rollback();
                     throw new TechnicalException("DP-500", "Technical Error");
+                }
+            }
 
-            return True
+            return true;
         }
 
         public async Task<List<APIEndpoint>> GetListAPIEndpoint(ListAPIEndpointRequestDto request)
         {
             // Step 1: Validate Input
-            if (request.PageLimit <= 0 or request.PageOffset < 0)
+            if (request.PageLimit <= 0 || request.PageOffset < 0)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
@@ -268,7 +273,7 @@ namespace ProjectName.Services
             var apiEndpoints = await _dbConnection.QueryAsync<APIEndpoint>("SELECT * FROM APIEndpoints ORDER BY @SortField @SortOrder LIMIT @PageLimit OFFSET @PageOffset", new { SortField = request.SortField, SortOrder = request.SortOrder, PageLimit = request.PageLimit, PageOffset = request.PageOffset });
 
             // Step 3: Pagination Check
-            if (request.PageLimit == 0 and request.PageOffset == 0)
+            if (request.PageLimit == 0 && request.PageOffset == 0)
             {
                 throw new BusinessException("DP-400", "Technical Error");
             }

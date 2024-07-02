@@ -112,15 +112,18 @@ namespace ProjectName.Services
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 3: Update the ProductCategory object with the provided changes.
+            // Step 3: If the category is a subcategory, set Parent to the parent category ID provided.
+            var parentId = request.Parent.HasValue ? request.Parent.Value : request.Id;
+
+            // Step 4: Update the ProductCategory object with the provided changes.
             existingCategory.Name = request.Name;
             existingCategory.UserQuestionnaire = request.UserQuestionnaire;
             existingCategory.Description = request.Description;
-            existingCategory.Parent = request.Parent;
+            existingCategory.Parent = parentId;
             existingCategory.UrlAlias = request.UrlAlias;
             existingCategory.Weight = request.Weight;
 
-            // Step 4: Save the updated ProductCategory object to the database.
+            // Step 5: Save the updated ProductCategory object to the database.
             var sql = @"
                 UPDATE ProductCategory 
                 SET Name = @Name, UserQuestionnaire = @UserQuestionnaire, Description = @Description, 
@@ -129,7 +132,7 @@ namespace ProjectName.Services
 
             var rowsAffected = await _dbConnection.ExecuteAsync(sql, existingCategory);
 
-            // Step 5: If the transaction is successful, return the ProductCategory ID.
+            // Step 6: If the transaction is successful, return the ProductCategory ID.
             if (rowsAffected > 0)
             {
                 return existingCategory.Id.ToString();
@@ -188,16 +191,25 @@ namespace ProjectName.Services
                 OFFSET @PageOffset ROWS 
                 FETCH NEXT @PageLimit ROWS ONLY";
 
-            var productCategories = await _dbConnection.QueryAsync<ProductCategory>(sql, new
+            var parameters = new
             {
                 PageOffset = request.PageOffset,
                 PageLimit = request.PageLimit,
                 SortField = request.SortField,
                 SortOrder = request.SortOrder
-            });
+            };
+
+            var productCategories = await _dbConnection.QueryAsync<ProductCategory>(sql, parameters);
 
             // Step 3: If the transaction is successful, return the list of ProductCategories.
-            return productCategories.ToList();
+            if (productCategories != null)
+            {
+                return productCategories.ToList();
+            }
+            else
+            {
+                throw new TechnicalException("DP-500", "Technical Error");
+            }
         }
     }
 }

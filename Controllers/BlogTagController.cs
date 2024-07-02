@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.Types;
 using ProjectName.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -60,7 +59,7 @@ namespace ProjectName.Controllers
         }
 
         [HttpPost("list")]
-        public async Task<IActionResult> GetListBlogTag([FromBody] Request<GetListBlogTagRequestDto> request)
+        public async Task<IActionResult> GetListBlogTag([FromBody] Request<ListBlogTagRequestDto> request)
         {
             return await SafeExecutor.ExecuteAsync(async () =>
             {

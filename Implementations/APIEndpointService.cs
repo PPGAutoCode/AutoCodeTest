@@ -59,11 +59,11 @@ namespace ProjectName.Services
             };
 
             // Step 4: Create APIEndpointTags List
-            var apiEndpointTags = request.ApiTags.Select(tag => new APIEndpointTag
+            var apiEndpointTags = existingTags.Select(tag => new APIEndpointTag
             {
                 Id = Guid.NewGuid(),
                 APIEndpointId = apiEndpoint.Id,
-                APITagId = existingTags.First(t => t.Name == tag).Id
+                APITagId = tag.Id
             }).ToList();
 
             // Step 5: Database Transaction
@@ -100,7 +100,7 @@ namespace ProjectName.Services
 
             APIEndpoint apiEndpoint;
 
-            // Step 3: Fetch API Endpoint
+            // Step 2: Fetch API Endpoint
             if (request.Id != null)
             {
                 apiEndpoint = await _dbConnection.QuerySingleOrDefaultAsync<APIEndpoint>("SELECT * FROM APIEndpoints WHERE Id = @Id", new { Id = request.Id });
@@ -110,7 +110,7 @@ namespace ProjectName.Services
                 apiEndpoint = await _dbConnection.QuerySingleOrDefaultAsync<APIEndpoint>("SELECT * FROM APIEndpoints WHERE Name = @Name", new { Name = request.Name });
             }
 
-            // Step 4: Fetch Associated Tags
+            // Step 3: Fetch Associated Tags
             if (apiEndpoint != null)
             {
                 var tagIds = await _dbConnection.QueryAsync<Guid>("SELECT APITagId FROM APIEndpointTags WHERE APIEndpointId = @APIEndpointId", new { APIEndpointId = apiEndpoint.Id });
@@ -128,7 +128,6 @@ namespace ProjectName.Services
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            // Step 5: Map and Return
             return apiEndpoint;
         }
 
@@ -148,7 +147,7 @@ namespace ProjectName.Services
             }
 
             // Step 3: Validate Related Entities
-            if (request.ApiTags != null && request.ApiTags.Any())
+            if (request.ApiTags != null)
             {
                 var existingTags = await _dbConnection.QueryAsync<ApiTag>("SELECT * FROM ApiTags WHERE Name IN @Names", new { Names = request.ApiTags });
                 if (existingTags.Count() != request.ApiTags.Count)
@@ -181,7 +180,7 @@ namespace ProjectName.Services
             {
                 Id = Guid.NewGuid(),
                 APIEndpointId = existingAPIEndpoint.Id,
-                APITagId = existingTags.First(t => t.Name == tag).Id
+                APITagId = existingTags.FirstOrDefault(t => t.Name == tag)?.Id ?? Guid.Empty
             }).ToList();
 
             // Step 6: Save Changes to Database
@@ -208,7 +207,6 @@ namespace ProjectName.Services
                 }
             }
 
-            // Return the updated API endpoint ID
             return existingAPIEndpoint.Id.ToString();
         }
 
@@ -256,7 +254,6 @@ namespace ProjectName.Services
                 }
             }
 
-            // Return true if the deletion operation is successful
             return true;
         }
 
@@ -293,7 +290,6 @@ namespace ProjectName.Services
                 apiEndpoint.ApiTags = tags.Where(t => tagIds.Contains(t.Id)).ToList();
             }
 
-            // Return the list of APIEndpointDto objects
             return apiEndpoints.ToList();
         }
     }

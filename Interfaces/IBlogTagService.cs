@@ -41,8 +41,8 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Retrieves a list of blog tags based on the provided request data.
         /// </summary>
-        /// <param name="getListBlogTagRequestDto">The data transfer object containing the request information for the list of blog tags.</param>
+        /// <param name="listBlogTagRequestDto">The data transfer object containing the request information for the list of blog tags.</param>
         /// <returns>A list of BlogTag objects representing the retrieved blog tags.</returns>
-        Task<List<BlogTag>> GetListBlogTag(GetListBlogTagRequestDto getListBlogTagRequestDto);
+        Task<List<BlogTag>> GetListBlogTag(ListBlogTagRequestDto listBlogTagRequestDto);
     }
 }

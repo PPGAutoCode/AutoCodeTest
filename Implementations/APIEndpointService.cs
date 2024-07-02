@@ -196,36 +196,36 @@ namespace ProjectName.Services
                     await _dbConnection.ExecuteAsync("DELETE FROM APIEndpointTags WHERE APIEndpointId = @APIEndpointId", new { APIEndpointId = existingAPIEndpoint.Id }, transaction)
 
                     # Insert the new tags into the database
-                    if (newTags != None):
+                    if (newTags != None:
                         await _dbConnection.ExecuteAsync("INSERT INTO APIEndpointTags (Id, APIEndpointId, APITagId) VALUES (@Id, @APIEndpointId, @APITagId)", newTags, transaction)
 
                     transaction.Commit()
                 except Exception:
                     transaction.Rollback()
-                    raise TechnicalException("DP-500", "Technical Error")
+                    throw new TechnicalException("DP-500", "Technical Error")
 
             return existingAPIEndpoint.Id.ToString()
 
         public async Task<bool> DeleteAPIEndpoint(DeleteAPIEndpointDto request)
         {
             # Step 1: Validate Input
-            if (request.Id == None):
-                raise BusinessException("DP-422", "Client Error")
+            if (request.Id == None:
+                throw new BusinessException("DP-422", "Client Error")
 
             # Step 2: Fetch Existing API Endpoint
-            existingAPIEndpoint = await _dbConnection.QuerySingleOrDefaultAsync<APIEndpoint>("SELECT * FROM APIEndpoints WHERE Id = @Id", new { Id = request.Id })
-            if (existingAPIEndpoint == None):
-                raise BusinessException("DP-404", "Technical Error")
+            var existingAPIEndpoint = await _dbConnection.QuerySingleOrDefaultAsync<APIEndpoint>("SELECT * FROM APIEndpoints WHERE Id = @Id", new { Id = request.Id })
+            if (existingAPIEndpoint == None:
+                throw new BusinessException("DP-404", "Technical Error")
 
             # Step 3: Fetch Related Tags
-            tagIds = await _dbConnection.QueryAsync<Guid>("SELECT APITagId FROM APIEndpointTags WHERE APIEndpointId = @APIEndpointId", new { APIEndpointId = existingAPIEndpoint.Id })
-            tags = await _dbConnection.QueryAsync<ApiTag>("SELECT * FROM ApiTags WHERE Id IN @Ids", new { Ids = tagIds })
+            var tagIds = await _dbConnection.QueryAsync<Guid>("SELECT APITagId FROM APIEndpointTags WHERE APIEndpointId = @APIEndpointId", new { APIEndpointId = existingAPIEndpoint.Id })
+            var tags = await _dbConnection.QueryAsync<ApiTag>("SELECT * FROM ApiTags WHERE Id IN @Ids", new { Ids = tagIds })
 
-            if (tags.Count() != tagIds.Count()):
-                raise BusinessException("DP-404", "Technical Error")
+            if (tags.Count() != tagIds.Count():
+                throw new BusinessException("DP-404", "Technical Error")
 
             # Step 4: Delete the APIEndpoint
-            using (transaction = _dbConnection.BeginTransaction()):
+            using (var transaction = _dbConnection.BeginTransaction()):
                 try:
                     # Remove the APIEndpoint object from the database
                     await _dbConnection.ExecuteAsync("DELETE FROM APIEndpoints WHERE Id = @Id", new { Id = existingAPIEndpoint.Id }, transaction)
@@ -236,30 +236,29 @@ namespace ProjectName.Services
                     transaction.Commit()
                 except Exception:
                     transaction.Rollback()
-                    raise TechnicalException("DP-500", "Technical Error")
+                    throw new TechnicalException("DP-500", "Technical Error")
 
             return True
 
-        public async Task<List<APIEndpoint>> GetListAPIEndpoint(ListAPIEndpointRequestDto request)
-        {
+        public async Task<List<APIEndpoint>> GetListAPIEndpoint(ListAPIEndpointRequestDto request):
             # Step 1: Validate Input
-            if (request.PageLimit <= 0 or request.PageOffset < 0):
-                raise BusinessException("DP-422", "Client Error")
+            if (request.PageLimit <= 0 or request.PageOffset < 0:
+                throw new BusinessException("DP-422", "Client Error")
 
             # Step 2: Fetch API Endpoints
-            apiEndpoints = await _dbConnection.QueryAsync<APIEndpoint>("SELECT * FROM APIEndpoints ORDER BY @SortField @SortOrder LIMIT @PageLimit OFFSET @PageOffset", new { SortField = request.SortField, SortOrder = request.SortOrder, PageLimit = request.PageLimit, PageOffset = request.PageOffset })
+            var apiEndpoints = await _dbConnection.QueryAsync<APIEndpoint>("SELECT * FROM APIEndpoints ORDER BY @SortField @SortOrder LIMIT @PageLimit OFFSET @PageOffset", new { SortField = request.SortField, SortOrder = request.SortOrder, PageLimit = request.PageLimit, PageOffset = request.PageOffset })
 
             # Step 3: Pagination Check
-            if (request.PageLimit == 0 and request.PageOffset == 0):
-                raise BusinessException("DP-400", "Technical Error")
+            if (request.PageLimit == 0 and request.PageOffset == 0:
+                throw new BusinessException("DP-400", "Technical Error")
 
             # Step 4: Fetch Related Tags
-            apiEndpointIds = apiEndpoints.Select(ae => ae.Id).ToList()
-            tagIds = await _dbConnection.QueryAsync<Guid>("SELECT APITagId FROM APIEndpointTags WHERE APIEndpointId IN @APIEndpointIds", new { APIEndpointIds = apiEndpointIds })
-            tags = await _dbConnection.QueryAsync<ApiTag>("SELECT * FROM ApiTags WHERE Id IN @Ids", new { Ids = tagIds })
+            var apiEndpointIds = apiEndpoints.Select(ae => ae.Id).ToList()
+            var tagIds = await _dbConnection.QueryAsync<Guid>("SELECT APITagId FROM APIEndpointTags WHERE APIEndpointId IN @APIEndpointIds", new { APIEndpointIds = apiEndpointIds })
+            var tags = await _dbConnection.QueryAsync<ApiTag>("SELECT * FROM ApiTags WHERE Id IN @Ids", new { Ids = tagIds })
 
-            if (tags.Count() != tagIds.Count()):
-                raise BusinessException("DP-404", "Technical Error")
+            if (tags.Count() != tagIds.Count():
+                throw new BusinessException("DP-404", "Technical Error")
 
             # Step 5: Response Preparation
             for apiEndpoint in apiEndpoints:

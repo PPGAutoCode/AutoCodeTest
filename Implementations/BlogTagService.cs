@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
+using ProjectName.ControllersExceptions;
 using ProjectName.Interfaces;
 using ProjectName.Types;
-using ProjectName.ControllersExceptions;
 
 namespace ProjectName.Services
 {
@@ -19,9 +19,9 @@ namespace ProjectName.Services
             _dbConnection = dbConnection;
         }
 
-        public async Task<string> CreateBlogTag(CreateBlogTagDto request)
+        public async Task<string> CreateBlogTag(CreateBlogTagDto createBlogTagDto)
         {
-            if (string.IsNullOrEmpty(request.Name))
+            if (string.IsNullOrEmpty(createBlogTagDto.Name))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
@@ -29,16 +29,18 @@ namespace ProjectName.Services
             var blogTag = new BlogTag
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
+                Name = createBlogTagDto.Name,
+                Version = 1,
                 Created = DateTime.UtcNow,
                 Changed = DateTime.UtcNow,
-                CreatorId = Guid.NewGuid(), // Assuming a default creator ID or replace with actual logic
-                ChangedUser = Guid.NewGuid() // Assuming a default changed user ID or replace with actual logic
+                CreatorId = Guid.NewGuid(), // Assuming UserId is available in headers
+                ChangedUser = Guid.NewGuid() // Assuming UserId is available in headers
             };
 
             const string sql = @"
-                INSERT INTO BlogTags (Id, Name, Created, Changed, CreatorId, ChangedUser)
-                VALUES (@Id, @Name, @Created, @Changed, @CreatorId, @ChangedUser)";
+                INSERT INTO BlogTags (Id, Name, Version, Created, Changed, CreatorId, ChangedUser)
+                VALUES (@Id, @Name, @Version, @Created, @Changed, @CreatorId, @ChangedUser);
+            ";
 
             try
             {
@@ -51,52 +53,59 @@ namespace ProjectName.Services
             }
         }
 
-        public async Task<BlogTag> GetBlogTag(BlogTagRequestDto request)
+        public async Task<BlogTag> GetBlogTag(BlogTagRequestDto blogTagRequestDto)
         {
-            if (request.Id == Guid.Empty)
+            if (blogTagRequestDto.Id == null && string.IsNullOrEmpty(blogTagRequestDto.Name))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string sql = @"
-                SELECT * FROM BlogTags WHERE Id = @Id";
+            BlogTag blogTag;
 
-            try
+            if (blogTagRequestDto.Id != null)
             {
-                var blogTag = await _dbConnection.QuerySingleOrDefaultAsync<BlogTag>(sql, new { request.Id });
-                if (blogTag == null)
-                {
-                    throw new TechnicalException("DP-404", "Technical Error");
-                }
-                return blogTag;
+                const string sql = "SELECT * FROM BlogTags WHERE Id = @Id;";
+                blogTag = await _dbConnection.QuerySingleOrDefaultAsync<BlogTag>(sql, new { Id = blogTagRequestDto.Id });
             }
-            catch (Exception)
+            else
             {
-                throw new TechnicalException("DP-500", "Technical Error");
+                const string sql = "SELECT * FROM BlogTags WHERE Name = @Name;";
+                blogTag = await _dbConnection.QuerySingleOrDefaultAsync<BlogTag>(sql, new { Name = blogTagRequestDto.Name });
             }
+
+            if (blogTag == null)
+            {
+                throw new TechnicalException("DP-404", "Technical Error");
+            }
+
+            return blogTag;
         }
 
-        public async Task<string> UpdateBlogTag(UpdateBlogTagDto request)
+        public async Task<string> UpdateBlogTag(UpdateBlogTagDto updateBlogTagDto)
         {
-            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Name))
+            if (updateBlogTagDto.Id == null || string.IsNullOrEmpty(updateBlogTagDto.Name))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM BlogTags WHERE Id = @Id";
+            const string selectSql = "SELECT * FROM BlogTags WHERE Id = @Id;";
+            var existingBlogTag = await _dbConnection.QuerySingleOrDefaultAsync<BlogTag>(selectSql, new { Id = updateBlogTagDto.Id });
 
-            var existingBlogTag = await _dbConnection.QuerySingleOrDefaultAsync<BlogTag>(selectSql, new { request.Id });
             if (existingBlogTag == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            existingBlogTag.Name = request.Name;
+            existingBlogTag.Name = updateBlogTagDto.Name;
+            existingBlogTag.Version += 1;
             existingBlogTag.Changed = DateTime.UtcNow;
+            existingBlogTag.ChangedUser = Guid.NewGuid(); // Assuming UserId is available in headers
 
             const string updateSql = @"
-                UPDATE BlogTags SET Name = @Name, Changed = @Changed WHERE Id = @Id";
+                UPDATE BlogTags
+                SET Name = @Name, Version = @Version, Changed = @Changed, ChangedUser = @ChangedUser
+                WHERE Id = @Id;
+            ";
 
             try
             {
@@ -109,28 +118,26 @@ namespace ProjectName.Services
             }
         }
 
-        public async Task<bool> DeleteBlogTag(DeleteBlogTagDto request)
+        public async Task<bool> DeleteBlogTag(DeleteBlogTagDto deleteBlogTagDto)
         {
-            if (request.Id == Guid.Empty)
+            if (deleteBlogTagDto.Id == null)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            const string selectSql = @"
-                SELECT * FROM BlogTags WHERE Id = @Id";
+            const string selectSql = "SELECT * FROM BlogTags WHERE Id = @Id;";
+            var existingBlogTag = await _dbConnection.QuerySingleOrDefaultAsync<BlogTag>(selectSql, new { Id = deleteBlogTagDto.Id });
 
-            var existingBlogTag = await _dbConnection.QuerySingleOrDefaultAsync<BlogTag>(selectSql, new { request.Id });
             if (existingBlogTag == null)
             {
                 throw new TechnicalException("DP-404", "Technical Error");
             }
 
-            const string deleteSql = @"
-                DELETE FROM BlogTags WHERE Id = @Id";
+            const string deleteSql = "DELETE FROM BlogTags WHERE Id = @Id;";
 
             try
             {
-                await _dbConnection.ExecuteAsync(deleteSql, new { request.Id });
+                await _dbConnection.ExecuteAsync(deleteSql, new { Id = deleteBlogTagDto.Id });
                 return true;
             }
             catch (Exception)
@@ -139,27 +146,24 @@ namespace ProjectName.Services
             }
         }
 
-        public async Task<List<BlogTag>> GetListBlogTag(GetListBlogTagRequestDto request)
+        public async Task<List<BlogTag>> GetListBlogTag(ListBlogTagRequestDto listBlogTagRequestDto)
         {
-            if (request.PageLimit <= 0 || request.PageOffset < 0)
+            if (listBlogTagRequestDto.PageLimit <= 0 || listBlogTagRequestDto.PageOffset < 0)
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
             var sql = @"
                 SELECT * FROM BlogTags
-                ORDER BY @SortField @SortOrder
-                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY";
+                ORDER BY 
+                    CASE WHEN @SortField = 'Name' AND @SortOrder = 'ASC' THEN Name END ASC,
+                    CASE WHEN @SortField = 'Name' AND @SortOrder = 'DESC' THEN Name END DESC
+                OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY;
+            ";
 
             try
             {
-                var blogTags = await _dbConnection.QueryAsync<BlogTag>(sql, new
-                {
-                    request.PageLimit,
-                    request.PageOffset,
-                    SortField = request.SortField ?? "Created",
-                    SortOrder = request.SortOrder ?? "ASC"
-                });
+                var blogTags = await _dbConnection.QueryAsync<BlogTag>(sql, listBlogTagRequestDto);
                 return blogTags.AsList();
             }
             catch (Exception)

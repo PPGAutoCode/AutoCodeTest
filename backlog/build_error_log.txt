@@ -1,225 +1,96 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(100,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(101,37): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(101,37): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(101,37): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(105,52): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(105,52): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(105,52): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(106,45): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(106,45): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(106,53): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(106,53): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(106,72): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(106,72): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(108,53): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(108,53): error CS1003: Syntax error, '(' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(108,53): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(108,53): error CS1525: Invalid expression term 'else'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(108,53): error CS8641: 'else' cannot start a statement.
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(109,17): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(109,17): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(109,17): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(110,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(110,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(110,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(110,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(110,68): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(110,68): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(114,82): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(114,82): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(114,9): error CS0106: The modifier 'public' is not valid for this item
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(115,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,104): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,107): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,144): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,144): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,36): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,39): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,74): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,84): error CS1003: Syntax error, ',' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(116,85): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(117,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(117,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(117,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(117,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(117,65): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(117,65): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(119,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(121,45): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(121,45): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(121,45): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(122,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(122,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(122,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(122,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(122,68): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(122,68): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(124,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(125,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(125,41): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(125,41): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(127,67): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(127,67): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(127,67): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(128,45): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(128,45): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(128,53): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(128,53): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(128,69): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(128,69): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(130,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(149,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(160,71): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(160,71): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(160,71): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(161,20): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(161,20): error CS1514: { expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(162,23): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(165,23): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(168,23): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(169,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(169,41): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(169,41): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(173,33): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(173,33): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(175,46): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(175,46): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(175,54): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(175,54): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(175,73): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(175,73): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(179,80): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(179,80): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(179,9): error CS0106: The modifier 'public' is not valid for this item
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(180,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(181,36): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(181,36): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(181,36): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(182,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(182,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(182,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(182,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(182,65): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(182,65): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(184,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(186,45): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(186,45): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(186,45): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(187,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(187,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(187,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(187,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(187,68): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(187,68): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(189,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(193,48): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(193,48): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(193,48): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(194,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(194,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(194,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(194,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(194,68): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(194,68): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(196,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(197,71): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(197,71): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(197,71): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(198,20): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(198,20): error CS1514: { expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(199,23): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(202,23): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(206,33): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(206,33): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(208,46): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(208,46): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(208,54): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(208,54): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(208,73): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(208,73): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(212,9): error CS0106: The modifier 'public' is not valid for this item
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(212,99): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(212,99): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(213,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(214,40): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(214,50): error CS1003: Syntax error, ',' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(214,51): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(214,65): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(214,65): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(215,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(215,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(215,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(215,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(215,65): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(215,65): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(217,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(220,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,40): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,51): error CS1003: Syntax error, ',' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,52): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,67): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,67): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(222,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(222,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(222,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(222,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(222,68): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(222,68): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(224,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(229,48): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(229,48): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(229,48): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(230,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(230,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(230,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(230,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(230,68): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(230,68): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(232,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(233,17): error CS1003: Syntax error, '(' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(233,29): error CS1003: Syntax error, ',' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(233,32): error CS1003: Syntax error, ',' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(233,44): error CS1003: Syntax error, ',' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(233,45): error CS1003: Syntax error, ',' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(234,87): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(234,87): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(234,87): error CS1525: Invalid expression term 'return'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(238,2): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(71,20): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(71,20): error CS1514: { expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(72,23): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(75,23): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(79,33): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(79,33): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(81,46): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(81,46): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(81,54): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(81,54): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(81,73): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(81,73): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(83,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(86,9): error CS0106: The modifier 'public' is not valid for this item
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(88,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(89,36): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(89,40): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(89,74): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(89,74): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(90,41): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(90,41): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(90,49): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(90,49): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(90,65): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(90,65): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(94,15): error CS1024: Preprocessor directive expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(95,36): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(95,36): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(95,36): error CS1525: Invalid expression term ':'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(96,160): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(96,160): error CS1003: Syntax error, '(' expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(96,160): error CS1026: ) expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(96,160): error CS1525: Invalid expression term 'else'
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(96,160): error CS8641: 'else' cannot start a statement.
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(97,17): error CS1002: ; expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(97,17): error CS1513: } expected
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(97,17): error CS1525: Invalid expression term ':'
-Error: 224 Error(s)
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(191,20): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(191,20): error CS1514: { expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(192,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(193,570): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(195,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(196,182): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(198,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(199,40): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(199,40): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(199,40): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(199,40): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(200,180): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(202,41): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(203,33): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(203,33): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(204,43): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(205,78): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(207,53): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(210,9): error CS0106: The modifier 'public' is not valid for this item
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(212,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(213,35): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(213,35): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(213,35): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(213,35): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(214,70): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(216,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(217,167): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(218,44): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(218,44): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(218,44): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(218,44): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(219,73): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(221,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(222,187): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(223,126): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(225,47): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(225,47): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(225,47): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(225,47): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(226,73): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(228,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(229,71): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(229,71): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(229,71): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(230,20): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(230,20): error CS1514: { expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(231,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(232,146): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(234,23): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(235,182): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(237,41): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(238,33): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(238,33): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(239,43): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(240,78): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(242,24): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(244,9): error CS0106: The modifier 'public' is not valid for this item
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(244,99): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(244,99): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(245,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(246,40): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(246,50): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(246,51): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(246,65): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(246,65): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(247,70): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(249,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(250,306): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(252,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(253,40): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(253,51): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(253,52): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(253,67): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(253,67): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(254,73): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(256,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(257,75): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(258,182): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(259,126): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(261,47): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(261,47): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(261,47): error CS1513: } expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(261,47): error CS1525: Invalid expression term ':'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(262,73): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(264,15): error CS1024: Preprocessor directive expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(265,17): error CS1003: Syntax error, '(' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(265,29): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(265,32): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(265,44): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(265,45): error CS1003: Syntax error, ',' expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(266,86): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(266,86): error CS1026: ) expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(266,86): error CS1525: Invalid expression term 'return'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(268,41): error CS1002: ; expected
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(270,2): error CS1513: } expected
+Error: 95 Error(s)

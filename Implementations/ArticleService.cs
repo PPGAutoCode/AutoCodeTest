@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -24,16 +23,16 @@ namespace ProjectName.Services
             _blogTagService = blogTagService;
         }
 
-        public async Task<string> CreateArticle(CreateArticleDto request)
+        public async Task<string> CreateArticle(CreateArticleDto createArticleDto)
         {
             // Step 1: Validate all fields of request.payload are not null except from [summary, body, ImageID, PDF, blogCategoryId, googleDriveId]
-            if (string.IsNullOrEmpty(request.Title) || request.AuthorId == Guid.Empty || string.IsNullOrEmpty(request.Langcode) || !request.Status || !request.Sticky || !request.Promote || request.BlogCategories == null || request.BlogTags == null)
+            if (string.IsNullOrEmpty(createArticleDto.Title) || createArticleDto.AuthorId == Guid.Empty || string.IsNullOrEmpty(createArticleDto.Langcode) || createArticleDto.BlogCategories == null || createArticleDto.BlogTags == null)
             {
                 throw new BusinessException("DP-422", "One of the mandatory arguments is null");
             }
 
             // Step 2: Fetch author from database by id from argument ID
-            var author = await _dbConnection.QueryFirstOrDefaultAsync<Author>("SELECT * FROM Authors WHERE Id = @AuthorId", new { AuthorId = request.AuthorId });
+            var author = await _dbConnection.QueryFirstOrDefaultAsync<Author>("SELECT * FROM Authors WHERE Id = @AuthorId", new { AuthorId = createArticleDto.AuthorId });
             if (author == null)
             {
                 throw new BusinessException("DP-404", "Author does not exist");
@@ -41,44 +40,44 @@ namespace ProjectName.Services
 
             // Step 4: Fetch BlogTag by using the service that implements the IblogTagService interface to fetch the corresponding tag details
             var tagsList = new List<BlogTag>();
-            foreach (var tagName in request.BlogTags)
+            foreach (var tagName in createArticleDto.BlogTags)
             {
-                var tag = await _blogTagService.GetBlogTag(new BlogTagRequestDto { Id = tagName });
-                if (tag == null)
+                var blogTag = await _blogTagService.GetBlogTag(new BlogTagRequestDto { Id = Guid.NewGuid(), Name = tagName });
+                if (blogTag == null)
                 {
                     throw new BusinessException("DP-404", "Tag does not exist");
                 }
-                tagsList.Add(tag);
+                tagsList.Add(blogTag);
             }
 
             // Step 3: Fetch blog category by using the service that implements the IBlogCategoryService interface to fetch the corresponding blog category details
             var categoriesList = new List<BlogCategory>();
-            foreach (var categoryId in request.BlogCategories)
+            foreach (var categoryId in createArticleDto.BlogCategories)
             {
-                var category = await _blogCategoryService.GetBlogCategory(new BlogCategoryRequestDto { Id = categoryId });
-                if (category == null)
+                var blogCategory = await _blogCategoryService.GetBlogCategory(new BlogCategoryRequestDto { Id = categoryId });
+                if (blogCategory == null)
                 {
                     throw new BusinessException("DP-404", "Blog category does not exist");
                 }
-                categoriesList.Add(category);
+                categoriesList.Add(blogCategory);
             }
 
             // Step 5: Create new Article object (article) as follows from arguments
             var article = new Article
             {
                 Id = Guid.NewGuid(),
-                Title = request.Title,
-                AuthorId = request.AuthorId,
-                Summary = request.Summary,
-                Body = request.Body,
-                GoogleDriveID = request.GoogleDriveID,
-                HideScrollSpy = request.HideScrollSpy,
-                ImageId = request.ImageId,
-                PDF = request.PDF,
-                Langcode = request.Langcode,
-                Status = request.Status,
-                Sticky = request.Sticky,
-                Promote = request.Promote,
+                Title = createArticleDto.Title,
+                AuthorId = createArticleDto.AuthorId,
+                Summary = createArticleDto.Summary,
+                Body = createArticleDto.Body,
+                GoogleDriveID = createArticleDto.GoogleDriveID,
+                HideScrollSpy = createArticleDto.HideScrollSpy,
+                ImageId = createArticleDto.ImageId,
+                PDF = createArticleDto.PDF,
+                Langcode = createArticleDto.Langcode,
+                Status = createArticleDto.Status,
+                Sticky = createArticleDto.Sticky,
+                Promote = createArticleDto.Promote,
                 Version = 1,
                 Created = DateTime.UtcNow,
                 Changed = DateTime.UtcNow
@@ -101,10 +100,9 @@ namespace ProjectName.Services
             }).ToList();
 
             // Step 8: In a single SQL transaction
-            try
+            using (var transaction = _dbConnection.BeginTransaction())
             {
-                _dbConnection.Open();
-                using (var transaction = _dbConnection.BeginTransaction())
+                try
                 {
                     // Insert article in database table Article
                     await _dbConnection.ExecuteAsync("INSERT INTO Articles (Id, Title, AuthorId, Summary, Body, GoogleDriveID, HideScrollSpy, ImageId, PDF, Langcode, Status, Sticky, Promote, Version, Created, Changed) VALUES (@Id, @Title, @AuthorId, @Summary, @Body, @GoogleDriveID, @HideScrollSpy, @ImageId, @PDF, @Langcode, @Status, @Sticky, @Promote, @Version, @Created, @Changed)", article, transaction);
@@ -117,38 +115,35 @@ namespace ProjectName.Services
 
                     transaction.Commit();
                 }
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator");
-            }
-            finally
-            {
-                if (_dbConnection.State == ConnectionState.Open)
-                    _dbConnection.Close();
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator");
+                }
             }
 
+            // Step 9: Return ArticleId from database
             return article.Id.ToString();
         }
 
-        public async Task<Article> GetArticle(ArticleRequestDto request)
+        public async Task<Article> GetArticle(ArticleRequestDto articleRequestDto)
         {
             // Step 1: If request.payload.id is null and request.payload.name is empty
-            if (request.Id == null && string.IsNullOrEmpty(request.Title))
+            if (articleRequestDto.Id == null && string.IsNullOrEmpty(articleRequestDto.Title))
             {
                 throw new BusinessException("DP-422", "Invalid request payload");
             }
 
             Article article;
-            if (request.Id != null)
+            if (articleRequestDto.Id != null)
             {
                 // Step 2: Fetch article from database by id, providing request.payload.id
-                article = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Id = @Id", new { Id = request.Id });
+                article = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Id = @Id", new { Id = articleRequestDto.Id });
             }
             else
             {
                 // Step 3: Fetch article from database by name, providing request.payload.name
-                article = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Title = @Title", new { Title = request.Title });
+                article = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Title = @Title", new { Title = articleRequestDto.Title });
             }
 
             if (article == null)
@@ -161,12 +156,12 @@ namespace ProjectName.Services
             var blogCategories = new List<BlogCategory>();
             foreach (var categoryId in blogCategoryIds)
             {
-                var category = await _blogCategoryService.GetBlogCategory(new BlogCategoryRequestDto { Id = categoryId });
-                if (category == null)
+                var blogCategory = await _blogCategoryService.GetBlogCategory(new BlogCategoryRequestDto { Id = categoryId });
+                if (blogCategory == null)
                 {
                     throw new BusinessException("DP-404", "Blog category not found");
                 }
-                blogCategories.Add(category);
+                blogCategories.Add(blogCategory);
             }
 
             // Step 5: Fetch Blogtags
@@ -178,46 +173,47 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-404", "Blog tag not found");
             }
 
+            // Step 6: Map database object to Article and return the Article
             article.BlogCategories = blogCategories.Select(bc => bc.Id).ToList();
             article.Tags = blogTags.ToList();
 
             return article;
         }
 
-        public async Task<string> UpdateArticle(UpdateArticleDto request)
+        public async Task<string> UpdateArticle(UpdateArticleDto updateArticleDto)
         {
             // Step 1: Validate Necessary Parameters
-            if (request.Id == Guid.Empty || string.IsNullOrEmpty(request.Title) || request.AuthorId == Guid.Empty || string.IsNullOrEmpty(request.Langcode) || !request.Status)
+            if (updateArticleDto.Id == Guid.Empty || string.IsNullOrEmpty(updateArticleDto.Title) || updateArticleDto.AuthorId == Guid.Empty || string.IsNullOrEmpty(updateArticleDto.Langcode) || updateArticleDto.Status == null)
             {
                 throw new BusinessException("DP-422", "One of the mandatory arguments is null");
             }
 
             // Step 2: Fetch Existing Article
-            var existingArticle = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Id = @Id", new { Id = request.Id });
+            var existingArticle = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Id = @Id", new { Id = updateArticleDto.Id });
             if (existingArticle == null)
             {
                 throw new BusinessException("DP-404", "Article not found");
             }
 
             // Step 3: Validate Related Entities
-            var author = await _dbConnection.QueryFirstOrDefaultAsync<Author>("SELECT * FROM Authors WHERE Id = @AuthorId", new { AuthorId = request.AuthorId });
+            var author = await _dbConnection.QueryFirstOrDefaultAsync<Author>("SELECT * FROM Authors WHERE Id = @AuthorId", new { AuthorId = updateArticleDto.AuthorId });
             if (author == null)
             {
                 throw new BusinessException("DP-422", "Author does not exist");
             }
 
-            if (request.ImageId != null)
+            if (updateArticleDto.ImageId != null)
             {
-                var image = await _dbConnection.QueryFirstOrDefaultAsync<Image>("SELECT * FROM Images WHERE Id = @ImageId", new { ImageId = request.ImageId });
+                var image = await _dbConnection.QueryFirstOrDefaultAsync<Image>("SELECT * FROM Images WHERE Id = @ImageId", new { ImageId = updateArticleDto.ImageId });
                 if (image == null)
                 {
                     throw new BusinessException("DP-422", "Image does not exist");
                 }
             }
 
-            if (request.PDF != null)
+            if (updateArticleDto.PDF != null)
             {
-                var pdf = await _dbConnection.QueryFirstOrDefaultAsync<Attachment>("SELECT * FROM Attachments WHERE Id = @Pdf", new { Pdf = request.PDF });
+                var pdf = await _dbConnection.QueryFirstOrDefaultAsync<Attachment>("SELECT * FROM Attachments WHERE Id = @Pdf", new { Pdf = updateArticleDto.PDF });
                 if (pdf == null)
                 {
                     throw new BusinessException("DP-422", "PDF does not exist");
@@ -225,115 +221,104 @@ namespace ProjectName.Services
             }
 
             // Step 4: Update the Article object with the provided changes
-            existingArticle.Title = request.Title;
-            existingArticle.AuthorId = request.AuthorId;
-            existingArticle.Summary = request.Summary;
-            existingArticle.Body = request.Body;
-            existingArticle.GoogleDriveID = request.GoogleDriveID;
-            existingArticle.HideScrollSpy = request.HideScrollSpy;
-            existingArticle.ImageId = request.ImageId;
-            existingArticle.PDF = request.PDF;
-            existingArticle.Langcode = request.Langcode;
-            existingArticle.Status = request.Status;
-            existingArticle.Sticky = request.Sticky;
-            existingArticle.Promote = request.Promote;
+            existingArticle.Title = updateArticleDto.Title;
+            existingArticle.AuthorId = updateArticleDto.AuthorId;
+            existingArticle.Summary = updateArticleDto.Summary;
+            existingArticle.Body = updateArticleDto.Body;
+            existingArticle.GoogleDriveID = updateArticleDto.GoogleDriveID;
+            existingArticle.HideScrollSpy = updateArticleDto.HideScrollSpy;
+            existingArticle.ImageId = updateArticleDto.ImageId;
+            existingArticle.PDF = updateArticleDto.PDF;
+            existingArticle.Langcode = updateArticleDto.Langcode;
+            existingArticle.Status = updateArticleDto.Status;
+            existingArticle.Sticky = updateArticleDto.Sticky;
+            existingArticle.Promote = updateArticleDto.Promote;
             existingArticle.Version += 1;
             existingArticle.Changed = DateTime.UtcNow;
 
             // Step 5: Update ArticleBlogCategories
             var existingCategories = await _dbConnection.QueryAsync<Guid>("SELECT BlogCategoryId FROM ArticleBlogCategories WHERE ArticleId = @ArticleId", new { ArticleId = existingArticle.Id });
-            var categoriesToRemove = existingCategories.Except(request.BlogCategories).ToList();
-            var categoriesToAdd = request.BlogCategories.Except(existingCategories).ToList();
+            var categoriesToRemove = existingCategories.Except(updateArticleDto.BlogCategories).ToList();
+            var categoriesToAdd = updateArticleDto.BlogCategories.Except(existingCategories).ToList();
 
             // Step 6: Update ArticleBlogTags
             var existingTags = await _dbConnection.QueryAsync<Guid>("SELECT BlogTagId FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = existingArticle.Id });
-            var tagsToRemove = existingTags.Except(request.BlogTags.Select(bt => bt.Id)).ToList();
-            var tagsToAdd = request.BlogTags.Select(bt => bt.Id).Except(existingTags).ToList();
+            var tagsToRemove = existingTags.Except(updateArticleDto.BlogTags.Select(tag => tag.Id)).ToList();
+            var tagsToAdd = updateArticleDto.BlogTags.Select(tag => tag.Id).Except(existingTags).ToList();
 
             // Step 7: Save Changes to Database
-            try
+            using (var transaction = _dbConnection.BeginTransaction())
             {
-                _dbConnection.Open();
-                using (var transaction = _dbConnection.BeginTransaction())
+                try
                 {
                     // Update Article Table
                     await _dbConnection.ExecuteAsync("UPDATE Articles SET Title = @Title, AuthorId = @AuthorId, Summary = @Summary, Body = @Body, GoogleDriveID = @GoogleDriveID, HideScrollSpy = @HideScrollSpy, ImageId = @ImageId, PDF = @PDF, Langcode = @Langcode, Status = @Status, Sticky = @Sticky, Promote = @Promote, Version = @Version, Changed = @Changed WHERE Id = @Id", existingArticle, transaction);
 
                     // Remove old categories
-                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId AND BlogCategoryId IN @CategoriesToRemove", new { ArticleId = existingArticle.Id, CategoriesToRemove = categoriesToRemove }, transaction);
+                    if (categoriesToRemove.Any())
+                    {
+                        await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId AND BlogCategoryId IN @BlogCategoryIds", new { ArticleId = existingArticle.Id, BlogCategoryIds = categoriesToRemove }, transaction);
+                    }
 
                     // Add new categories
-                    foreach (var categoryId in categoriesToAdd)
+                    if (categoriesToAdd.Any())
                     {
-                        await _dbConnection.ExecuteAsync("INSERT INTO ArticleBlogCategories (Id, ArticleId, BlogCategoryId) VALUES (@Id, @ArticleId, @BlogCategoryId)", new { Id = Guid.NewGuid(), ArticleId = existingArticle.Id, BlogCategoryId = categoryId }, transaction);
+                        var newCategories = categoriesToAdd.Select(categoryId => new ArticleBlogCategory { Id = Guid.NewGuid(), ArticleId = existingArticle.Id, BlogCategoryId = categoryId }).ToList();
+                        await _dbConnection.ExecuteAsync("INSERT INTO ArticleBlogCategories (Id, ArticleId, BlogCategoryId) VALUES (@Id, @ArticleId, @BlogCategoryId)", newCategories, transaction);
                     }
 
                     // Remove old tags
-                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId AND BlogTagId IN @TagsToRemove", new { ArticleId = existingArticle.Id, TagsToRemove = tagsToRemove }, transaction);
+                    if (tagsToRemove.Any())
+                    {
+                        await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId AND BlogTagId IN @BlogTagIds", new { ArticleId = existingArticle.Id, BlogTagIds = tagsToRemove }, transaction);
+                    }
 
                     // Add new tags
-                    foreach (var tagId in tagsToAdd)
+                    if (tagsToAdd.Any())
                     {
-                        await _dbConnection.ExecuteAsync("INSERT INTO ArticleBlogTags (Id, ArticleId, BlogTagId) VALUES (@Id, @ArticleId, @BlogTagId)", new { Id = Guid.NewGuid(), ArticleId = existingArticle.Id, BlogTagId = tagId }, transaction);
+                        var newTags = tagsToAdd.Select(tagId => new ArticleBlogTag { Id = Guid.NewGuid(), ArticleId = existingArticle.Id, BlogTagId = tagId }).ToList();
+                        await _dbConnection.ExecuteAsync("INSERT INTO ArticleBlogTags (Id, ArticleId, BlogTagId) VALUES (@Id, @ArticleId, @BlogTagId)", newTags, transaction);
                     }
 
                     transaction.Commit();
                 }
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator");
-            }
-            finally
-            {
-                if (_dbConnection.State == ConnectionState.Open)
-                    _dbConnection.Close();
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator");
+                }
             }
 
             return existingArticle.Id.ToString();
         }
 
-        public async Task<bool> DeleteArticle(DeleteArticleDto request)
+        public async Task<bool> DeleteArticle(DeleteArticleDto deleteArticleDto)
         {
-            // Step 1: Validate the request
-            if (request.Id == Guid.Empty)
+            if (deleteArticleDto.Id == Guid.Empty)
             {
-                throw new BusinessException("DP-422", "Invalid request payload");
+                throw new BusinessException("DP-422", "Invalid article ID");
             }
 
-            // Step 2: Fetch the article to ensure it exists
-            var article = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Id = @Id", new { Id = request.Id });
-            if (article == null)
+            using (var transaction = _dbConnection.BeginTransaction())
             {
-                throw new BusinessException("DP-404", "Article not found");
-            }
-
-            // Step 3: Delete the article in a transaction
-            try
-            {
-                _dbConnection.Open();
-                using (var transaction = _dbConnection.BeginTransaction())
+                try
                 {
-                    // Delete from ArticleBlogCategories
-                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId", new { ArticleId = request.Id }, transaction);
+                    // Delete ArticleBlogCategories
+                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId", new { ArticleId = deleteArticleDto.Id }, transaction);
 
-                    // Delete from ArticleBlogTags
-                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = request.Id }, transaction);
+                    // Delete ArticleBlogTags
+                    await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = deleteArticleDto.Id }, transaction);
 
-                    // Delete from Articles
-                    await _dbConnection.ExecuteAsync("DELETE FROM Articles WHERE Id = @Id", new { Id = request.Id }, transaction);
+                    // Delete Article
+                    await _dbConnection.ExecuteAsync("DELETE FROM Articles WHERE Id = @Id", new { Id = deleteArticleDto.Id }, transaction);
 
                     transaction.Commit();
                 }
-            }
-            catch (Exception)
-            {
-                throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator");
-            }
-            finally
-            {
-                if (_dbConnection.State == ConnectionState.Open)
-                    _dbConnection.Close();
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new TechnicalException("DP-500", "A technical exception has occurred, please contact your system administrator");
+                }
             }
 
             return true;

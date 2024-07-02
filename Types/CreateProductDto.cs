@@ -10,14 +10,14 @@ namespace ProjectName.Types
         public List<Guid> RelatedProducts { get; set; }
         public List<Guid> APIEndpoints { get; set; }
         public List<string> ProductTags { get; set; }
-        public List<Guid> Subscribers { get; set; }
+        public List<Guid> ProductSubscribers { get; set; }
         public List<Guid> ProductCategories { get; set; }
-        public List<Guid> ProductDomainId { get; set; }
+        public List<Guid> ProductDomain { get; set; }
         public Guid Comparison { get; set; }
         public string ProductVersion { get; set; }
         public bool Enabled { get; set; }
         public string ApicHostname { get; set; }
-        public string Attachments { get; set; }
+        public Guid AttachmentsId { get; set; }
         public Guid AppEnviromentId { get; set; }
         public string HeaderImage { get; set; }
         public string Label { get; set; }

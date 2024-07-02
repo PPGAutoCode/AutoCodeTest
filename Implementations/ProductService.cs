@@ -31,7 +31,7 @@ namespace ProjectName.Services
             // Step 2: Process each item in the ProductCategories list
             foreach (var categoryId in productDto.ProductCategories)
             {
-                var category = await _dbConnection.QueryFirstOrDefaultAsync<ProductCategory>("SELECT * FROM ProductCategories WHERE Id = @Id", new { Id = categoryId });
+                var category = await _dbConnection.QuerySingleOrDefaultAsync<ProductCategory>("SELECT * FROM ProductCategories WHERE Id = @Id", new { Id = categoryId });
                 if (category == null)
                 {
                     throw new BusinessException("DP-404", $"ProductCategory with ID {categoryId} not found.");
@@ -41,7 +41,7 @@ namespace ProjectName.Services
             // Step 3: Process each item in the Advantages list
             foreach (var advantageId in productDto.Advantages)
             {
-                var advantage = await _dbConnection.QueryFirstOrDefaultAsync<ProductAdvantage>("SELECT * FROM ProductAdvantages WHERE Id = @Id", new { Id = advantageId });
+                var advantage = await _dbConnection.QuerySingleOrDefaultAsync<ProductAdvantage>("SELECT * FROM ProductAdvantages WHERE Id = @Id", new { Id = advantageId });
                 if (advantage == null)
                 {
                     throw new BusinessException("DP-404", $"Advantage with ID {advantageId} not found.");
@@ -51,7 +51,7 @@ namespace ProjectName.Services
             // Step 4: Process each item in the Features list
             foreach (var featureId in productDto.Features)
             {
-                var feature = await _dbConnection.QueryFirstOrDefaultAsync<ProductFeature>("SELECT * FROM ProductFeatures WHERE Id = @Id", new { Id = featureId });
+                var feature = await _dbConnection.QuerySingleOrDefaultAsync<ProductFeature>("SELECT * FROM ProductFeatures WHERE Id = @Id", new { Id = featureId });
                 if (feature == null)
                 {
                     throw new BusinessException("DP-404", $"Feature with ID {featureId} not found.");
@@ -61,7 +61,7 @@ namespace ProjectName.Services
             // Step 5: Process each item in the RelatedProducts list
             foreach (var relatedProductId in productDto.RelatedProducts)
             {
-                var relatedProduct = await _dbConnection.QueryFirstOrDefaultAsync<Product>("SELECT * FROM Products WHERE Id = @Id", new { Id = relatedProductId });
+                var relatedProduct = await _dbConnection.QuerySingleOrDefaultAsync<Product>("SELECT * FROM Products WHERE Id = @Id", new { Id = relatedProductId });
                 if (relatedProduct == null)
                 {
                     throw new BusinessException("DP-404", $"Related Product with ID {relatedProductId} not found.");
@@ -71,7 +71,7 @@ namespace ProjectName.Services
             // Step 6: Process each item in the APIEndpoint list
             foreach (var apiEndpointId in productDto.APIEndpoints)
             {
-                var apiEndpoint = await _dbConnection.QueryFirstOrDefaultAsync<APIEndpoint>("SELECT * FROM APIEndpoints WHERE Id = @Id", new { Id = apiEndpointId });
+                var apiEndpoint = await _dbConnection.QuerySingleOrDefaultAsync<APIEndpoint>("SELECT * FROM APIEndpoints WHERE Id = @Id", new { Id = apiEndpointId });
                 if (apiEndpoint == null)
                 {
                     throw new BusinessException("DP-404", $"API Endpoint with ID {apiEndpointId} not found.");
@@ -81,7 +81,7 @@ namespace ProjectName.Services
             // Step 7: Process each item in the ProductTags list
             foreach (var tagName in productDto.ProductTags)
             {
-                var tag = await _dbConnection.QueryFirstOrDefaultAsync<ProductTag>("SELECT * FROM ProductTags WHERE Name = @Name", new { Name = tagName });
+                var tag = await _dbConnection.QuerySingleOrDefaultAsync<ProductTag>("SELECT * FROM ProductTags WHERE Name = @Name", new { Name = tagName });
                 if (tag == null)
                 {
                     throw new BusinessException("DP-404", $"Tag with name {tagName} not found.");
@@ -91,7 +91,7 @@ namespace ProjectName.Services
             // Step 8: Process each item in the ProductSubscribers list
             foreach (var subscriberId in productDto.ProductSubscribers)
             {
-                var subscriber = await _dbConnection.QueryFirstOrDefaultAsync<Users>("SELECT * FROM Users WHERE Id = @Id", new { Id = subscriberId });
+                var subscriber = await _dbConnection.QuerySingleOrDefaultAsync<Users>("SELECT * FROM Users WHERE Id = @Id", new { Id = subscriberId });
                 if (subscriber == null)
                 {
                     throw new BusinessException("DP-404", $"Subscriber with ID {subscriberId} not found.");
@@ -101,7 +101,7 @@ namespace ProjectName.Services
             // Step 9: Process each item in the ProductDomain list
             foreach (var domainId in productDto.ProductDomain)
             {
-                var domain = await _dbConnection.QueryFirstOrDefaultAsync<ProductDomain>("SELECT * FROM ProductDomains WHERE Id = @Id", new { Id = domainId });
+                var domain = await _dbConnection.QuerySingleOrDefaultAsync<ProductDomain>("SELECT * FROM ProductDomains WHERE Id = @Id", new { Id = domainId });
                 if (domain == null)
                 {
                     throw new BusinessException("DP-404", $"ProductDomain with ID {domainId} not found.");
@@ -110,11 +110,11 @@ namespace ProjectName.Services
 
             // Insert the product into the database
             var productId = Guid.NewGuid();
-            var sql = @"
+            var query = @"
                 INSERT INTO Products (Id, Name, Description, ProductVersion, Enabled, ApicHostname, AttachmentsId, AppEnviromentId, HeaderImage, Label, OverviewDisplay, Domain, ImageId, Weight, Langcode, Sticky, Status, Promote, CommercialProduct, Created, Changed, CreatorId, ChangedUser)
                 VALUES (@Id, @Name, @Description, @ProductVersion, @Enabled, @ApicHostname, @AttachmentsId, @AppEnviromentId, @HeaderImage, @Label, @OverviewDisplay, @Domain, @ImageId, @Weight, @Langcode, @Sticky, @Status, @Promote, @CommercialProduct, GETDATE(), GETDATE(), @CreatorId, @ChangedUser)";
 
-            await _dbConnection.ExecuteAsync(sql, new
+            await _dbConnection.ExecuteAsync(query, new
             {
                 Id = productId,
                 productDto.Name,

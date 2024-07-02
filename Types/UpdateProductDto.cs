@@ -14,7 +14,7 @@ namespace ProjectName.Types
         public List<Guid> ProductSubscribers { get; set; }
         public Guid Comparison { get; set; }
         public List<Guid> ProductCategories { get; set; }
-        public List<Guid> ProductDomainId { get; set; }
+        public List<Guid> ProductDomain { get; set; }
         public string Version { get; set; }
         public bool Enabled { get; set; }
         public string ApicHostname { get; set; }

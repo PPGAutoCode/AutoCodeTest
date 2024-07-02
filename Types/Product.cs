@@ -14,9 +14,9 @@ namespace ProjectName.Types
         public List<ProductTag> ProductTags { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
         public List<ProductSubscriber> ProductSubscribers { get; set; }
-        public List<ProductDomain> ProductDomainId { get; set; }
+        public List<ProductDomain> ProductDomain { get; set; }
         public Guid AttachmentsId { get; set; }
-        public Guid AppEnviroment { get; set; }
+        public Guid AppEnviromentId { get; set; }
         public bool Deprecated { get; set; }
         public bool DisableDocumentation { get; set; }
         public string HeaderImage { get; set; }

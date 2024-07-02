@@ -32,7 +32,7 @@ namespace ProjectName.Services
             var existingTags = await _dbConnection.QueryAsync<ApiTag>("SELECT * FROM ApiTags WHERE Name IN @Names", new { Names = request.ApiTags });
             if (existingTags.Count() != request.ApiTags.Count)
             {
-                throw new BusinessException("DP-404", "Technical Error");
+                throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 3: Create APIEndpoint Object
@@ -118,16 +118,17 @@ namespace ProjectName.Services
 
                 if (tags.Count() != tagIds.Count())
                 {
-                    throw new BusinessException("DP-404", "Technical Error");
+                    throw new TechnicalException("DP-404", "Technical Error");
                 }
 
                 apiEndpoint.ApiTags = tags.ToList();
             }
             else
             {
-                throw new BusinessException("DP-404", "Technical Error");
+                throw new TechnicalException("DP-404", "Technical Error");
             }
 
+            // Step 4: Map and Return
             return apiEndpoint;
         }
 
@@ -143,7 +144,7 @@ namespace ProjectName.Services
             var existingAPIEndpoint = await _dbConnection.QuerySingleOrDefaultAsync<APIEndpoint>("SELECT * FROM APIEndpoints WHERE Id = @Id", new { Id = request.Id });
             if (existingAPIEndpoint == null)
             {
-                throw new BusinessException("DP-404", "Technical Error");
+                throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 3: Validate Related Entities
@@ -175,17 +176,19 @@ namespace ProjectName.Services
             existingAPIEndpoint.Updated = DateTime.UtcNow;
             existingAPIEndpoint.Version = request.Version;
 
-            // Step 5: Update APIEndpointTags
-            var existingTags = await _dbConnection.QueryAsync<APIEndpointTag>("SELECT * FROM APIEndpointTags WHERE APIEndpointId = @APIEndpointId", new { APIEndpointId = existingAPIEndpoint.Id });
-            var existingTagIds = existingTags.Select(t => t.APITagId).ToList();
-
-            var newTags = request.ApiTags?.Select(tag => new APIEndpointTag
+            // Step 5: Create APIEndpointTags List
+            var apiEndpointTags = new List<APIEndpointTag>();
+            if (request.ApiTags != null)
             {
-                Id = Guid.NewGuid(),
-                APIEndpointId = existingAPIEndpoint.Id,
-                APITagId = tag
-            }).ToList();
+                apiEndpointTags = request.ApiTags.Select(tag => new APIEndpointTag
+                {
+                    Id = Guid.NewGuid(),
+                    APIEndpointId = existingAPIEndpoint.Id,
+                    APITagId = tag.Id
+                }).ToList();
+            }
 
+            // Step 6: Save Changes to Database
             using (var transaction = _dbConnection.BeginTransaction())
             {
                 try
@@ -193,14 +196,11 @@ namespace ProjectName.Services
                     // Update APIEndpoints Table
                     await _dbConnection.ExecuteAsync("UPDATE APIEndpoints SET Name = @Name, ApiContext = @ApiContext, ApiReferenceId = @ApiReferenceId, ApiResource = @ApiResource, ApiScope = @ApiScope, ApiScopeProduction = @ApiScopeProduction, ApiSecurity = @ApiSecurity, Deprecated = @Deprecated, Description = @Description, Documentation = @Documentation, EndpointUrls = @EndpointUrls, EnvironmentId = @EnvironmentId, ProviderId = @ProviderId, Swagger = @Swagger, Tour = @Tour, Updated = @Updated, Version = @Version WHERE Id = @Id", existingAPIEndpoint, transaction);
 
-                    // Remove the old tags from the database
+                    // Remove old APIEndpointTags
                     await _dbConnection.ExecuteAsync("DELETE FROM APIEndpointTags WHERE APIEndpointId = @APIEndpointId", new { APIEndpointId = existingAPIEndpoint.Id }, transaction);
 
-                    // Insert the new tags into the database
-                    if (newTags != null)
-                    {
-                        await _dbConnection.ExecuteAsync("INSERT INTO APIEndpointTags (Id, APIEndpointId, APITagId) VALUES (@Id, @APIEndpointId, @APITagId)", newTags, transaction);
-                    }
+                    // Insert new tags into the APIEndpointTags table
+                    await _dbConnection.ExecuteAsync("INSERT INTO APIEndpointTags (Id, APIEndpointId, APITagId) VALUES (@Id, @APIEndpointId, @APITagId)", apiEndpointTags, transaction);
 
                     transaction.Commit();
                 }
@@ -211,6 +211,7 @@ namespace ProjectName.Services
                 }
             }
 
+            // Step 7: Return the updated API endpoint ID
             return existingAPIEndpoint.Id.ToString();
         }
 
@@ -226,7 +227,7 @@ namespace ProjectName.Services
             var existingAPIEndpoint = await _dbConnection.QuerySingleOrDefaultAsync<APIEndpoint>("SELECT * FROM APIEndpoints WHERE Id = @Id", new { Id = request.Id });
             if (existingAPIEndpoint == null)
             {
-                throw new BusinessException("DP-404", "Technical Error");
+                throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 3: Fetch Related Tags
@@ -235,7 +236,7 @@ namespace ProjectName.Services
 
             if (tags.Count() != tagIds.Count())
             {
-                throw new BusinessException("DP-404", "Technical Error");
+                throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 4: Delete the APIEndpoint
@@ -258,6 +259,7 @@ namespace ProjectName.Services
                 }
             }
 
+            // Step 5: Return the Response
             return true;
         }
 
@@ -270,12 +272,12 @@ namespace ProjectName.Services
             }
 
             // Step 2: Fetch API Endpoints
-            var apiEndpoints = await _dbConnection.QueryAsync<APIEndpoint>("SELECT * FROM APIEndpoints ORDER BY @SortField @SortOrder LIMIT @PageLimit OFFSET @PageOffset", new { SortField = request.SortField, SortOrder = request.SortOrder, PageLimit = request.PageLimit, PageOffset = request.PageOffset });
+            var apiEndpoints = await _dbConnection.QueryAsync<APIEndpoint>("SELECT * FROM APIEndpoints ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY", new { SortField = request.SortField, SortOrder = request.SortOrder, PageOffset = request.PageOffset, PageLimit = request.PageLimit });
 
             // Step 3: Pagination Check
             if (request.PageLimit == 0 && request.PageOffset == 0)
             {
-                throw new BusinessException("DP-400", "Technical Error");
+                throw new TechnicalException("DP-400", "Technical Error");
             }
 
             // Step 4: Fetch Related Tags
@@ -285,7 +287,7 @@ namespace ProjectName.Services
 
             if (tags.Count() != tagIds.Count())
             {
-                throw new BusinessException("DP-404", "Technical Error");
+                throw new TechnicalException("DP-404", "Technical Error");
             }
 
             // Step 5: Response Preparation
@@ -294,6 +296,7 @@ namespace ProjectName.Services
                 apiEndpoint.ApiTags = tags.Where(t => tagIds.Contains(t.Id)).ToList();
             }
 
+            // Step 6: Return the Response
             return apiEndpoints.ToList();
         }
     }

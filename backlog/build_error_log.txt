@@ -1,5 +1,4 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(152,21): error CS0136: A local or parameter named 'existingTags' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(186,28): error CS0029: Cannot implicitly convert type 'string' to 'System.Guid'
+Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/APIEndpointService.cs(187,36): error CS1061: 'string' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(250,85): error CS1061: 'string' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(251,62): error CS1061: 'string' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(46,89): error CS0029: Cannot implicitly convert type 'string' to 'System.Guid'
@@ -16,4 +15,4 @@ Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/Su
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(82,42): error CS0029: Cannot implicitly convert type 'System.Guid' to 'ProjectName.Types.AppEnvironment'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(85,30): error CS0029: Cannot implicitly convert type 'System.Guid' to 'ProjectName.Types.Severity'
 Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/SupportTicketService.cs(88,27): error CS0029: Cannot implicitly convert type 'System.Collections.Generic.List<System.Guid>' to 'System.Collections.Generic.List<ProjectName.Types.Message>'
-Error: 18 Error(s)
+Error: 17 Error(s)

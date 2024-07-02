@@ -225,7 +225,7 @@ namespace ProjectName.Services
                 raise BusinessException("DP-404", "Technical Error")
 
             # Step 4: Delete the APIEndpoint
-            using (var transaction = _dbConnection.BeginTransaction()):
+            using (transaction = _dbConnection.BeginTransaction()):
                 try:
                     # Remove the APIEndpoint object from the database
                     await _dbConnection.ExecuteAsync("DELETE FROM APIEndpoints WHERE Id = @Id", new { Id = existingAPIEndpoint.Id }, transaction)
@@ -266,5 +266,6 @@ namespace ProjectName.Services
                 apiEndpoint.ApiTags = tags.Where(t => tagIds.Contains(t.Id)).ToList()
 
             return apiEndpoints.ToList()
+        }
     }
 }

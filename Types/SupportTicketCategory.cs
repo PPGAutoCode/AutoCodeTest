@@ -6,6 +6,6 @@ namespace ProjectName.Types
         public Guid Id { get; set; }
         public Guid SupportTicketId { get; set; }
         public Guid SupportCategoryId { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

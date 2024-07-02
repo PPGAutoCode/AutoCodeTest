@@ -1,3 +1,1 @@
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(246,96): error CS1061: 'string' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
-Error: /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/Implementations/ArticleService.cs(247,73): error CS1061: 'string' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
-Error: 2 Error(s)
+Error: 0 Error(s)

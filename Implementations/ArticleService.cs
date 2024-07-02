@@ -1,12 +1,13 @@
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using ProjectName.ControllersExceptions;
 using ProjectName.Interfaces;
 using ProjectName.Types;
-using ProjectName.ControllersExceptions;
 
 namespace ProjectName.Services
 {
@@ -26,7 +27,7 @@ namespace ProjectName.Services
         public async Task<string> CreateArticle(CreateArticleDto createArticleDto)
         {
             // Step 1: Validate all fields of request.payload are not null except from [summary, body, ImageID, PDF, blogCategoryId, googleDriveId]
-            if (string.IsNullOrEmpty(createArticleDto.Title) || createArticleDto.AuthorId == Guid.Empty || string.IsNullOrEmpty(createArticleDto.Langcode) || createArticleDto.BlogCategories == null || createArticleDto.BlogTags == null)
+            if (createArticleDto.Title == null || createArticleDto.AuthorId == Guid.Empty || createArticleDto.Langcode == null || createArticleDto.Status == null || createArticleDto.Sticky == null || createArticleDto.Promote == null || createArticleDto.BlogCategories == null || createArticleDto.BlogTags == null)
             {
                 throw new BusinessException("DP-422", "One of the mandatory arguments is null");
             }
@@ -38,31 +39,31 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-404", "Author does not exist");
             }
 
-            // Step 4: Fetch BlogTag by using the service that implements the IblogTagService interface to fetch the corresponding tag details
-            var tagsList = new List<BlogTag>();
-            foreach (var tagName in createArticleDto.BlogTags)
-            {
-                var blogTag = await _blogTagService.GetBlogTag(new BlogTagRequestDto { Id = Guid.NewGuid(), Name = tagName });
-                if (blogTag == null)
-                {
-                    throw new BusinessException("DP-404", "Tag does not exist");
-                }
-                tagsList.Add(blogTag);
-            }
-
-            // Step 3: Fetch blog category by using the service that implements the IBlogCategoryService interface to fetch the corresponding blog category details
-            var categoriesList = new List<BlogCategory>();
+            // Step 4: Fetch blog category by using the service that implements the IBlogCategoryService interface
             foreach (var categoryId in createArticleDto.BlogCategories)
             {
-                var blogCategory = await _blogCategoryService.GetBlogCategory(new BlogCategoryRequestDto { Id = categoryId });
+                var blogCategoryRequestDto = new BlogCategoryRequestDto { Id = categoryId };
+                var blogCategory = await _blogCategoryService.GetBlogCategory(blogCategoryRequestDto);
                 if (blogCategory == null)
                 {
                     throw new BusinessException("DP-404", "Blog category does not exist");
                 }
-                categoriesList.Add(blogCategory);
             }
 
-            // Step 5: Create new Article object (article) as follows from arguments
+            // Step 5: Fetch BlogTag by using the service that implements the IBlogTagService interface
+            var tagsList = new List<BlogTag>();
+            foreach (var tagName in createArticleDto.BlogTags)
+            {
+                var blogTagRequestDto = new BlogTagRequestDto { Name = tagName };
+                var blogTag = await _blogTagService.GetBlogTag(blogTagRequestDto);
+                if (blogTag == null)
+                {
+                    throw new BusinessException("DP-404", "Blog tag does not exist");
+                }
+                tagsList.Add(blogTag);
+            }
+
+            // Step 6: Create new Article object
             var article = new Article
             {
                 Id = Guid.NewGuid(),
@@ -83,15 +84,15 @@ namespace ProjectName.Services
                 Changed = DateTime.UtcNow
             };
 
-            // Step 6: Create new list of ArticleBlogCategories objects (articleBlogCategories) as follows
-            var articleBlogCategories = categoriesList.Select(category => new ArticleBlogCategory
+            // Step 7: Create new list of ArticleBlogCategories objects
+            var articleBlogCategories = createArticleDto.BlogCategories.Select(categoryId => new ArticleBlogCategory
             {
                 Id = Guid.NewGuid(),
                 ArticleId = article.Id,
-                BlogCategoryId = category.Id
+                BlogCategoryId = categoryId
             }).ToList();
 
-            // Step 7: Create new list of ArticleBlogTags objects (articleBlogTags) as follows
+            // Step 8: Create new list of ArticleBlogTags objects
             var articleBlogTags = tagsList.Select(tag => new ArticleBlogTag
             {
                 Id = Guid.NewGuid(),
@@ -99,7 +100,7 @@ namespace ProjectName.Services
                 BlogTagId = tag.Id
             }).ToList();
 
-            // Step 8: In a single SQL transaction
+            // Step 9: In a single SQL transaction
             using (var transaction = _dbConnection.BeginTransaction())
             {
                 try
@@ -122,27 +123,27 @@ namespace ProjectName.Services
                 }
             }
 
-            // Step 9: Return ArticleId from database
+            // Step 10: Return ArticleId from database
             return article.Id.ToString();
         }
 
         public async Task<Article> GetArticle(ArticleRequestDto articleRequestDto)
         {
-            // Step 1: If request.payload.id is null and request.payload.name is empty
+            // Step 1: Validate request.payload.id and request.payload.name
             if (articleRequestDto.Id == null && string.IsNullOrEmpty(articleRequestDto.Title))
             {
-                throw new BusinessException("DP-422", "Invalid request payload");
+                throw new BusinessException("DP-422", "Both Id and Title are null or empty");
             }
 
             Article article;
             if (articleRequestDto.Id != null)
             {
-                // Step 2: Fetch article from database by id, providing request.payload.id
+                // Step 2: Fetch article from database by id
                 article = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Id = @Id", new { Id = articleRequestDto.Id });
             }
             else
             {
-                // Step 3: Fetch article from database by name, providing request.payload.name
+                // Step 3: Fetch article from database by name
                 article = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Title = @Title", new { Title = articleRequestDto.Title });
             }
 
@@ -156,7 +157,8 @@ namespace ProjectName.Services
             var blogCategories = new List<BlogCategory>();
             foreach (var categoryId in blogCategoryIds)
             {
-                var blogCategory = await _blogCategoryService.GetBlogCategory(new BlogCategoryRequestDto { Id = categoryId });
+                var blogCategoryRequestDto = new BlogCategoryRequestDto { Id = categoryId };
+                var blogCategory = await _blogCategoryService.GetBlogCategory(blogCategoryRequestDto);
                 if (blogCategory == null)
                 {
                     throw new BusinessException("DP-404", "Blog category not found");
@@ -167,16 +169,14 @@ namespace ProjectName.Services
             // Step 5: Fetch Blogtags
             var blogTagIds = await _dbConnection.QueryAsync<Guid>("SELECT BlogTagId FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = article.Id });
             var blogTags = await _dbConnection.QueryAsync<BlogTag>("SELECT * FROM BlogTags WHERE Id IN @BlogTagIds", new { BlogTagIds = blogTagIds });
-
             if (blogTags.Any(tag => tag == null))
             {
                 throw new BusinessException("DP-404", "Blog tag not found");
             }
 
-            // Step 6: Map database object to Article and return the Article
+            // Map database object to Article and return the Article
             article.BlogCategories = blogCategories.Select(bc => bc.Id).ToList();
             article.Tags = blogTags.ToList();
-
             return article;
         }
 
@@ -185,7 +185,7 @@ namespace ProjectName.Services
             // Step 1: Validate Necessary Parameters
             if (updateArticleDto.Id == Guid.Empty || string.IsNullOrEmpty(updateArticleDto.Title) || updateArticleDto.AuthorId == Guid.Empty || string.IsNullOrEmpty(updateArticleDto.Langcode) || updateArticleDto.Status == null)
             {
-                throw new BusinessException("DP-422", "One of the mandatory arguments is null");
+                throw new BusinessException("DP-422", "One of the mandatory arguments is null or invalid");
             }
 
             // Step 2: Fetch Existing Article
@@ -243,8 +243,20 @@ namespace ProjectName.Services
 
             // Step 6: Update ArticleBlogTags
             var existingTags = await _dbConnection.QueryAsync<Guid>("SELECT BlogTagId FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = existingArticle.Id });
-            var tagsToRemove = existingTags.Except(updateArticleDto.BlogTags.Select(tag => tag.Id)).ToList();
-            var tagsToAdd = updateArticleDto.BlogTags.Select(tag => tag.Id).Except(existingTags).ToList();
+            var updatedTags = new List<Guid>();
+            foreach (var tagName in updateArticleDto.BlogTags)
+            {
+                var blogTag = await _dbConnection.QueryFirstOrDefaultAsync<BlogTag>("SELECT * FROM BlogTags WHERE Name = @Name", new { Name = tagName });
+                if (blogTag == null)
+                {
+                    blogTag = new BlogTag { Id = Guid.NewGuid(), Name = tagName };
+                    await _dbConnection.ExecuteAsync("INSERT INTO BlogTags (Id, Name) VALUES (@Id, @Name)", blogTag);
+                }
+                updatedTags.Add(blogTag.Id);
+            }
+
+            var tagsToRemove = existingTags.Except(updatedTags).ToList();
+            var tagsToAdd = updatedTags.Except(existingTags).ToList();
 
             // Step 7: Save Changes to Database
             using (var transaction = _dbConnection.BeginTransaction())
@@ -296,20 +308,21 @@ namespace ProjectName.Services
         {
             if (deleteArticleDto.Id == Guid.Empty)
             {
-                throw new BusinessException("DP-422", "Invalid article ID");
+                throw new BusinessException("DP-422", "Article ID is invalid");
+            }
+
+            var article = await _dbConnection.QueryFirstOrDefaultAsync<Article>("SELECT * FROM Articles WHERE Id = @Id", new { Id = deleteArticleDto.Id });
+            if (article == null)
+            {
+                throw new BusinessException("DP-404", "Article not found");
             }
 
             using (var transaction = _dbConnection.BeginTransaction())
             {
                 try
                 {
-                    // Delete ArticleBlogCategories
                     await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogCategories WHERE ArticleId = @ArticleId", new { ArticleId = deleteArticleDto.Id }, transaction);
-
-                    // Delete ArticleBlogTags
                     await _dbConnection.ExecuteAsync("DELETE FROM ArticleBlogTags WHERE ArticleId = @ArticleId", new { ArticleId = deleteArticleDto.Id }, transaction);
-
-                    // Delete Article
                     await _dbConnection.ExecuteAsync("DELETE FROM Articles WHERE Id = @Id", new { Id = deleteArticleDto.Id }, transaction);
 
                     transaction.Commit();

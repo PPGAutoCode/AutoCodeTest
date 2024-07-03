@@ -13,36 +13,36 @@ namespace ProjectName.Interfaces
         /// <summary>
         /// Creates a new blog category.
         /// </summary>
-        /// <param name="createBlogCategoryDto">Data transfer object for creating a blog category.</param>
-        /// <returns>The ID of the newly created blog category.</returns>
+        /// <param name="createBlogCategoryDto">The data transfer object containing the information for the new blog category.</param>
+        /// <returns>A string representing the result of the creation operation.</returns>
         Task<string> CreateBlogCategory(CreateBlogCategoryDto createBlogCategoryDto);
 
         /// <summary>
-        /// Retrieves a blog category by the given request parameters.
+        /// Retrieves a blog category based on the provided request data.
         /// </summary>
-        /// <param name="blogCategoryRequestDto">Data transfer object for requesting a blog category.</param>
-        /// <returns>The requested blog category.</returns>
+        /// <param name="blogCategoryRequestDto">The data transfer object containing the request information for the blog category.</param>
+        /// <returns>A BlogCategory object representing the retrieved blog category.</returns>
         Task<BlogCategory> GetBlogCategory(BlogCategoryRequestDto blogCategoryRequestDto);
 
         /// <summary>
         /// Updates an existing blog category.
         /// </summary>
-        /// <param name="updateBlogCategoryDto">Data transfer object for updating a blog category.</param>
-        /// <returns>A message indicating the result of the update operation.</returns>
+        /// <param name="updateBlogCategoryDto">The data transfer object containing the updated information for the blog category.</param>
+        /// <returns>A string representing the result of the update operation.</returns>
         Task<string> UpdateBlogCategory(UpdateBlogCategoryDto updateBlogCategoryDto);
 
         /// <summary>
-        /// Deletes a blog category.
+        /// Deletes a blog category based on the provided request data.
         /// </summary>
-        /// <param name="deleteBlogCategoryDto">Data transfer object for deleting a blog category.</param>
+        /// <param name="deleteBlogCategoryDto">The data transfer object containing the information for the blog category to be deleted.</param>
         /// <returns>A boolean indicating whether the deletion was successful.</returns>
         Task<bool> DeleteBlogCategory(DeleteBlogCategoryDto deleteBlogCategoryDto);
 
         /// <summary>
-        /// Retrieves a list of blog categories based on the given request parameters.
+        /// Retrieves a list of blog categories based on the provided request data.
         /// </summary>
-        /// <param name="listBlogCategoryRequestDto">Data transfer object for requesting a list of blog categories.</param>
-        /// <returns>A list of blog categories.</returns>
+        /// <param name="listBlogCategoryRequestDto">The data transfer object containing the request information for the list of blog categories.</param>
+        /// <returns>A list of BlogCategory objects representing the retrieved blog categories.</returns>
         Task<List<BlogCategory>> GetListBlogCategory(ListBlogCategoryRequestDto listBlogCategoryRequestDto);
     }
 }

@@ -1,4 +1,5 @@
 
+// File: BlogCategory.cs
 namespace ProjectName.Types
 {
     public class BlogCategory

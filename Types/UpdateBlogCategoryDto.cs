@@ -1,4 +1,5 @@
 
+// File: UpdateBlogCategoryDto.cs
 namespace ProjectName.Types
 {
     public class UpdateBlogCategoryDto

@@ -1,6 +1,0 @@
--- ProductApiEndpoints Table
-CREATE TABLE ProductApiEndpoints (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    ProductId UNIQUEIDENTIFIER NOT NULL,
-    ApiEndpointId UNIQUEIDENTIFIER NOT NULL
-);

@@ -1,7 +1,0 @@
-DefaultValue.sql
-CREATE TABLE DefaultValue (
-    id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    RoleId NVARCHAR(100) NOT NULL UNIQUE,
-    RoleName NVARCHAR(MAX) NULL,
-    Description NVARCHAR(100) NOT NULL
-);

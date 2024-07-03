@@ -1,6 +1,0 @@
--- ArticleBlogCategories Table
-CREATE TABLE ArticleBlogCategories (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    ArticleId UNIQUEIDENTIFIER NOT NULL,
-    BlogCategoryId UNIQUEIDENTIFIER NOT NULL
-);

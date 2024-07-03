@@ -14,7 +14,7 @@ namespace ProjectName.Interfaces
         /// Creates a new blog category.
         /// </summary>
         /// <param name="createBlogCategoryDto">Data transfer object for creating a blog category.</param>
-        /// <returns>The ID of the created blog category.</returns>
+        /// <returns>The ID of the newly created blog category.</returns>
         Task<string> CreateBlogCategory(CreateBlogCategoryDto createBlogCategoryDto);
 
         /// <summary>

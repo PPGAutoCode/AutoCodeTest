@@ -1,9 +1,0 @@
--- File: UserRoles.sql
-CREATE TABLE UserRoles (
-    id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    Label NVARCHAR(100) NOT NULL UNIQUE,
-    HelpText NVARCHAR(MAX) NULL,
-    ReferenceMethod NVARCHAR(100) NOT NULL,
-    Created DATETIME2(7) NOT NULL,
-    Changed DATETIME2(7) NOT NULL
-);

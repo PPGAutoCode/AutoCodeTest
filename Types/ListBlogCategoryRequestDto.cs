@@ -1,5 +1,4 @@
 
-// File: ListBlogCategoryRequestDto.cs
 namespace ProjectName.Types
 {
     public class ListBlogCategoryRequestDto

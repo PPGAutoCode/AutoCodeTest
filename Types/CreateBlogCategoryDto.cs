@@ -1,5 +1,4 @@
 
-// File: CreateBlogCategoryDto.cs
 namespace ProjectName.Types
 {
     public class CreateBlogCategoryDto

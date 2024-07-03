@@ -46,8 +46,9 @@ namespace ProjectName.Services
                 Name = request.Name
             };
 
-            var sql = "INSERT INTO BlogCategories (Id, Parent, Name) VALUES (@Id, @Parent, @Name)";
-            var rowsAffected = await _dbConnection.ExecuteAsync(sql, blogCategory);
+            var rowsAffected = await _dbConnection.ExecuteAsync(
+                "INSERT INTO BlogCategories (Id, Parent, Name) VALUES (@Id, @Parent, @Name)",
+                blogCategory);
 
             if (rowsAffected == 0)
             {
@@ -64,12 +65,13 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            var sql = "SELECT * FROM BlogCategories WHERE Id = @Id";
-            var blogCategory = await _dbConnection.QuerySingleOrDefaultAsync<BlogCategory>(sql, new { Id = request.Id });
+            var blogCategory = await _dbConnection.QuerySingleOrDefaultAsync<BlogCategory>(
+                "SELECT * FROM BlogCategories WHERE Id = @Id",
+                new { Id = request.Id });
 
             if (blogCategory == null)
             {
-                throw new TechnicalException("DP-404", "Technical Error");
+                throw new BusinessException("DP-404", "Technical Error");
             }
 
             return blogCategory;
@@ -82,27 +84,28 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<BlogCategory>(
+            var blogCategory = await _dbConnection.QuerySingleOrDefaultAsync<BlogCategory>(
                 "SELECT * FROM BlogCategories WHERE Id = @Id",
                 new { Id = request.Id });
 
-            if (existingCategory == null)
+            if (blogCategory == null)
             {
-                throw new TechnicalException("DP-404", "Technical Error");
+                throw new BusinessException("DP-404", "Technical Error");
             }
 
-            existingCategory.Name = request.Name;
-            existingCategory.Parent = request.Parent ?? existingCategory.Parent;
+            blogCategory.Parent = request.Parent;
+            blogCategory.Name = request.Name;
 
-            var sql = "UPDATE BlogCategories SET Name = @Name, Parent = @Parent WHERE Id = @Id";
-            var rowsAffected = await _dbConnection.ExecuteAsync(sql, existingCategory);
+            var rowsAffected = await _dbConnection.ExecuteAsync(
+                "UPDATE BlogCategories SET Parent = @Parent, Name = @Name WHERE Id = @Id",
+                new { Id = blogCategory.Id, Parent = blogCategory.Parent, Name = blogCategory.Name });
 
             if (rowsAffected == 0)
             {
                 throw new TechnicalException("DP-500", "Technical Error");
             }
 
-            return existingCategory.Id.ToString();
+            return blogCategory.Id.ToString();
         }
 
         public async Task<bool> DeleteBlogCategory(DeleteBlogCategoryDto request)
@@ -112,17 +115,18 @@ namespace ProjectName.Services
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            var existingCategory = await _dbConnection.QuerySingleOrDefaultAsync<BlogCategory>(
+            var blogCategory = await _dbConnection.QuerySingleOrDefaultAsync<BlogCategory>(
                 "SELECT * FROM BlogCategories WHERE Id = @Id",
                 new { Id = request.Id });
 
-            if (existingCategory == null)
+            if (blogCategory == null)
             {
-                throw new TechnicalException("DP-404", "Technical Error");
+                throw new BusinessException("DP-404", "Technical Error");
             }
 
-            var sql = "DELETE FROM BlogCategories WHERE Id = @Id";
-            var rowsAffected = await _dbConnection.ExecuteAsync(sql, new { Id = request.Id });
+            var rowsAffected = await _dbConnection.ExecuteAsync(
+                "DELETE FROM BlogCategories WHERE Id = @Id",
+                new { Id = request.Id });
 
             if (rowsAffected == 0)
             {
@@ -134,21 +138,14 @@ namespace ProjectName.Services
 
         public async Task<List<BlogCategory>> GetListBlogCategory(ListBlogCategoryRequestDto request)
         {
-            if (request.PageLimit <= 0 || request.PageOffset < 0)
+            if (request.PageLimit <= 0 || request.PageOffset < 0 || string.IsNullOrEmpty(request.SortField) || string.IsNullOrEmpty(request.SortOrder))
             {
                 throw new BusinessException("DP-422", "Client Error");
             }
 
-            var sql = "SELECT * FROM BlogCategories ORDER BY @SortField @SortOrder OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY";
-            var parameters = new
-            {
-                Offset = request.PageOffset,
-                Limit = request.PageLimit,
-                SortField = request.SortField,
-                SortOrder = request.SortOrder
-            };
-
-            var blogCategories = await _dbConnection.QueryAsync<BlogCategory>(sql, parameters);
+            var blogCategories = await _dbConnection.QueryAsync<BlogCategory>(
+                "SELECT * FROM BlogCategories ORDER BY @SortField @SortOrder OFFSET @PageOffset ROWS FETCH NEXT @PageLimit ROWS ONLY",
+                new { SortField = request.SortField, SortOrder = request.SortOrder, PageOffset = request.PageOffset, PageLimit = request.PageLimit });
 
             if (blogCategories == null)
             {

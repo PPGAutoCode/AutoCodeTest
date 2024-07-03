@@ -36,4 +36,5 @@
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/obj/Debug/net6.0/ProjectName.pdb
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/obj/Debug/net6.0/ProjectName.genruntimeconfig.cache
 /Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/obj/Debug/net6.0/ref/ProjectName.dll
-/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/obj/Debug/net6.0/ProjectName.csproj.CopyComplete
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/obj/Debug/net6.0/ProjectName.sourcelink.json
+/Users/nkostop/Sites/NBG/AutoCode/tempcode/ProjectName/obj/Debug/net6.0/ProjectN.7D338303.Up2Date
